@@ -10,6 +10,12 @@ app.use(cors())
 app.use(express.json())
 app.use(express.static("public"));
 
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.get('/', function (req, res) {
+    res.sendFile(path.join("./my-app/public"));
+  });
+
 app.get("/api/products", async (_, res) => {
     try {
         await db.query('SELECT * FROM products', (error, results) => {
