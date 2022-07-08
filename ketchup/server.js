@@ -38,7 +38,7 @@ const uploadFile = (fileName) => {
     });
 };
 
-uploadFile('Garrett.png')
+uploadFile('Screenshot.png')
 
 // app.get('/', function (req, res) {
 //     res.sendFile(path.join("./my-app/public"));
