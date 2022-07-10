@@ -16,9 +16,9 @@ app.get('/', function (req, res) {
     res.sendFile(path.join("./my-app/public"));
   });
 
-app.get("/api/products", async (_, res) => {
+app.get("/api/users", async (_, res) => {
     try {
-        await db.query('SELECT * FROM products', (error, results) => {
+        await db.query('SELECT * FROM users', (error, results) => {
             console.log(results) 
             res.status(200).json(results.rows)
         })
