@@ -16,7 +16,8 @@ CREATE TABLE users(
    username VARCHAR,
    password TEXT,
    avatar TEXT,
-   banner TEXT
+   banner TEXT,
+   bio TEXT
 );
 
 
@@ -66,7 +67,7 @@ CREATE TABLE comments(
 --    post_id INT REFERENCES post(id)
 -- );
 
-\i db/seed.sql --runs the seed file
+\i seed.sql --runs the seed file
 
 SELECT * FROM users;
 SELECT * FROM community;

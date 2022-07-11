@@ -1,23 +1,51 @@
-import logo from './logo.svg';
 import './App.css';
+import ProfilePage from './ProfilePage';
+import { useState, useEffect } from "react";
 
 function App() {
+
+  const [profileInfo, setProfileInfo] = useState('');
+  const [subscribedCommunities, setsubscribedCommunities] = useState('');
+
+  useEffect(() => {
+    fetchProfileInfo();
+    fetchsubscribedCommunities();
+  }, []);
+
+  const fetchProfileInfo = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/profileinfo/1`);
+      if (!response.ok) {
+        throw new Error(
+          `This is an HTTP error: The status is ${response.status}`
+        )
+      }
+      let actualData = await response.json();
+      setProfileInfo(actualData);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const fetchsubscribedCommunities = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/subscribedcommunities`);
+      if (!response.ok) {
+        throw new Error(
+          `This is an HTTP error: The status is ${response.status}`
+        )
+      }
+      let actualData = await response.json();
+      setsubscribedCommunities(actualData);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {profileInfo && subscribedCommunities && <ProfilePage userInfo={profileInfo[0]} subscribedCommunities={subscribedCommunities[0]} />}
     </div>
   );
 }
