@@ -10,11 +10,11 @@ app.use(cors())
 app.use(express.json())
 app.use(express.static("public"));
 
-app.use(express.static(path.join(__dirname, 'build')));
+// app.use(express.static(path.join(__dirname, 'build')));
 
-app.get('/', function (req, res) {
-    res.sendFile(path.join("./my-app/public"));
-  });
+// app.get('/', function (req, res) {
+//     res.sendFile(path.join("./my-app/public"));
+//   });
 
 app.get("/api/users", async (_, res) => {
     try {
@@ -26,6 +26,61 @@ app.get("/api/users", async (_, res) => {
         console.error(error.message)
     }
   });
+
+
+  // Get POSTS
+  app.get("/api/posts", async (_, res) => {
+    try {
+        await db.query('SELECT * FROM posts', (error, results) => {
+            console.log(results) 
+            res.status(200).json(results.rows)
+        })
+    } catch (error) {
+        console.error(error.message)
+    }
+  });
+
+  // Get Comments
+  app.get("/api/comments", async (_, res) => {
+    try {
+        await db.query('SELECT * FROM comments', (error, results) => {
+            console.log(results) 
+            res.status(200).json(results.rows)
+        })
+    } catch (error) {
+        console.error(error.message)
+    }
+  });
+
+
+  // Create POST
+  app.post("/api/create_post", async (req, res) => {
+    try {
+     const {post_body,media,date,users_id,community_id} = req.body
+     console.log(req)
+     await db.query('INSERT INTO posts (post_body,media,date,users_id,community_id) VALUES ($1, $2, $3, $4, $5)', [post_body,media,date,users_id,community_id], (error, results) => {
+         console.log(req.body)
+         res.status(200).send(`${req.body} post was added`)
+     })
+     } catch (error) {
+        console.error(error.message)
+     }
+ });
+
+   // Create Comments
+   app.post("/api/create_comment", async (req, res) => {
+    try {
+     const {comment_body,users_id,posts_id} = req.body
+     console.log(req)
+     await db.query('INSERT INTO comments (comment_body,users_id,posts_id) VALUES ($1, $2, $3)', [comment_body,users_id,posts_id], (error, results) => {
+         console.log(req.body)
+         res.status(200).send(`${req.body} comment was added`)
+     })
+     } catch (error) {
+        console.error(error.message)
+     }
+ });
+
 
   app.get("/api/all", async (_, res) => {
     // const id = req.params.id
