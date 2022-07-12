@@ -7,3 +7,30 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: black;
 }
+
+
+.loginPage {
+  display: flex;
+  place-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.signUpPage {
+  display: flex;
+  place-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+}
+
+a {
+  text-decoration: none;
+}
+
+
+/* .container img {
+  height: 200px;
+  width: 200px;
+} */
