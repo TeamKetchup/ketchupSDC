@@ -29,46 +29,7 @@ a{
 }
 
 
-
-
-
-.dropzone {
-  text-align: center;
-  padding: 15px;
-  width: 90%;
-  margin: auto;
-  /* margin-top: 50px; */
-  
-}
-
-.dropzone:hover{
-  cursor: pointer;
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 350px;
-  margin: 10px auto;
-  border: 2px  black dotted;
-  color: black;
-  background-color: gray;
-}
-.container img {
+/* .container img {
   height: 200px;
   width: 200px;
-}
-.btn {
-  padding: 15px;
-  background-color: #de1a1a;
-  color: white;
-  font-weight: bold;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-}
-.btn:hover{
-  background-color: #945c5c;
-}
+} */

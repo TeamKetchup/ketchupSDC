@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useDropzone} from 'react-dropzone';
+import styled from 'styled-components';
 
 
 const thumbsContainer = {
@@ -69,19 +70,40 @@ function HeaderDropZone() {
        return () => images.forEach(image => URL.revokeObjectURL(image.preview));
      }, [images]);
   return (
-     <section className="container">
-     <div {...getRootProps({className: 'dropzone'})}>
+     <DropZoneContainer className="container">
+     <DropZone {...getRootProps({className: 'dropzone'})}>
        <input {...getInputProps()} />
        <p>Drag and drop an image here or click to upload an  image</p>
-     </div>
+     </DropZone>
      <aside 
      style={thumbsContainer}
      >
        {thumbs}
      </aside>
-   </section>
+   </DropZoneContainer>
   )
 }
 
 export default HeaderDropZone;
 
+const DropZoneContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 350px;
+  margin: 10px auto;
+  border: 2px  black dotted;
+  color: black;
+  background-color: gray;
+`
+
+const DropZone = styled.div`
+  text-align: center;
+  padding: 15px;
+  width: 90%;
+  margin: auto;
+  :hover{
+    cursor: pointer;
+  }
+`
