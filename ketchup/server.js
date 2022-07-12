@@ -38,11 +38,27 @@ const uploadFile = (fileName) => {
     });
 };
 
-uploadFile('Screenshot.png')
+const deleteFile = (objectURL) => {
+    const params = {
+        Bucket: process.env.AWS_BUCKET_NAME,
+        Key: `${objectURL}`,
+    }
+
+    s3.deleteObject(params, function(err, data) {
+        if (err) {
+            throw err;
+        }
+        console.log(`File deleted successfully`)
+    })
+}
 
 // app.get('/', function (req, res) {
 //     res.sendFile(path.join("./my-app/public"));
 //   });
+
+app.post('/api/postimage', async (req, res) => {
+   console.log(req.body)
+})
 
 app.get("/api/products", async (_, res) => {
     try {
