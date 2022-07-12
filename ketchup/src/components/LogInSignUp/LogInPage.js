@@ -10,73 +10,73 @@ const customStyles = {
           backgroundColor: 'rgba(0,0,0,.4)',
      },
      content: {
-       top: '50%',
-       left: '50%',
-       right: 'auto',
-       bottom: 'auto',
-       marginRight: '-50%',
-       transform: 'translate(-50%, -50%)',
-       backgroundColor: '#F1F2F5',
+          top: '50%',
+          left: '50%',
+          right: 'auto',
+          bottom: 'auto',
+          marginRight: '-50%',
+          transform: 'translate(-50%, -50%)',
+          backgroundColor: '#F1F2F5',
      },
-   };
+};
 
 Modal.setAppElement('#root');
 
 function LogInPage() {
      let subtitle;
      const [modalIsOpen, setIsOpen] = React.useState(false);
-   
+
      function openModal() {
-       setIsOpen(true);
+          setIsOpen(true);
      }
-   
+
      function afterOpenModal() {
-       // references are now sync'd and can be accessed.
-       subtitle.style.color = '#f00';
+          // references are now sync'd and can be accessed.
+          subtitle.style.color = '#f00';
      }
-   
+
      function closeModal() {
-       setIsOpen(false);
+          setIsOpen(false);
      }
-  return (
-    <div className='loginPage'>
-          <HeaderLogoContainer>
-               <KetchupLogo src={Logo}>          
-               </KetchupLogo>
-               <HeaderContainer>
-                    <LoginHeader>KETCHUP</LoginHeader>
-                    <span className='loginSlogan'>With The World, With Your Friends.</span>
-               </HeaderContainer>
-          </HeaderLogoContainer>
-          <LogInBtnContainer>
-               <LogInPageBtn onClick={openModal}>Log In</LogInPageBtn>
-               <Modal
-                    isOpen={modalIsOpen}
-                    onAfterOpen={afterOpenModal}
-                    onRequestClose={closeModal}
-                    style={customStyles}
-                    contentLabel="Example Modal"
-               >
-               <InnerModalContainer>
-                    <ModalHeader ref={(_subtitle) => (subtitle = _subtitle)}>Log In</ModalHeader>
-                    <ModalForm>
-                         <InputContainer>
-                              <Input type='text' placeholder='Enter User Name'/>
-                              <Input type='password' placeholder='Enter Password'/>
-                         </InputContainer>
-                    </ModalForm>
-                    <ModalBtn>Submit</ModalBtn>
-                    <ModalBtn onClick={closeModal}>Cancel</ModalBtn>
-               </InnerModalContainer>
+     return (
+          <div className='loginPage'>
+               <HeaderLogoContainer>
+                    <KetchupLogo src={Logo}>
+                    </KetchupLogo>
+                    <HeaderContainer>
+                         <LoginHeader>KETCHUP</LoginHeader>
+                         <span className='loginSlogan'>With The World, With Your Friends.</span>
+                    </HeaderContainer>
+               </HeaderLogoContainer>
+               <LogInBtnContainer>
+                    <LogInPageBtn onClick={openModal}>Log In</LogInPageBtn>
+                    <Modal
+                         isOpen={modalIsOpen}
+                         onAfterOpen={afterOpenModal}
+                         onRequestClose={closeModal}
+                         style={customStyles}
+                         contentLabel="Example Modal"
+                    >
+                         <InnerModalContainer>
+                              <ModalHeader ref={(_subtitle) => (subtitle = _subtitle)}>Log In</ModalHeader>
+                              <ModalForm>
+                                   <InputContainer>
+                                        <Input type='text' placeholder='Enter User Name' />
+                                        <Input type='password' placeholder='Enter Password' />
+                                   </InputContainer>
+                              </ModalForm>
+                              <ModalBtn>Submit</ModalBtn>
+                              <ModalBtn onClick={closeModal}>Cancel</ModalBtn>
+                         </InnerModalContainer>
 
-               </Modal>
-               <Link to='/signuppage'>
-                    <LogInPageBtn>Sign Up</LogInPageBtn>
-               </Link>
-          </LogInBtnContainer>
+                    </Modal>
+                    <Link to='/signuppage'>
+                         <LogInPageBtn>Sign Up</LogInPageBtn>
+                    </Link>
+               </LogInBtnContainer>
 
-    </div>
-  )
+          </div>
+     )
 }
 
 export default LogInPage;
