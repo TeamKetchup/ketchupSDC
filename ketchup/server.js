@@ -77,6 +77,35 @@ app.get("/api/subscribedcommunities", async (req, res) => {
     }
 });
 
+app.get("/api/subscribedcommunities", async (req, res) => {
+    const id = req.params.id;
+    try {
+        await db.query('SELECT * FROM community', (error, results) => {
+
+            res.status(200).json(results.rows)
+        })
+    } catch (error) {
+        console.error(error.message)
+    }
+});
+
+//update Bio
+app.patch("/api/bio/:id", async (req, res) => {
+    try {
+        let client = await db.connect();
+        const { bio } = req.body;
+        const currentBio = await db.query('SELECT * FROM users WHERE id = $1', [req.params.id]);
+        const bioObj = {
+            bio: bio || currentBio.rows[0].bio
+        }
+        const updatedBio = await db.query('UPDATE users SET bio = $1 WHERE id = $2 RETURNING *', [bioObj.bio, req.params.id]);
+        res.send(updatedBio.rows[0]);
+        client.release()
+    } catch (error) {
+        res.send(error.message);
+    }
+})
+
 
 
 
