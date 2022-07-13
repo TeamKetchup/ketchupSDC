@@ -6,42 +6,42 @@ import HeaderDropZone from './HeaderDropZone';
 import Logo from './image-removebg-preview.png';
 
 
-function SignUpPage() {
-  return (
-    <div className='signUpPage'>
-     <SignUpContainer>
-          <KetchupLogo src={Logo}></KetchupLogo>
-          <Header1>To Create An Account</Header1>
-          <Header2>Please Enter The Required Fields</Header2>
-          <CreateAccountForm>
-               <Input
-                    type='text'
-                    placeholder='Pick a User Name, No Spaces'
-               />
-               <Input
-                    type='password'
-                    placeholder='Password'
-               />
-               <Input
-                    type='password'
-                    placeholder='Verify Password'
-               />
-               <Header3>Select an Image for Your Avatar:</Header3>
-               <HeaderDropZone />
-               <Header3>Select an Image for Your Profile Banner:</Header3>
-               <BannerDropZone />
-               <ButtonContainer>
-                    <Button>Submit</Button>
-                    <Link to='/loginpage'>
-                         <Button>Cancel</Button>
-                    </Link>
-               </ButtonContainer>
-               
-          </CreateAccountForm>
-     </SignUpContainer>
-          
-    </div>
-  )
+function SignUpPage({ sumbitAvatar }) {
+     return (
+          <div className='signUpPage'>
+               <SignUpContainer>
+                    <KetchupLogo src={Logo}></KetchupLogo>
+                    <Header1>To Create An Account</Header1>
+                    <Header2>Please Enter The Required Fields</Header2>
+                    <CreateAccountForm>
+                         <Input
+                              type='text'
+                              placeholder='Pick a User Name, No Spaces'
+                         />
+                         <Input
+                              type='password'
+                              placeholder='Password'
+                         />
+                         <Input
+                              type='password'
+                              placeholder='Verify Password'
+                         />
+                         <Header3>Select an Image for Your Avatar:</Header3>
+                         <HeaderDropZone sumbitAvatar={sumbitAvatar}/>
+                         <Header3>Select an Image for Your Profile Banner:</Header3>
+                         {/* <BannerDropZone /> */}
+                         <ButtonContainer>
+                              <Button>Submit</Button>
+                              <Link to='/loginpage'>
+                                   <Button>Cancel</Button>
+                              </Link>
+                         </ButtonContainer>
+
+                    </CreateAccountForm>
+               </SignUpContainer>
+
+          </div>
+     )
 }
 
 export default SignUpPage;

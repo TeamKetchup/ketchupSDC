@@ -17,6 +17,7 @@
     "pg": "^8.7.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.4.0",
     "react-dropzone": "^14.2.2",
     "react-modal": "^3.15.1",
     "react-router-dom": "^6.3.0",
@@ -48,5 +49,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
   }
 }
