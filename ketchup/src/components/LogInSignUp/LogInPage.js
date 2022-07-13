@@ -155,7 +155,7 @@ const LogInPageBtn = styled.button`
      background-color: #FF0000;
      transform: scale(1.1);
      color: white;
-      border-radius: 999px;
+     border-radius: 999px;
      cursor: pointer;
      }
 

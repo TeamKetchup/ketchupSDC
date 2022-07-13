@@ -31,7 +31,7 @@ const ProfilePage = (props) => {
 
     const fetchSubscribedCommunities = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/api/subscribedcommunities`);
+            const response = await fetch(`http://localhost:3000/api/subscribedcommunities/1`);
             if (!response.ok) {
                 throw new Error(
                     `This is an HTTP error: The status is ${response.status}`
@@ -46,8 +46,15 @@ const ProfilePage = (props) => {
 
     return (
         <ProfilePageContainer>
-            {profileInfo && <ProfileCard userInfo={profileInfo[0]} />}
-            {subscribedCommunities && <SubscribedCommunities communities={subscribedCommunities[0]} />}
+
+            <UserContentContainer>
+
+            </UserContentContainer>
+            <CardContainer>
+                {profileInfo && <ProfileCard userInfo={profileInfo[0]} />}
+                {subscribedCommunities && <SubscribedCommunities communities={subscribedCommunities} />}
+            </CardContainer>
+
         </ProfilePageContainer>
     );
 }
@@ -55,5 +62,17 @@ const ProfilePage = (props) => {
 export default ProfilePage;
 
 const ProfilePageContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+`
 
+const UserContentContainer = styled.div`
+    width: 60%;
+    justify-content: center;
+`
+
+const CardContainer = styled.div`
+    width: 40%;
+    justify-content: center;
+    align-items: center;
 `

@@ -7,7 +7,7 @@ const ProfileCard = (userInfo) => {
 
     const [modalIsOpen, setIsOpen] = useState(false);
     const [bio, setBio] = useState(userInfo.userInfo.bio);
-    const [avatar, setAvatar] = useState(userInfo.userInfo.banner);
+    const [avatar, setAvatar] = useState(userInfo.userInfo.avatar);
     const [userName, setUserName] = useState(userInfo.userInfo.username);
     const [newBio, setNewBio] = useState('');
 
@@ -37,6 +37,7 @@ const ProfileCard = (userInfo) => {
             transform: 'translate(-50%, -50%)',
             backgroundColor: 'rgba(0,0,0,.8)',
             color: 'white',
+            minWidth: '25%',
         },
         overlay: {
             backgroundColor: 'rgba(0,0,0,.8)',
@@ -60,15 +61,17 @@ const ProfileCard = (userInfo) => {
             >
                 <form onSubmit={updateBio}>
                     <label>Update Bio: </label>
-                    <input
+                    <BioInput
                         type="text"
                         required
                         value={newBio}
                         onChange={(e) => setNewBio(e.target.value)}
                     />
-                    <input type="submit" />
+                    <ButtonContainer>
+                        <FormButton type="submit">Submit</FormButton>
+                        <FormButton onClick={() => setIsOpen(false)}>Back</FormButton>
+                    </ButtonContainer>
                 </form>
-                <FormButton onClick={() => setIsOpen(false)}>Back</FormButton>
             </Modal>
         </ProfileCardContainer >
     );
@@ -80,15 +83,16 @@ const ProfileCardContainer = styled.div`
     display: flex;
     flex-direction: column;
     background-color: #393939;
-    min-width: 20%;
+    min-width: 13%;
     min-height: 350px;
     border-radius: 25px;
     padding: 20px;
-    width: 200px;
-    height: 150px;
-    font-size: 14px; 
+    width: 50%;
+    /* height: 100%; */
+    font-size: 18px;
     color: white;
-    margin-bottom: 50px;
+    margin: 80px;
+    font-family: 'oswald, san serif'
 `
 
 const ProfileCardHeader = styled.div`
@@ -96,6 +100,7 @@ const ProfileCardHeader = styled.div`
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: 30px;
+    align-items: center;
 `
 
 const ProfileAvatar = styled.img`
@@ -112,15 +117,45 @@ const ProfileName = styled.h3`
 const Bio = styled.p`
     text-align: center;
     max-width: 90%;
-    padding-bottom: 70px;
+    padding-bottom: 150px;
+    font-family: 'oswald, san serif';
+`
+
+const BioInput = styled.textarea`
+    vertical-align: top;
+    min-height: 100px;
+    min-width: 100%;
+    border: none;
 `
 
 const FormButton = styled.button`
-    max-width: 30%;
+    -webkit-font-smoothing: antialiased;
     align-self: center;
     color: black;
-    border: 0;
     padding: 8px;
-    border-radius: 8px;
     cursor: pointer;
+    display: flex;
+    box-shadow: 0px 5px 17px -7px rgba(0, 0, 0, 0.75);
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    font-family: 'Pacifico', cursive;
+    border: transparent;
+    background-color: white;
+    border-radius: 999px;
+    margin: 10px;
+    :hover {
+        background-color: #FF0000;
+        transform: scale(1.1);
+        color: white;
+        border-radius: 999px;
+    }
 `
+
+const ButtonContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+`
+
+

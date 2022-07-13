@@ -5,8 +5,6 @@ const db = require("./db/conn")
 const cors = require("cors")
 
 
-const PORT = process.env.PORT || 5000;
-
 app.use(cors())
 
 app.use(express.json())
@@ -65,7 +63,7 @@ app.get("/api/profileinfo/:id", async (req, res) => {
     }
 });
 
-app.get("/api/subscribedcommunities", async (req, res) => {
+app.get("/api/allcommunities", async (req, res) => {
     const id = req.params.id;
     try {
         await db.query('SELECT * FROM community', (error, results) => {
@@ -77,10 +75,10 @@ app.get("/api/subscribedcommunities", async (req, res) => {
     }
 });
 
-app.get("/api/subscribedcommunities", async (req, res) => {
+app.get("/api/subscribedcommunities/:id", async (req, res) => {
     const id = req.params.id;
     try {
-        await db.query('SELECT * FROM community', (error, results) => {
+        await db.query('SELECT * FROM community WHERE users_id = $1', [id], (error, results) => {
 
             res.status(200).json(results.rows)
         })
@@ -109,8 +107,8 @@ app.patch("/api/bio/:id", async (req, res) => {
 
 
 
-app.listen(process.env.PORT, () => {
-    console.log(`Server is listening on port: ${process.env.PORT}`)
+app.listen(process.env.API_PORT, () => {
+    console.log(`Server is listening on port: ${process.env.API_PORT}`)
 })
 
 
