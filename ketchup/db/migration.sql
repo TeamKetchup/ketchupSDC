@@ -16,7 +16,8 @@ CREATE TABLE users(
    username VARCHAR,
    password TEXT,
    avatar TEXT,
-   banner TEXT
+   banner TEXT,
+   bio TEXT
 );
 
 
