@@ -44,7 +44,7 @@ function LogInPage() {
                     <KetchupLogo src={Logo}>
                     </KetchupLogo>
                     <HeaderContainer>
-                         <LoginHeader>KETCHUP</LoginHeader>
+                         <LoginHeader><Link to="/">KETCHUP</Link></LoginHeader>
                          <span className='loginSlogan'>With The World, With Your Friends.</span>
                     </HeaderContainer>
                </HeaderLogoContainer>
@@ -98,10 +98,14 @@ const HeaderContainer = styled.div`
 `
 const LoginHeader = styled.h1`
      display: flex;
+
      justify-content: center;
      align-content: center;
      color: #FF0000;
      margin: 0px;
+     a{
+          color: #FF0000;
+     }
      :hover{
           text-decoration: underline;
           cursor: pointer;
