@@ -7,7 +7,7 @@ function SubmitFile({ fetchSubmit }) {
     }
 
     const handleFile = (e) => {
-        console.log(e.target.files[0]);
+        console.log(e.target.files);
         setFile(e.target.files[0])
     }
 
