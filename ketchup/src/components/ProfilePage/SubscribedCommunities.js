@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 
 const SubscribedCommunities = (props) => {
 
-    console.log(props)
+    console.log(props.communities)
     return (
         <SubscribedCommunitiesContainer>
             <h4>Subscribed Communities</h4>
-            <LinkToCommunity>{props.communities.name}</LinkToCommunity>
-
+            {props.communities.map((community) => (
+                <LinkToCommunity key={community.id}>{community.name}</LinkToCommunity>
+            ))}
         </SubscribedCommunitiesContainer>
     );
 }

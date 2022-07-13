@@ -67,12 +67,12 @@ const ProfilePageContainer = styled.div`
 `
 
 const UserContentContainer = styled.div`
-    width: 60%;
+    width: 70%;
     justify-content: center;
 `
 
 const CardContainer = styled.div`
-    width: 40%;
+    width: 30%;
     justify-content: center;
     align-items: center;
 `
