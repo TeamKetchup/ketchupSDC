@@ -8,7 +8,7 @@ const SubscribedCommunities = (props) => {
         <SubscribedCommunitiesContainer>
             <h4>Subscribed Communities</h4>
             {props.communities.map((community) => (
-                <LinkToCommunity key={community.id}>{community.name}</LinkToCommunity>
+                <StyledLink to={`/${community.name}`} key={community.id}>{community.name}</StyledLink>
             ))}
         </SubscribedCommunitiesContainer>
     );
@@ -32,7 +32,7 @@ const SubscribedCommunitiesContainer = styled.div`
     font-family: 'oswald, san serif'
 `
 
-const LinkToCommunity = styled.a`
+const StyledLink = styled(Link)`
     color: white;
     position: relative;
     margin-top: 15px;
@@ -41,4 +41,5 @@ const LinkToCommunity = styled.a`
         color: #FF0000;
         cursor: pointer;
     }
- `
+`
+
