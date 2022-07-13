@@ -1,4 +1,5 @@
 import React from "react";
+import styled from 'styled-components';
 
 function Posts_Body() {
   return (
@@ -29,3 +30,4 @@ function Posts_Body() {
 }
 
 export default Posts_Body;
+
