@@ -7,6 +7,7 @@ function landingPage() {
   return (
     
     <>
+    <Header/>
     <div className='landing'>
       <div>
           <h4>user</h4>

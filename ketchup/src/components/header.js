@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './header.css'
-import LandingPage from './landingPage';
+
+import Logo from './LogInSignUp/image-removebg-preview.png'
 
 function Header() {
-    let [login,setLogin] = useState({href: '/', li: 'Login/Signin'})
+    let [login,setLogin] = useState({href: '/Loginpage', li: 'Login/Signin'})
     let [user, setUser] = useState()
     function userlogin(){
 
@@ -12,15 +14,15 @@ function Header() {
       <>
       <nav className='navBar'>
         
-          <a href='/' className='
-          logo'> <img src='https://img.freepik.com/free-vector/tomatoes-cartoon-riding-future-spaceship-cute-design_152558-51298.jpg?w=2000'/> KETCHUP</a>
+          <Link to='/' className='
+          logo'> <img src={Logo}/> KETCHUP</Link>
           <input type='text'></input>
           <button>search</button>
           <ul>
-              <li className='active'><a href={login.href}>{login.li}</a></li>
+              <li className='active'><Link to={login.href}>{login.li}</Link></li>
           </ul>
       </nav>
-      <LandingPage/>
+      
       </>
   )
 }
