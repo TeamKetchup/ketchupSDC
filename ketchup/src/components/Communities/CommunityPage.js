@@ -39,6 +39,9 @@ const CommunityPage = (communities) => {
             <CommunityHeader>
                 {singleCommunity && <Banner src={singleCommunity[0].banner} />}
             </CommunityHeader>
+            <CommunityNav>
+                <h1>Welcome To The <span>{id}</span> Community</h1>
+            </CommunityNav>
             <CommunityContainer>
 
                 <PostContainer>
@@ -82,6 +85,25 @@ const CardContainer = styled.div`
 `
 
 const Banner = styled.img`
-    width: 60%;
-    max-height: 300px;
+    width: 100%;
+    max-height: 250px;
+`
+
+const CommunityNav = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 80px;
+    background-color: #393939;
+    text-align: center;
+    color: white;
+    h1{
+        margin: 0;
+        font-family: 'Oswald', sans-serif;
+    }
+    span{
+        color: #FF0000;
+        font-size: 40px;
+    }
 `

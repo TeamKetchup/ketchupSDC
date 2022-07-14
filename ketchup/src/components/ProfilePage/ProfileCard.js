@@ -12,6 +12,7 @@ const ProfileCard = (profileInfo) => {
     const [newBio, setNewBio] = useState('');
 
     const updateBio = async (e) => {
+        e.preventDefault()
         console.log(newBio)
         setBio(newBio)
         let updateObj = { bio: newBio };
@@ -59,7 +60,7 @@ const ProfileCard = (profileInfo) => {
                 isOpen={modalIsOpen}
                 style={customStyles}
             >
-                <form onSubmit={updateBio}>
+                <form onSubmit={updateBio} >
                     <label>Update Bio: </label>
                     <BioInput
                         type="text"
@@ -92,7 +93,7 @@ const ProfileCardContainer = styled.div`
     font-size: 18px;
     color: white;
     margin: 80px;
-    font-family: 'oswald, san serif'
+    font-family: 'oswald, san serif';
 `
 
 const ProfileCardHeader = styled.div`

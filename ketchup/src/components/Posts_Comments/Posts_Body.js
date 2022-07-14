@@ -5,10 +5,10 @@ import PostsItem from "./PostsItem";
 function Posts_Body({searchPosts}) {
   console.log(searchPosts)
   return (
-    <div className="post-content">
+    <PostContent className="post-content">
       {/* <div><img src="./KETCHUP.png"></img></div> */}
-      <div className="post-body">
-        <PostBody>
+      
+        <PostBody className="post-body">
         {searchPosts.map((data) => (
             <PostsItem
 
@@ -25,12 +25,10 @@ function Posts_Body({searchPosts}) {
           
         </PostBody>
         <div>
-            <div>
-                <button></button>
-            </div>
+            
         </div>
-      </div>
-    </div>
+      
+    </PostContent>
   );
 }
 
@@ -38,10 +36,17 @@ export default Posts_Body;
 
 const PostBody = styled.div`
 display: flex;
+align-items: center;
+justify-content: center;
 flex-direction: column;
+/* width: 500px; */
 
 color: white;
-// padding-border: 100px;
 
+`
 
+const PostContent = styled.div`
+display: flex;
+align-items: center;
+justify-content: center;
 `

@@ -31,7 +31,7 @@ function Posts() {
 
     // {}
 
-    <PostContainer>
+    <PostContainer className="post-container">
       Posts
       
       {!searchPosts && <Loading>Loading....</Loading>} 
@@ -46,8 +46,10 @@ function Posts() {
 export default Posts;
 
 const PostContainer = styled.div`
-display: flex;
-flex-direction: column;
+/* display: flex; */
+/* flex-direction: column; */
+/* justify-content: center;
+align-items: center; */
 
 `
 const Loading = styled.div`

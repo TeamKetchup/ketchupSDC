@@ -37,24 +37,23 @@
     
   }
   .navBar img{
-    width: 4rem;
+    width: 5rem;
     border-radius: 50%;
-    margin: .25rem;
+    /* margin: .25rem; */
     padding: 0;
+    margin-bottom: -5px;
+    margin-top: -5px;
   }
-  .navBar input{
+  /* .navBar input{
     padding: 0;
     height: 2rem;
     width: 40%;
     display: flex;
     align-self: center;
-   
     border-radius: 5px;
-    
-  }
+  } */
   .navBar button{
-  
-    display: flex;
+  /* display: flex;
   box-shadow: 0px 5px 17px -7px rgba(0, 0, 0, 0.75);
   height: 2rem;
   width: 5rem;
@@ -70,8 +69,31 @@
   border: transparent;
   background-color: white;
   border-radius: 999px;
-  margin: 5px;
-  }
+  margin: 5px; */
+  display: flex;
+  box-shadow: 0px 5px 17px -7px rgba(0, 0, 0, 0.75);
+  height: 30px;
+  width: 100px;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  /* margin: auto; */
+  font-family: 'Pacifico', cursive;
+  font-size: 25px;
+  border: transparent;
+  background-color: white;
+  border-radius: 999px;
+  margin: 10px;
+  /* animation: floating 3s ease-in-out infinite; */
+}
+
+.navBar button:hover {
+  background-color: #FF0000;
+  transform: scale(1.1);
+  color: white;
+  border-radius: 999px;
+  cursor: pointer;
+}
   .navBar button:hover{
     background-color: #FF0000;
     transform: scale(1.1);
@@ -83,4 +105,34 @@
     background-color: black;
   }
   
+  .headerAvatar{
+    height: 60px !important;
+    width: 60px !important;
+    margin-right: 15px;
+  }
+
+  .avaterusernameContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   
+.inputContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1000px;
+}
+
+.headerInput{
+  width: 500px;
+  height: 35px;
+  font-size: 17px;
+  border-radius: 5px;
+  border: 0;
+}
+
+.headerInput:focus-within{
+  box-shadow: 0 0px 4px 4px red;
+  outline: 0;
+}

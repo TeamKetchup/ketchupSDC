@@ -1,28 +1,36 @@
 import React from 'react'
 import Header from './header'
 import './LandingPage.css'
+import Posts from './Posts_Comments/Posts'
+import SubscribedCommunities from './ProfilePage/SubscribedCommunities'
 
-function landingPage() {
+const landingPage = ({communities, user}) => {
 
+  console.log(user)
   return (
     
     <>
-    <Header/>
+    {/* <Header user={user}/> */}
     <div className='landing'>
-      <div>
-          <h4>user</h4>
-          <p>post</p>
+      <div className='landingPageUserPosts'>
+          {/* <h4>user</h4> */}
+          <Posts />
+          {/* <p>post</p> */}
       </div>
-    </div>
-    <div className='communities'>
-        <div>
+      <div className='communities'>
+        <SubscribedCommunities communities={communities} />
+        {/* <div>
         <h2>Communities</h2>
         <hr></hr>
         <p>cars</p>
         <p>news</p>
         <p>sports</p>
+        </div> */}
         </div>
+
     </div>
+      
+
     </>
 
   )
