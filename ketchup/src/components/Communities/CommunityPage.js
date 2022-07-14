@@ -1,4 +1,4 @@
-import SubscribedCommunities from "./AllCommunities";
+import SubscribedCommunities from "../ProfilePage/SubscribedCommunities";
 import styled from 'styled-components';
 import { useParams } from "react-router";
 import { useState, useEffect } from "react";
@@ -19,7 +19,7 @@ const CommunityPage = (communities) => {
 
     const fetchCommunityPage = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/community/${id}`);
+            const response = await fetch(`http://localhost:3025/community/${id}`);
             if (!response.ok) {
                 throw new Error(
                     `This is an HTTP error: The status is ${response.status}`
@@ -38,8 +38,10 @@ const CommunityPage = (communities) => {
         <>
             <CommunityHeader>
                 {singleCommunity && <Banner src={singleCommunity[0].banner} />}
-                <CommunityNav>{id}</CommunityNav>
             </CommunityHeader>
+            <CommunityNav>
+                <h1>Welcome To The <span>{id}</span> Community</h1>
+            </CommunityNav>
             <CommunityContainer>
 
                 <PostContainer>
@@ -62,10 +64,6 @@ const CommunityHeader = styled.div`
     flex-direction: column;
     align-items: center;
     width: 100%;
-    color: white;
-    h1: {
-        font-family: 'Roboto Condensed', sans-serif;
-    }
 `
 
 const CommunityContainer = styled.div`
@@ -88,17 +86,24 @@ const CardContainer = styled.div`
 
 const Banner = styled.img`
     width: 100%;
-    height: 250px;
-
+    max-height: 250px;
 `
 
 const CommunityNav = styled.div`
-
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100px;
+    height: 80px;
     background-color: #393939;
-    font-size: 45px;
+    text-align: center;
+    color: white;
+    h1{
+        margin: 0;
+        font-family: 'Oswald', sans-serif;
+    }
+    span{
+        color: #FF0000;
+        font-size: 40px;
+    }
 `

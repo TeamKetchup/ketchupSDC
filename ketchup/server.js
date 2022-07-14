@@ -8,13 +8,32 @@ const cors = require("cors")
 app.use(cors())
 
 app.use(express.json())
+// app.use(express.static(path.join(__dirname, 'build')));
 app.use(express.static("public"));
 
-// app.use(express.static(path.join(__dirname, 'build')));
+
 
 app.get('/', function (req, res) {
     res.sendFile(path.join("./my-app/public"));
 });
+
+app.get("/api/login/:username/:password", async (req, res) => {
+    try {
+    // const {username, password} = req.body
+    // const {rows} = await db
+    const username = req.params.username
+    const password = req.params.password
+    const data = await db
+    .query('SELECT * FROM users WHERE username = $1 AND password = $2;', [
+        username,
+        password
+    ])
+    res.send(data.rows)
+    console.log(data.rows)
+    } catch (error) {
+        console.log(error.message)
+    }
+})    
 
 app.get("/api/products", async (_, res) => {
     try {
