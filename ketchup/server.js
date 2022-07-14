@@ -30,10 +30,39 @@ app.get("/api/users", async (_, res) => {
 
 
 // =========================START POSTS SECTION=======================================
-    // Get POSTS
+    // Get All POSTS
     app.get("/api/posts", async (_, res) => {
         try {
-            await db.query('SELECT * FROM posts', (error, results) => {
+            await db.query('SELECT * FROM posts ORDER BY id DESC', (error, results) => {
+                console.log(results) 
+                res.status(200).json(results.rows)
+            })
+        } catch (error) {
+            console.error(error.message)
+        }
+      });
+
+      // Get single POST
+    app.get("/api/posts/:id", async (req, res) => {
+
+        try {
+            const id = req.params.id
+            await db.query('SELECT * FROM posts WHERE id = $1', [id], (error, results) => {
+                console.log(results) 
+                res.status(200).json(results.rows)
+            })
+        } catch (error) {
+            console.error(error.message)
+        }
+      });
+
+      // Get User POSTS
+    app.get("/api/user_posts/:id", async (req, res) => {
+
+        try {
+            const id = req.body.users_id
+            console.log(req.params.users_id)
+            await db.query('SELECT * FROM posts WHERE users_id = $1', [id], (error, results) => {
                 console.log(results) 
                 res.status(200).json(results.rows)
             })
@@ -45,25 +74,23 @@ app.get("/api/users", async (_, res) => {
     // Create POST
   app.post("/api/create_post", async (req, res) => {
     try {
-     const {post_header, post_body,media,date,users_id,community_id} = req.body
-     console.log(req)
-     await db.query('INSERT INTO posts (post_header, post_body,media,date,users_id,community_id) VALUES ($1, $2, $3, $4, $5, $6)', [post_header, post_body,media,date,users_id,community_id], (error, results) => {
-         console.log(req.body)
-         res.status(200).send(`post was added`)
+        const {post_header, post_body,media,date,users_id,community_id} = req.body
+        await db.query('INSERT INTO posts (post_header, post_body,media,date,users_id,community_id) VALUES ($1, $2, $3, $4, $5, $6)', [post_header, post_body,media,date,users_id,community_id], (error, results) => {
+        res.status(200).send(`post was added`)
      })
      } catch (error) {
         console.error(error.message)
      }
  });
 
- app.patch("/api/update_post/:id", async (req, res) => {
+ app.put("/api/update_post/:id", async (req, res) => {
     try {
         const id = req.params.id
         const {post_header,post_body,media,date,users_id,community_id} = req.body
         
       await db.query(
             'UPDATE posts SET post_header = $1, post_body = $2, media = $3, date = $4, users_id = $5, community_id = $6 WHERE id = $7', [post_header,post_body,media,date,users_id,community_id, id], (err, results) => {
-         console.log(req.body)
+        //  console.log(req.body)
          res.status(200).send(`post was updated`)
      })
      } catch (error) {
