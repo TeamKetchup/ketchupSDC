@@ -16,7 +16,7 @@ const ProfileCard = (profileInfo) => {
         setBio(newBio)
         let updateObj = { bio: newBio };
         console.log(newBio);
-        fetch(`http://localhost:3000/api/bio/1`, {
+        fetch(`http://localhost:3025/api/bio/1`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updateObj)

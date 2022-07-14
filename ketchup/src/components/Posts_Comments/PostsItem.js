@@ -105,12 +105,15 @@ function PostsItem({
 export default PostsItem;
 
 const PostItemContainer = styled.div`
+display: flex;
+flex-direction: column;
 background-color: #393939;
     color: white;
     margin-top: 10px;
     width: 40%;
     text-align:center;
     border-radius: 5px;
+    
     
 `;
 

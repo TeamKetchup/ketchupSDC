@@ -19,7 +19,7 @@ const CommunityPage = (communities) => {
 
     const fetchCommunityPage = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/community/${id}`);
+            const response = await fetch(`http://localhost:3025/community/${id}`);
             if (!response.ok) {
                 throw new Error(
                     `This is an HTTP error: The status is ${response.status}`

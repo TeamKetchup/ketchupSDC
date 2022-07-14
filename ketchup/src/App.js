@@ -28,7 +28,7 @@ function App() {
 
   const fetchProfileInfo = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/api/profileinfo/1`);
+      const response = await fetch(`http://localhost:3025/api/profileinfo/1`);
       if (!response.ok) {
         throw new Error(
           `This is an HTTP error: The status is ${response.status}`
@@ -43,7 +43,7 @@ function App() {
 
   const fetchSubscribedCommunities = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/api/subscribedcommunities/1`);
+      const response = await fetch(`http://localhost:3025/api/subscribedcommunities/1`);
       if (!response.ok) {
         throw new Error(
           `This is an HTTP error: The status is ${response.status}`

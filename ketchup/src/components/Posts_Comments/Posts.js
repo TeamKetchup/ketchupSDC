@@ -33,11 +33,11 @@ function Posts() {
 
     <PostContainer>
       Posts
-      {/* <Post_Header /> */}
+      
       {!searchPosts && <Loading>Loading....</Loading>} 
       {searchPosts && <Posts_Body searchPosts={searchPosts} />}
-      {/* <Post_Media /> */}
-      {/* <Post_Footer /> */}
+     
+      
       <div></div>
     </PostContainer>
   );
@@ -47,6 +47,7 @@ export default Posts;
 
 const PostContainer = styled.div`
 display: flex;
+flex-direction: column;
 
 `
 const Loading = styled.div`
