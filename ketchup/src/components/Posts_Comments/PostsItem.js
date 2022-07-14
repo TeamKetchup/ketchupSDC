@@ -32,10 +32,13 @@ function PostsItem({
           <FooterItems className="footer-items">
             
             <PostIcons className="post-icons">
-            <FaShare className="share-button"/>
-            <FaBookmark className="save-button"/>
-            <BiHide className="hide-button"/>
-            <FaFlag className="report-button"/>
+            <FaShare className="share-button"/> share
+            <div><SpaceDiv className="space"></SpaceDiv></div>
+            <FaBookmark className="save-button"/>save
+            <div><SpaceDiv className="space"></SpaceDiv></div>
+            <BiHide className="hide-button"/> hide
+            <div><SpaceDiv className="space"></SpaceDiv></div>
+            <FaFlag className="report-button"/>report
             </PostIcons>
             
             <div class="_21pmAV9gWG6F_UKVe7YIE0"></div>
@@ -52,37 +55,46 @@ const PostItemContainer = styled.div`
 display: flex;
 flex-direction: column;
 background-color: #393939;
-    color: white;
-    margin-top: 10px;
-    /* width: 40%; */
-    text-align:center;
-    border-radius: 5px;
-    padding: 25px;
-    
-    
-    
+color: white;
+margin-top: 20px;
+margin-right: 40px;
+width: 50%;
+text-align:center;
+border-radius: 15px; 
 `;
 
+const SpaceDiv = styled.div`
+width: 10px;
+`
 const PBodyContainer = styled.div`
-
+font-weight: 500;
+font-family: 'Oswald', sans-serif;
 `;
 
 const HeaderContainer = styled.div`
-  /* display: flex; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+  color: red;
+  font-family: 'Oswald', sans-serif;
 `;
 
 const HeaderImg = styled.div`
-  /* margin: 0;
+  margin: 0;
   padding: 0;
   border: 0;
-  font: inherit;
   border-radius: 100%;
-  display: inline-block;
+  display: flex;
+  justify-content: flex-start;
   height: 20px;
   margin-right: 4px;
   vertical-align: middle;
-  width: 20px; */
-  // background-color: rgb(0, 121, 211);
+  width: 20px;
+  background-color: rgb(0, 121, 211);
+  
+  
+
 `;
 const PostMediaContainer = styled.div``;
 
@@ -100,6 +112,6 @@ justify-content: center;
 const PostIcons = styled.div`
 display: flex;
 margin: 10px;
-size: ;
-justify-content: space-between;
+font-size: 25px;
+
 `

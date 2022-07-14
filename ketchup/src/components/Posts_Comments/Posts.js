@@ -32,13 +32,8 @@ function Posts() {
     // {}
 
     <PostContainer className="post-container">
-      Posts
-      
       {!searchPosts && <Loading>Loading....</Loading>} 
       {searchPosts && <Posts_Body searchPosts={searchPosts} />}
-     
-      
-      <div></div>
     </PostContainer>
   );
 }
@@ -50,6 +45,7 @@ const PostContainer = styled.div`
 /* flex-direction: column; */
 /* justify-content: center;
 align-items: center; */
+/* width: 40% */
 
 `
 const Loading = styled.div`
