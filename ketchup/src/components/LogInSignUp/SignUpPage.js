@@ -7,8 +7,7 @@ import Logo from './image-removebg-preview.png';
 import axios from 'axios';
 import { useState } from 'react';
 
-
-function SignUpPage() {
+function SignUpPage({ user }) {
      const [images, setImages] = useState([]);
 
      const sumbitAvatar = async (file) => {
@@ -17,7 +16,7 @@ function SignUpPage() {
           formData.append("file", file);
           await axios.post("http://localhost:3025/api/avatar", formData);
      }
-
+     console.log(user)
      return (
           <div className='signUpPage'>
                <SignUpContainer>
@@ -65,7 +64,7 @@ const SignUpContainer = styled.div`
      border-radius: 8px;
      background-color: #393939;
      height: auto;
-     width: 500px;
+     width: 475px;
      padding-bottom: 15px;
 `
 const KetchupLogo = styled.img`
@@ -122,7 +121,7 @@ const Input = styled.input`
 const Header3 = styled.h3`
      color: #FF0000;
      font-family: 'Oswald', sans-serif;
-     margin: 0;
+     margin-bottom: -5px;
 `
 const ButtonContainer = styled.div`
      display: flex;

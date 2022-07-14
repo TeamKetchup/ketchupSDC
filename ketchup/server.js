@@ -10,10 +10,11 @@ const multerS3 = require("multer-s3");
 
 app.use(cors());
 
-app.use(express.json());
+app.use(express.json())
+// app.use(express.static(path.join(__dirname, 'build')));
 app.use(express.static("public"));
 
-// app.use(express.static(path.join(__dirname, 'build')));
+
 
 const s3 = new AWS.S3({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -55,10 +56,10 @@ const deleteFile = (objectName) => {
 
 const upload = multer();
 
-app.post("/api/avatar", upload.single("file"), function (req, res, next) {
+app.post("/api/avatar", upload.single("file"), async function (req, res, next) {
     const fileName = `avatar${Math.floor(Math.random() * 100000)}${req.file.originalname}`
     req.file.originalname = fileName;
-    uploadFile(req.file.originalname, req.file.buffer)
+    await uploadFile(req.file.originalname, req.file.buffer)
   }
 );
 
@@ -79,6 +80,23 @@ app.get("/api/products", async (_, res) => {
 // app.get('/', function (req, res) {
 //     res.sendFile(path.join("./my-app/public"));
 // });
+app.get("/api/login/:username/:password", async (req, res) => {
+    try {
+    // const {username, password} = req.body
+    // const {rows} = await db
+    const username = req.params.username
+    const password = req.params.password
+    const data = await db
+    .query('SELECT * FROM users WHERE username = $1 AND password = $2;', [
+        username,
+        password
+    ])
+    res.send(data.rows)
+    console.log(data.rows)
+    } catch (error) {
+        console.log(error.message)
+    }
+})    
 
 app.get("/api/products", async (_, res) => {
     try {
@@ -167,6 +185,19 @@ app.patch("/api/bio/:id", async (req, res) => {
         res.send(error.message);
     }
 })
+
+//get community info
+app.get("/community/:community", async (req, res) => {
+    const communityName = req.params.community;
+    try {
+        await db.query('SELECT * FROM community WHERE name = $1', [communityName], (error, results) => {
+
+            res.status(200).json(results.rows)
+        })
+    } catch (error) {
+        console.error(error.message)
+    }
+});
 
 
 app.get("/api/all", async (_, res) => {

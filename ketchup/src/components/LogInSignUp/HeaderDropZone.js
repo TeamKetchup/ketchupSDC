@@ -92,6 +92,7 @@ const DropZoneContainer = styled.section`
   align-items: center;
   width: 350px;
   margin: 10px auto;
+  margin-bottom: 20px;
   border: 2px  black dotted;
   color: black;
   background-color: gray;
@@ -99,7 +100,7 @@ const DropZoneContainer = styled.section`
 
 const DropZone = styled.div`
   text-align: center;
-  padding: 15px;
+  padding: 25px;
   width: 90%;
   margin: auto;
   :hover{
