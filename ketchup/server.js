@@ -36,7 +36,7 @@ const uploadFile = (fileName, fileBuffer) => {
     if (err) {
       throw err;
     }
-    console.log(`File uploaded successfully. ${data.Location}`);
+    console.log(data.Location);
   });
 };
 
@@ -56,10 +56,19 @@ const deleteFile = (objectName) => {
 
 const upload = multer();
 
-app.post("/api/avatar", upload.single("file"), async function (req, res, next) {
-    const fileName = `avatar${Math.floor(Math.random() * 100000)}${req.file.originalname}`
-    req.file.originalname = fileName;
-    await uploadFile(req.file.originalname, req.file.buffer)
+app.post("/api/createprofile", upload.single("file"), async function (req, res, next) {
+    try{
+        const fileName = `avatar${Math.floor(Math.random() * 100000)}${req.file.originalname}`
+        req.file.originalname = fileName;
+        await uploadFile(req.file.originalname, req.file.buffer);
+        const returnedURL = `https://teamketchupv2.s3.amazonaws.com/${req.file.originalname}`
+        console.log(returnedURL)
+        await db.query(`INSERT INTO users (username, password, avatar, banner, bio) VALUES ('${req.body.username}', '${req.body.password}', '${returnedURL}', 'https://www.gamingscan.com/wp-content/uploads/2020/07/Best-Gaming-Setups.jpg', 'I live for coding and styled components';`)
+    } catch (error) {
+        if(error){
+            res.json(error)
+        }
+    }
   }
 );
 
