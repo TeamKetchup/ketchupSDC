@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import Modal from 'react-modal';
 
 
-const ProfileCard = (userInfo) => {
+const ProfileCard = (profileInfo) => {
 
     const [modalIsOpen, setIsOpen] = useState(false);
-    const [bio, setBio] = useState(userInfo.userInfo.bio);
-    const [avatar, setAvatar] = useState(userInfo.userInfo.avatar);
-    const [userName, setUserName] = useState(userInfo.userInfo.username);
+    const [bio, setBio] = useState(profileInfo.profileInfo[0].bio);
+    const [avatar, setAvatar] = useState(profileInfo.profileInfo[0].avatar);
+    const [userName, setUserName] = useState(profileInfo.profileInfo[0].username);
     const [newBio, setNewBio] = useState('');
 
     const updateBio = async (e) => {
