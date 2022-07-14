@@ -8,16 +8,17 @@ import SignUpPage from './components/LogInSignUp/SignUpPage';
 import ProfilePage from './components/ProfilePage/ProfilePage';
 import LandingPage from './components/landingPage';
 import Header from './components/header';
+import { useState } from 'react';
 
 
 
 function App() {
-  const fetchSubmit = async (file) => {
+  // const sumbitAvatar = async (file) => {
     
-    const formData = new FormData();
-    formData.append("file", file);
-    await axios.post("http://localhost:3025/api/postimage", formData);
-  }
+  //   const formData = new FormData();
+  //   formData.append("file", file);
+  //   await axios.post("http://localhost:3025/api/postimage", formData);
+  // }
 
   return (
     <BrowserRouter>

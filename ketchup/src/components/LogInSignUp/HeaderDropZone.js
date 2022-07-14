@@ -36,9 +36,7 @@ const img = {
 };
 
 
-function HeaderDropZone({ sumbitAvatar }) {
-
-  const [images, setImages] = useState([]);
+function HeaderDropZone({ images, setImages }) {
   const { getRootProps, getInputProps } = useDropzone({
     accept: { 'image/*': [] },
     onDrop: acceptedFiles => {
@@ -57,6 +55,7 @@ function HeaderDropZone({ sumbitAvatar }) {
         style={thumbInner}
       >
         <img
+          alt=''
           src={image.preview}
           style={img}
           onLoad={() => { URL.revokeObjectURL(image.preview) }}

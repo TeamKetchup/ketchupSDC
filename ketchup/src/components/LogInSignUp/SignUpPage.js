@@ -4,9 +4,20 @@ import styled from 'styled-components';
 import BannerDropZone from './BannerDropZone';
 import HeaderDropZone from './HeaderDropZone';
 import Logo from './image-removebg-preview.png';
+import axios from 'axios';
+import { useState } from 'react';
 
 
-function SignUpPage({ sumbitAvatar }) {
+function SignUpPage() {
+     const [images, setImages] = useState([]);
+
+     const sumbitAvatar = async (file) => {
+    
+          const formData = new FormData();
+          formData.append("file", file);
+          await axios.post("http://localhost:3025/api/avatar", formData);
+     }
+
      return (
           <div className='signUpPage'>
                <SignUpContainer>
@@ -27,11 +38,11 @@ function SignUpPage({ sumbitAvatar }) {
                               placeholder='Verify Password'
                          />
                          <Header3>Select an Image for Your Avatar:</Header3>
-                         <HeaderDropZone sumbitAvatar={sumbitAvatar}/>
+                         <HeaderDropZone images={images} setImages={setImages}/>
                          <Header3>Select an Image for Your Profile Banner:</Header3>
                          {/* <BannerDropZone /> */}
                          <ButtonContainer>
-                              <Button>Submit</Button>
+                              <Button onClick={(e) => {e.preventDefault(); sumbitAvatar(images[0])}}>Submit</Button>
                               <Link to='/loginpage'>
                                    <Button>Cancel</Button>
                               </Link>

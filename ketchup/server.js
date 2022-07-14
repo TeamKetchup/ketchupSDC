@@ -56,7 +56,7 @@ const deleteFile = (objectName) => {
 const upload = multer();
 
 app.post("/api/avatar", upload.single("file"), function (req, res, next) {
-    const fileName = `${Math.floor(Math.random() * 100000)}${req.file.originalname}`
+    const fileName = `avatar${Math.floor(Math.random() * 100000)}${req.file.originalname}`
     req.file.originalname = fileName;
     uploadFile(req.file.originalname, req.file.buffer)
   }
@@ -76,9 +76,9 @@ app.get("/api/products", async (_, res) => {
     console.error(error.message);
   }
 });
-app.get('/', function (req, res) {
-    res.sendFile(path.join("./my-app/public"));
-});
+// app.get('/', function (req, res) {
+//     res.sendFile(path.join("./my-app/public"));
+// });
 
 app.get("/api/products", async (_, res) => {
     try {
