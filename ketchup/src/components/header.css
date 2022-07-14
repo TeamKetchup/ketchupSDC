@@ -3,7 +3,7 @@
     color: #FF0000;
     display: flex;
     justify-content: space-between;
-    align-items: stretch;
+    align-items: center;
     gap: 2rem;
     padding: 0 1rem;
     font-family: 'Oswald', sans-serif;
@@ -24,12 +24,16 @@
     list-style: none;
     display: flex;
     gap: 1rem;
+    align-self: center;
+    align-items: center;
   }
-  .navBar li.active{
-    background-color: #393939;
-  }
-  .navBar li:hover{
-    background-color: #525151;
+ 
+
+  .navBar li{
+    text-align: center;
+    font-size: 1.5rem;
+    
+    
   }
   
   .logo{
@@ -45,7 +49,7 @@
   .navBar input{
     padding: 0;
     height: 2rem;
-    width: 40%;
+    width: 37%;
     display: flex;
     align-self: center;
    
@@ -60,7 +64,7 @@
   width: 5rem;
   position: absolute;
   top: 2.4%;
-  left: 28%;
+  left: 27%;
   justify-content: center;
   align-items: center;
   align-content: center;
