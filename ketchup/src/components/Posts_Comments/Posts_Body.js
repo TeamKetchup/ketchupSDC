@@ -1,24 +1,29 @@
 import React from "react";
 import styled from 'styled-components';
+import PostsItem from "./PostsItem";
 
-function Posts_Body() {
+function Posts_Body({searchPosts}) {
+  console.log(searchPosts)
   return (
     <div className="post-content">
-      <div><img src="./KETCHUP.png"></img></div>
+      {/* <div><img src="./KETCHUP.png"></img></div> */}
       <div className="post-body">
-        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis
-        commodo massa, in rhoncus nisl fringilla eu. Sed sit amet diam vitae
-        ipsum varius egestas mattis at urna. Nullam ligula purus, sodales
-        fringilla diam nec, efficitur lobortis dolor. Sed molestie eros eu diam
-        accumsan aliquet. Sed dui elit, fringilla nec odio ut, euismod convallis
-        nibh. Praesent aliquam iaculis dolor, sed pellentesque ex iaculis a.
-        Duis risus diam, sollicitudin sed porta in, vulputate a lorem. Curabitur
-        cursus erat at enim dictum euismod quis sit amet libero. Fusce vel elit
-        ac libero auctor porta non vitae massa. Nunc nec dapibus ipsum. Morbi a
-        feugiat velit. Nunc sodales tincidunt pharetra. Suspendisse felis
-        libero, semper iaculis sapien ac, sodales fringilla dui. Proin eros
-        eros, scelerisque nec turpis ut, tincidunt hendrerit libero.
-        </div>
+        <PostBody>
+        {searchPosts.map((data) => (
+            <PostsItem
+
+              id={data.id}
+              post_header={data.post_header}
+              post_body={data.post_body}
+              media={data.media}
+              date={data.date}
+              user_id={data.user_id}
+              community_id={data.community_id}
+             
+            />
+          ))}
+          
+        </PostBody>
         <div>
             <div>
                 <button></button>
@@ -31,3 +36,11 @@ function Posts_Body() {
 
 export default Posts_Body;
 
+const PostBody = styled.div`
+display: flex;
+flex-direction: column;
+
+color: white;
+// padding-border: 100px;
+
+`

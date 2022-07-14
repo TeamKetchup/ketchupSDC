@@ -3,5 +3,5 @@ INSERT INTO community (name,category,banner,users_id) VALUES ('Lego', 'LEGO - Su
 INSERT INTO community (name,category,banner,users_id) VALUES ('Football', 'Sports', 'https://image.cnbcfm.com/api/v1/image/106991253-1639786378304-GettyImages-1185558312r.jpg?v=1639786403', '1');
 INSERT INTO community (name,category,banner,users_id) VALUES ('PCMasterRace', 'Computers', 'https://www.gamingscan.com/wp-content/uploads/2020/07/Best-Gaming-Setups.jpg', '1');
 INSERT INTO subscriptions (users_id, community_id) VALUES ('1','1');
-INSERT INTO posts (post_body,media,date,users_id,community_id) VALUES ('This is a post body', NULL, '2022-06-15 10:23:58', '1', '1');
+INSERT INTO posts (post_header, post_body,media,date,users_id,community_id) VALUES ('This is a header','This is a post body', NULL, '2022-06-15 10:23:58', '1', '1');
 INSERT INTO comments (comment_body,users_id,posts_id) VALUES ('This is a comment for the post', '1', '1');

@@ -3,12 +3,7 @@ import styled from 'styled-components';
 
 function Post_Header() {
   return (
-    <HeaderContainer>
-    <a click-id="subreddit-id" className='subreddit-name' href='/k/TeamKetchup'>
-        
-        <HeaderImg src="https://styles.redditmedia.com/t5_35n7t/styles/communityIcon_cn66l18a5zf51.png?width=256&s=9f22c26f97fe29afcf4e74cdb5fda3b6cc8852d2" alt="image"/> 
-    </a>
-    </HeaderContainer>
+    <div></div>
   )
 }
 
