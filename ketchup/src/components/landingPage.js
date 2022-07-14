@@ -9,7 +9,7 @@ const landingPage = ({communities, user}) => {
   return (
     
     <>
-    <Header user={user}/>
+    {/* <Header user={user}/> */}
     <div className='landing'>
       <div className='landingPageUserPosts'>
           <h4>user</h4>

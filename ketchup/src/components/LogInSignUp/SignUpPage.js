@@ -33,7 +33,7 @@ function SignUpPage({ user }) {
                          {/* <BannerDropZone /> */}
                          <ButtonContainer>
                               <Button>Submit</Button>
-                              <Link to='/loginpage'>
+                              <Link to='/'>
                                    <Button>Cancel</Button>
                               </Link>
                          </ButtonContainer>

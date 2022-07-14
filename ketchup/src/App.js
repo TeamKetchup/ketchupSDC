@@ -6,9 +6,10 @@ import SignUpPage from './components/LogInSignUp/SignUpPage';
 import ProfilePage from './components/ProfilePage/ProfilePage';
 import LandingPage from './components/landingPage';
 import Header from './components/header';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLocalStorage } from 'react';
 import styled from 'styled-components';
 import CommunityPage from './components/Communities/CommunityPage';
+import usePersistedState from 'use-persisted-state-hook'
 
 
 
@@ -16,6 +17,7 @@ function App() {
   // const [community, setCommunity] = useState(null);
   //fetch request for a join table between community/posts/comments table
   const [user, setUser] = useState(false)
+  const [currentuser, setCurrentUser] = usePersistedState('currentuser',[])
   const [profileInfo, setProfileInfo] = useState(false);
   const [subscribedCommunities, setSubscribedCommunities] = useState(false);
 
@@ -60,8 +62,17 @@ function App() {
       <div className="App">
 
       {!user ? (
-        <LogInPage setUser={setUser}/>
+        <>
+          {/* <LogInPage setUser={setUser}/> */}
+          <Routes>
+            <Route path='/' element={<LogInPage setUser={setUser}/>} />
+            <Route path='/signuppage' element={<SignUpPage user={user}/>} />
+          </Routes>
+        </>
+
       ) : (
+        <>
+        {user && <Header user={user}/>}
         <Routes>
           <Route path='/' element={
           <>
@@ -74,20 +85,20 @@ function App() {
           {/* <Route path='/community' element={<Community />}/> */}
           <Route path='/userprofile' element={
             <>
-              {profileInfo && subscribedCommunities && user && <Header user={user} />}
+              {/* {profileInfo && subscribedCommunities && user && <Header user={user} />} */}
               {profileInfo && subscribedCommunities && <ProfilePage profileInfo={profileInfo} subscribedCommunities={subscribedCommunities} />}
             </>
 
           } />
           <Route path={`/community/:id`} element={
             <>
-              {user && <Header user={user}/>}
+              {/* {user && <Header user={user}/>} */}
               {subscribedCommunities && <CommunityPage communities={subscribedCommunities} />}
             </>
           }
           />
         </Routes>
-      
+        </>
       )}
 
     </div>
