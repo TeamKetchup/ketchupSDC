@@ -1,10 +1,10 @@
 import ProfileCard from "./ProfileCard";
-import SubscribedCommunities from "./SubscribedCommunities";
+import AllCommunities from "../Communities/AllCommunities";
 import styled from 'styled-components';
 import { useState, useEffect } from "react";
 
 
-const ProfilePage = ({ profileInfo, subscribedCommunities }) => {
+const ProfilePage = ({ profileInfo, allCommunities }) => {
 
     return (
         <ProfilePageContainer>
@@ -15,7 +15,7 @@ const ProfilePage = ({ profileInfo, subscribedCommunities }) => {
             <CardContainer>
                 {/* {!profileInfo && <Loading>loading...</Loading>} */}
                 <ProfileCard profileInfo={profileInfo} />
-                <SubscribedCommunities communities={subscribedCommunities} />
+                <AllCommunities communities={allCommunities} />
             </CardContainer>
 
         </ProfilePageContainer>

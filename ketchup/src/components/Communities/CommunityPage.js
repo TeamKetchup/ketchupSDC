@@ -1,4 +1,4 @@
-import SubscribedCommunities from "../ProfilePage/SubscribedCommunities";
+import SubscribedCommunities from "./AllCommunities";
 import styled from 'styled-components';
 import { useParams } from "react-router";
 import { useState, useEffect } from "react";
@@ -38,6 +38,7 @@ const CommunityPage = (communities) => {
         <>
             <CommunityHeader>
                 {singleCommunity && <Banner src={singleCommunity[0].banner} />}
+                <CommunityNav>{id}</CommunityNav>
             </CommunityHeader>
             <CommunityContainer>
 
@@ -61,6 +62,10 @@ const CommunityHeader = styled.div`
     flex-direction: column;
     align-items: center;
     width: 100%;
+    color: white;
+    h1: {
+        font-family: 'Roboto Condensed', sans-serif;
+    }
 `
 
 const CommunityContainer = styled.div`
@@ -82,6 +87,18 @@ const CardContainer = styled.div`
 `
 
 const Banner = styled.img`
-    width: 60%;
-    max-height: 300px;
+    width: 100%;
+    height: 250px;
+
+`
+
+const CommunityNav = styled.div`
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100px;
+    background-color: #393939;
+    font-size: 45px;
 `

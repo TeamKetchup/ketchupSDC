@@ -1,22 +1,22 @@
 import styled from 'styled-components';
 import { Link } from "react-router-dom";
 
-const SubscribedCommunities = (props) => {
+const AllCommunities = (props) => {
 
     // console.log(props.communities)
     return (
-        <SubscribedCommunitiesContainer>
+        <AllCommunitiesContainer>
             <h4>All Communities</h4>
             {props.communities.map((community) => (
                 <StyledLink to={`/community/${community.name}`} key={community.id}>{community.name}</StyledLink>
             ))}
-        </SubscribedCommunitiesContainer>
+        </AllCommunitiesContainer>
     );
 }
 
-export default SubscribedCommunities;
+export default AllCommunities;
 
-const SubscribedCommunitiesContainer = styled.div`
+const AllCommunitiesContainer = styled.div`
     display: flex;
     flex-direction: column;
     background-color: #393939;

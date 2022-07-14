@@ -106,11 +106,14 @@ app.patch("/api/bio/:id", async (req, res) => {
 
 //get community info
 app.get("/community/:community", async (req, res) => {
-    const communityName = req.params.community;
+
     try {
+        let client = await db.connect();
+        const communityName = req.params.community;
         await db.query('SELECT * FROM community WHERE name = $1', [communityName], (error, results) => {
 
             res.status(200).json(results.rows)
+            client.release()
         })
     } catch (error) {
         console.error(error.message)

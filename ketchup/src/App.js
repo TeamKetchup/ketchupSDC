@@ -17,11 +17,11 @@ function App() {
   //fetch request for a join table between community/posts/comments table
 
   const [profileInfo, setProfileInfo] = useState(false);
-  const [subscribedCommunities, setSubscribedCommunities] = useState(false);
+  const [allCommunities, setallCommunities] = useState(false);
 
   useEffect(() => {
     fetchProfileInfo();
-    fetchSubscribedCommunities();
+    fetchallCommunities();
   }, []);
 
   const fetchProfileInfo = async () => {
@@ -39,16 +39,16 @@ function App() {
     }
   }
 
-  const fetchSubscribedCommunities = async () => {
+  const fetchallCommunities = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/api/subscribedcommunities/1`);
+      const response = await fetch(`http://localhost:3000/api/allcommunities`);
       if (!response.ok) {
         throw new Error(
           `This is an HTTP error: The status is ${response.status}`
         )
       }
       let actualData = await response.json();
-      setSubscribedCommunities(actualData);
+      setallCommunities(actualData);
     } catch (error) {
       console.log(error);
     }
@@ -58,22 +58,22 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Routes>
-          <Route path='/' element={<LandingPage />} />
+          <Route path='/' element={allCommunities && <LandingPage allCommunities={allCommunities} />} />
           <Route path='/loginpage' element={<LogInPage />} />
           <Route path='/signuppage' element={<SignUpPage />} />
           {/* <Route path='/' element={<HomePage />} /> */}
           {/* <Route path='/community' element={<Community />}/> */}
           <Route path='/userprofile' element={
             <>
-              {profileInfo && subscribedCommunities && <Header />}
-              {profileInfo && subscribedCommunities && <ProfilePage profileInfo={profileInfo} subscribedCommunities={subscribedCommunities} />}
+              {profileInfo && allCommunities && <Header />}
+              {profileInfo && allCommunities && <ProfilePage profileInfo={profileInfo} allCommunities={allCommunities} />}
             </>
 
           } />
           <Route path={`/community/:id`} element={
             <>
               <Header />
-              {subscribedCommunities && <CommunityPage communities={subscribedCommunities} />}
+              {allCommunities && <CommunityPage communities={allCommunities} />}
             </>
           }
           />
