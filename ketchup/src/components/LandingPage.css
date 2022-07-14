@@ -2,14 +2,16 @@
     display: flex;
     justify-content: center;
     
+    
 }
-.landing div{
+.landingPageUserPosts {
     background-color: #393939;
     color: white;
-    margin-top: 10px;
+    margin-top: 20px;
+    margin-right: 40px;
     width: 40%;
     text-align:center;
-    border-radius: 5px;
+    border-radius: 15px;
 }
 .landing h4{
     text-align: left;
@@ -20,28 +22,27 @@
     margin: 0;
     padding: 5px;
 }
-.communities{
+/* .communities{
    
     display: flex;
     justify-content: center;
+    position: absolute;
+    right: 0px;
+    top: 1rem; 
 
-}
-.communities div{
-    
+} */
+/* .communities div{
     background-color: #393939;
     color: white;
     margin-top: 20px;
-    
     border-radius: 5px;
     width: 25%;
     height: 40%;
     text-align: center;
     position: absolute;
-    right: 3rem;
+    right: .5rem;
     top: 4.4rem;
-
-
-}
+} */
 .communities hr{
     background-color: red;
     margin: 0;

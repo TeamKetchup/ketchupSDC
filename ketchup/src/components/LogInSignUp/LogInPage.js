@@ -4,6 +4,7 @@ import Logo from './image-removebg-preview.png'
 import '../../index.css'
 import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
+import { useState } from 'react';
 
 const customStyles = {
      overlay: {
@@ -22,9 +23,17 @@ const customStyles = {
 
 Modal.setAppElement('#root');
 
-function LogInPage() {
-     let subtitle;
+function LogInPage({ setUser }) {
+     
+     const [usernameInput, setUserNameInput] = useState('');
+     const [passwordInput, setPasswordInput] = useState('');
      const [modalIsOpen, setIsOpen] = React.useState(false);
+     let subtitle;
+
+     const logIn = async (e) => {
+          
+     }
+
 
      function openModal() {
           setIsOpen(true);
@@ -61,11 +70,16 @@ function LogInPage() {
                               <ModalHeader ref={(_subtitle) => (subtitle = _subtitle)}>Log In</ModalHeader>
                               <ModalForm>
                                    <InputContainer>
-                                        <Input type='text' placeholder='Enter User Name' />
+                                        <Input 
+                                             type='text' 
+                                             placeholder='Enter User Name'
+                                             value='' 
+                                        />
                                         <Input type='password' placeholder='Enter Password' />
+                                        <ModalSubmitBtn type='submit'></ModalSubmitBtn>
                                    </InputContainer>
                               </ModalForm>
-                              <ModalBtn>Submit</ModalBtn>
+                              {/* <ModalBtn>Submit</ModalBtn> */}
                               <ModalBtn onClick={closeModal}>Cancel</ModalBtn>
                          </InnerModalContainer>
 
@@ -221,4 +235,30 @@ const ModalBtn = styled.button`
 const ModalHeader = styled.h1`
      font-family: 'Oswald', sans-serif;
      padding-bottom: 15px;
+`
+
+const ModalSubmitBtn = styled.input`
+  display: flex;
+  box-shadow: 0px 5px 17px -7px rgba(0, 0, 0, 0.75);
+  height: 40px;
+  width: 180px;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  margin: auto;
+  font-family: 'Pacifico', cursive;
+  font-size: 25px;
+  border: transparent;
+  background-color: white;
+  border-radius: 999px;
+  margin: 10px;
+  /* animation: floating 3s ease-in-out infinite; */
+  :hover {
+     background-color: #FF0000;
+     transform: scale(1.1);
+     color: white;
+      border-radius: 999px;
+     cursor: pointer;
+     }
+
 `

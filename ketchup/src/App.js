@@ -15,7 +15,7 @@ import CommunityPage from './components/Communities/CommunityPage';
 function App() {
   // const [community, setCommunity] = useState(null);
   //fetch request for a join table between community/posts/comments table
-
+  const [user, setUser] = useState(false)
   const [profileInfo, setProfileInfo] = useState(false);
   const [subscribedCommunities, setSubscribedCommunities] = useState(false);
 
@@ -26,7 +26,7 @@ function App() {
 
   const fetchProfileInfo = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/api/profileinfo/1`);
+      const response = await fetch(`http://localhost:3025/api/profileinfo/1`);
       if (!response.ok) {
         throw new Error(
           `This is an HTTP error: The status is ${response.status}`
@@ -41,7 +41,7 @@ function App() {
 
   const fetchSubscribedCommunities = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/api/subscribedcommunities/1`);
+      const response = await fetch(`http://localhost:3025/api/subscribedcommunities/1`);
       if (!response.ok) {
         throw new Error(
           `This is an HTTP error: The status is ${response.status}`
@@ -57,8 +57,12 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
+
+      {!user ? (
+        <LogInPage setUser={setUser}/>
+      ) : (
         <Routes>
-          <Route path='/' element={<LandingPage />} />
+          <Route path='/' element={subscribedCommunities && <LandingPage communities={subscribedCommunities}/>} />
           <Route path='/loginpage' element={<LogInPage />} />
           <Route path='/signuppage' element={<SignUpPage />} />
           {/* <Route path='/' element={<HomePage />} /> */}
@@ -78,7 +82,10 @@ function App() {
           }
           />
         </Routes>
-      </div>
+      
+      )}
+
+    </div>
     </BrowserRouter>
   );
 }
