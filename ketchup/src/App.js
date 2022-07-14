@@ -19,6 +19,7 @@ function App() {
   const [profileInfo, setProfileInfo] = useState(false);
   const [subscribedCommunities, setSubscribedCommunities] = useState(false);
 
+  console.log(user[0])
   useEffect(() => {
     fetchProfileInfo();
     fetchSubscribedCommunities();
@@ -62,21 +63,25 @@ function App() {
         <LogInPage setUser={setUser}/>
       ) : (
         <Routes>
-          <Route path='/' element={subscribedCommunities && <LandingPage communities={subscribedCommunities}/>} />
+          <Route path='/' element={
+          <>
+          {subscribedCommunities && user && <LandingPage communities={subscribedCommunities} user={user} />} 
+          </>
+          } />
           <Route path='/loginpage' element={<LogInPage />} />
-          <Route path='/signuppage' element={<SignUpPage />} />
+          <Route path='/signuppage' element={<SignUpPage user={user}/>} />
           {/* <Route path='/' element={<HomePage />} /> */}
           {/* <Route path='/community' element={<Community />}/> */}
           <Route path='/userprofile' element={
             <>
-              {profileInfo && subscribedCommunities && <Header />}
+              {profileInfo && subscribedCommunities && user && <Header user={user} />}
               {profileInfo && subscribedCommunities && <ProfilePage profileInfo={profileInfo} subscribedCommunities={subscribedCommunities} />}
             </>
 
           } />
           <Route path={`/community/:id`} element={
             <>
-              <Header />
+              {user && <Header user={user}/>}
               {subscribedCommunities && <CommunityPage communities={subscribedCommunities} />}
             </>
           }

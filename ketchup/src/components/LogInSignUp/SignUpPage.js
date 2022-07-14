@@ -6,7 +6,8 @@ import HeaderDropZone from './HeaderDropZone';
 import Logo from './image-removebg-preview.png';
 
 
-function SignUpPage() {
+function SignUpPage({ user }) {
+     console.log(user)
      return (
           <div className='signUpPage'>
                <SignUpContainer>

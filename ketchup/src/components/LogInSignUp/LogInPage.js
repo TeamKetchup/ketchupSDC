@@ -31,7 +31,21 @@ function LogInPage({ setUser }) {
      let subtitle;
 
      const logIn = async (e) => {
-          
+          e.preventDefault()
+
+          await fetch(`http://localhost:3025/api/login/${usernameInput}/${passwordInput}`)
+          .then((res) => res.json())
+          .then((data) => setUser(data)
+               // .map((userData) => (
+               // {
+               //      id: userData.id,
+               //      avatar: userData.avatar,
+               //      banner: userData.banner,
+               //      bio: userData.bio,
+               //      username: userData.username
+               // }
+          )
+          .catch((error) => console.log(error))
      }
 
 
@@ -68,16 +82,22 @@ function LogInPage({ setUser }) {
                     >
                          <InnerModalContainer>
                               <ModalHeader ref={(_subtitle) => (subtitle = _subtitle)}>Log In</ModalHeader>
-                              <ModalForm>
-                                   <InputContainer>
+                              <ModalForm onSubmit={logIn}>
+                                   {/* <InputContainer> */}
                                         <Input 
                                              type='text' 
                                              placeholder='Enter User Name'
-                                             value='' 
+                                             value={usernameInput}
+                                             onChange={(e) => setUserNameInput(e.target.value)} 
                                         />
-                                        <Input type='password' placeholder='Enter Password' />
+                                        <Input 
+                                             type='password' 
+                                             placeholder='Enter Password' 
+                                             value={passwordInput}
+                                             onChange={(e) => setPasswordInput(e.target.value)}
+                                        />
                                         <ModalSubmitBtn type='submit'></ModalSubmitBtn>
-                                   </InputContainer>
+                                   {/* </InputContainer> */}
                               </ModalForm>
                               {/* <ModalBtn>Submit</ModalBtn> */}
                               <ModalBtn onClick={closeModal}>Cancel</ModalBtn>
@@ -188,7 +208,10 @@ const InnerModalContainer = styled.div`
      width: 350px;
 `
 const ModalForm = styled.form`
-
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     flex-direction: column;
 `
 
 const Input = styled.input`
@@ -197,6 +220,11 @@ const Input = styled.input`
      width: 270px;
      font-size: 17px;
      border-radius: 5px;
+     border: 0;
+     :focus-within{
+          box-shadow: 0 0px 4px 4px red;
+          outline: 0;
+     }
 `
 
 const InputContainer = styled.div`
@@ -234,7 +262,7 @@ const ModalBtn = styled.button`
 
 const ModalHeader = styled.h1`
      font-family: 'Oswald', sans-serif;
-     padding-bottom: 15px;
+     padding-bottom: 5px;
 `
 
 const ModalSubmitBtn = styled.input`
