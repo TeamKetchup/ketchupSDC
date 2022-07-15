@@ -1,15 +1,14 @@
 
 import './index.css'
-import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LogInPage from './components/LogInSignUp/LogInPage';
 import SignUpPage from './components/LogInSignUp/SignUpPage';
 import ProfilePage from './components/ProfilePage/ProfilePage';
 import LandingPage from './components/landingPage';
 import Header from './components/header';
-import { useState, useEffect, useLocalStorage } from 'react';
-import styled from 'styled-components';
+import { useState, useEffect } from 'react';
 import CommunityPage from './components/Communities/CommunityPage';
-import usePersistedState from 'use-persisted-state-hook'
+// import usePersistedState from 'use-persisted-state-hook'
 
 
 
@@ -17,7 +16,7 @@ function App() {
   // const [community, setCommunity] = useState(null);
   //fetch request for a join table between community/posts/comments table
   const [user, setUser] = useState(false)
-  const [currentuser, setCurrentUser] = usePersistedState('currentuser',[])
+  // const [currentuser, setCurrentUser] = usePersistedState('currentuser',[])
   const [profileInfo, setProfileInfo] = useState(false);
   const [subscribedCommunities, setSubscribedCommunities] = useState(false);
 
@@ -105,9 +104,5 @@ function App() {
     </BrowserRouter>
   );
 }
-
-const Test = styled.h1`
-  color: white;
-`
 
 export default App;

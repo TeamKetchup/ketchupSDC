@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import BannerDropZone from './BannerDropZone';
 import HeaderDropZone from './HeaderDropZone';
 import Logo from './image-removebg-preview.png';
 
 
 function SignUpPage({ user }) {
+     const [newBio, setNewBio] = useState('');
      console.log(user)
      return (
           <div className='signUpPage'>
@@ -29,8 +29,13 @@ function SignUpPage({ user }) {
                          />
                          <Header3>Select an Image for Your Avatar:</Header3>
                          <HeaderDropZone />
-                         {/* <Header3>Select an Image for Your Profile Banner:</Header3> */}
-                         {/* <BannerDropZone /> */}
+                         <Header4>Enter a bio for your profile:</Header4>
+                         <BioInput
+                              type="text"
+                              required
+                              value={newBio}
+                              onChange={(e) => setNewBio(e.target.value)}
+                          />
                          <ButtonContainer>
                               <Button>Submit</Button>
                               <Link to='/'>
@@ -107,11 +112,16 @@ const Input = styled.input`
      font-family: 'Oswald', sans-serif;
      border: none;
      border-radius: 5px;
+     :focus-within{
+          box-shadow: 0 0px 4px 4px red;
+          outline: 0;
+     }
 `
 
 const Header3 = styled.h3`
      color: #FF0000;
      font-family: 'Oswald', sans-serif;
+     margin-top: 5px;
      margin-bottom: -5px;
 `
 const ButtonContainer = styled.div`
@@ -140,4 +150,24 @@ const Button = styled.button`
       border-radius: 999px;
       cursor: pointer;
      }
+`
+const BioInput = styled.textarea`
+    vertical-align: top;
+    height: 100px;
+    width: 350px;
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 15px;
+    :focus-within{
+          box-shadow: 0 0px 4px 4px red;
+          outline: 0;
+     }
+`
+
+const Header4 = styled.h3`
+     margin: 0;
+     margin-bottom: 5px;
+     color: #FF0000;
+     font-family: 'Oswald', sans-serif;
+
 `
