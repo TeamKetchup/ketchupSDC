@@ -5,6 +5,7 @@ import {FaShare, FaBookmark, FaFlag} from 'react-icons/fa'
 import {BiHide} from 'react-icons/bi'
 
 function PostsItem({
+  key,
   id,
   post_header,
   post_body,
