@@ -178,7 +178,7 @@ app.get("/api/products", async (_, res) => {
     try {
         const {post_header, post_body,media,date,users_id,community_id} = req.body
         await db.query('INSERT INTO posts (post_header, post_body,media,date,users_id,community_id) VALUES ($1, $2, $3, $4, $5, $6)', [post_header, post_body,media,date,users_id,community_id], (error, results) => {
-        console.log(req)
+        // console.log(req)
             res.status(200).send(`post was added`)
 
      })

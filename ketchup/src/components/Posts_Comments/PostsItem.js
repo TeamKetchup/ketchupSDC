@@ -5,6 +5,7 @@ import {FaShare, FaBookmark, FaFlag} from 'react-icons/fa'
 import {BiHide} from 'react-icons/bi'
 
 function PostsItem({
+  key,
   id,
   post_header,
   post_body,
@@ -47,7 +48,7 @@ function PostsItem({
             <FaFlag className="report-button"/>report
             </PostIcons>
             
-            <div class="_21pmAV9gWG6F_UKVe7YIE0"></div>
+            <div className="_21pmAV9gWG6F_UKVe7YIE0"></div>
           </FooterItems>
         </div>
       </PostFooter>

@@ -30,11 +30,11 @@ function App() {
   const [profileInfo, setProfileInfo] = useState(false);
   const [subscribedCommunities, setsubscribedCommunities] = useState(false);
 
-  console.log(user[0])
+  // console.log(user[0])
   useEffect(() => {
     // fetchProfileInfo();
     fetchsubscribedCommunities();
-  }, [subscribedCommunities]);
+  }, []);
 
   const fetchsubscribedCommunities = async () => {
     try {

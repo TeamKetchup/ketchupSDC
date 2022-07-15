@@ -10,7 +10,7 @@ import './LandingPage.css'
 
 const landingPage = ({ communities, user }) => {
 
-  console.log(user)
+  // console.log(user)
   return (
 
     <>

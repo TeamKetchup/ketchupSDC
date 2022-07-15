@@ -9,9 +9,10 @@ function Posts_Body({searchPosts}) {
       {/* <div><img src="./KETCHUP.png"></img></div> */}
       
         <PostBody className="post-body">
-        {searchPosts.map((data) => (
+        {searchPosts.map((data, index) => (
             <PostsItem
 
+              key={index}
               id={data.id}
               post_header={data.post_header}
               post_body={data.post_body}
