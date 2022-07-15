@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LogInPage from './components/LogInSignUp/LogInPage';
 import SignUpPage from './components/LogInSignUp/SignUpPage';
 import ProfilePage from './components/ProfilePage/ProfilePage';
+import Posts from './components/Posts_Comments/Posts';
 import LandingPage from './components/landingPage';
 import Header from './components/header';
 import { useState, useEffect } from 'react';
@@ -51,8 +52,9 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
+      <BrowserRouter>
       <div className="App">
+      
 
         {!user ? (
           <>
@@ -74,6 +76,7 @@ function App() {
               } />
               <Route path='/loginpage' element={<LogInPage />} />
               <Route path='/signuppage' element={<SignUpPage user={user} />} />
+              <Route path='/posts' element={<Posts />}/>
               {/* <Route path='/' element={<HomePage />} /> */}
               {/* <Route path='/community' element={<Community />}/> */}
               <Route path='/userprofile' element={

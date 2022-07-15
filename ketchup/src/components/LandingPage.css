@@ -1,6 +1,7 @@
 .landing{
     display: flex;
     justify-content: center;
+    align-items: center;
     
     
 }
@@ -22,15 +23,17 @@
     margin: 0;
     padding: 5px;
 }
-/* .communities{
+
+
+.communities{
    
     display: flex;
-    justify-content: center;
-    position: absolute;
-    right: 0px;
-    top: 1rem; 
+    justify-content: flex-start;
+    /* position: absolute; */
+    /* right: 5%;
+    top: 5.3rem;  */
 
-} */
+}
 /* .communities div{
     background-color: #393939;
     color: white;
