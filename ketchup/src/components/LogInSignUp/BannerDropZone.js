@@ -55,6 +55,7 @@ function BannerDropZone() {
         style={thumbInner}
       >
         <img
+          alt=""
           src={image.preview}
           style={img}
           onLoad={() => { URL.revokeObjectURL(image.preview) }}

@@ -24,11 +24,12 @@ function PostsItem({
           <HeaderImg src={avatar} alt="image" />
         </a>
         <h1>{post_header}</h1>
+        <div></div>
       </HeaderContainer >
       <PBodyContainer>
         {post_body}
         <PostMediaContainer>
-      <img className="post-img" src={avatar}/>
+      <Img className="post-img" src={media}/>
       </PostMediaContainer>
       </PBodyContainer>
       
@@ -86,25 +87,23 @@ const HeaderContainer = styled.div`
   font-family: 'Oswald', sans-serif;
 `;
 
-const HeaderImg = styled.div`
+const HeaderImg = styled.img`
   margin: 0;
   padding: 0;
   border: 0;
   border-radius: 100%;
-  display: flex;
-  justify-content: flex-start;
-  height: 20px;
+  height: 40px;
   margin-right: 4px;
   vertical-align: middle;
-  width: 20px;
-  /* background-color: rgb(0, 121, 211); */
+  justify-content: left;
+  width: 40px;
+  background-color: rgb(204, 204, 204);
   
   
 
 `;
 const PostMediaContainer = styled.div`
-max-width:100%;
-max-height:100%;
+
 `;
 
 const PostFooter = styled.div`
@@ -124,8 +123,8 @@ margin: 10px;
 font-size: 20px;
 
 `
-// const Avatar = styled.img`
-// max-width:100%;
-// max-height:100%;
+const Img = styled.img`
+max-width:100%;
+max-height:100%;
 
-// `
+`

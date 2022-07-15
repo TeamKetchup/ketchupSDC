@@ -1,4 +1,6 @@
-
+import "./App.css";
+import axios from "axios";
+import SubmitFile from "./components/SubmitFile";
 import './index.css'
 import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom';
 import Posts from './components/Posts_Comments/Posts';
@@ -12,21 +14,28 @@ import { useState, useEffect, useLocalStorage } from 'react';
 import styled from 'styled-components';
 import CommunityPage from './components/Communities/CommunityPage';
 import usePersistedState from 'use-persisted-state-hook'
+import CreateCommunity from './components/Communities/CreateCommunity';
 
 
 
 function App() {
+  // const sumbitAvatar = async (file) => {
+    
+  //   const formData = new FormData();
+  //   formData.append("file", file);
+  //   await axios.post("http://localhost:3025/api/postimage", formData);
+  // }
   // const [community, setCommunity] = useState(null);
   //fetch request for a join table between community/posts/comments table
   const [user, setUser] = useState(false)
-  const [currentuser, setCurrentUser] = usePersistedState('currentuser',[])
+  const [currentuser, setCurrentUser] = usePersistedState('currentuser', [])
   const [profileInfo, setProfileInfo] = useState(false);
-  const [subscribedCommunities, setSubscribedCommunities] = useState(false);
+  const [subscribedCommunities, setsubscribedCommunities] = useState(false);
 
   console.log(user[0])
   useEffect(() => {
     fetchProfileInfo();
-    fetchSubscribedCommunities();
+    fetchsubscribedCommunities();
   }, []);
 
   const fetchProfileInfo = async () => {
@@ -44,7 +53,7 @@ function App() {
     }
   }
 
-  const fetchSubscribedCommunities = async () => {
+  const fetchsubscribedCommunities = async () => {
     try {
       const response = await fetch(`http://localhost:3025/api/subscribedcommunities/1`);
       if (!response.ok) {
@@ -53,7 +62,7 @@ function App() {
         )
       }
       let actualData = await response.json();
-      setSubscribedCommunities(actualData);
+      setsubscribedCommunities(actualData);
     } catch (error) {
       console.log(error);
     }
@@ -64,48 +73,53 @@ function App() {
       <div className="App">
       
 
-      {!user ? (
-        <>
-          {/* <LogInPage setUser={setUser}/> */}
-          <Routes>
-            <Route path='/' element={<LogInPage setUser={setUser}/>} />
-            <Route path='/signuppage' element={<SignUpPage user={user}/>} />
-          </Routes>
-        </>
-
-      ) : (
-        <>
-        {user && <Header user={user}/>}
-        <Routes>
-          <Route path='/' element={
+        {!user ? (
           <>
-          {subscribedCommunities && user && <LandingPage communities={subscribedCommunities} user={user} />} 
+            {/* <LogInPage setUser={setUser}/> */}
+            <Routes>
+              <Route path='/' element={<LogInPage setUser={setUser} />} />
+              <Route path='/signuppage' element={<SignUpPage user={user} />} />
+            </Routes>
           </>
-          } />
-          <Route path='/loginpage' element={<LogInPage />} />
-          <Route path='/signuppage' element={<SignUpPage user={user}/>} />
-          <Route path='/posts' element={<Posts />}/>
-          {/* <Route path='/' element={<HomePage />} /> */}
-          {/* <Route path='/community' element={<Community />}/> */}
-          <Route path='/userprofile' element={
-            <>
-              {/* {profileInfo && subscribedCommunities && user && <Header user={user} />} */}
-              {profileInfo && subscribedCommunities && <ProfilePage profileInfo={profileInfo} subscribedCommunities={subscribedCommunities} />}
-            </>
 
-          } />
-          <Route path={`/community/:id`} element={
-            <>
-              {/* {user && <Header user={user}/>} */}
-              {subscribedCommunities && <CommunityPage communities={subscribedCommunities} />}
-            </>
-          }
-          />
-        </Routes>
-        </>
-      )}
+        ) : (
+          <>
+            {user && <Header user={user} />}
+            <Routes>
+              <Route path='/' element={
+                <>
+                  {subscribedCommunities && user && <LandingPage communities={subscribedCommunities} user={user} />}
+                </>
+              } />
+              <Route path='/loginpage' element={<LogInPage />} />
+              <Route path='/signuppage' element={<SignUpPage user={user} />} />
+              <Route path='/posts' element={<Posts />}/>
+              {/* <Route path='/' element={<HomePage />} /> */}
+              {/* <Route path='/community' element={<Community />}/> */}
+              <Route path='/userprofile' element={
+                <>
+                  {/* {profileInfo && subscribedCommunities && user && <Header user={user} />} */}
+                  {profileInfo && subscribedCommunities && <ProfilePage profileInfo={profileInfo} subscribedCommunities={subscribedCommunities} />}
+                </>
 
-    </div>
+              } />
+              <Route exact path={`/createcommunity`} element={
+                <CreateCommunity />
+              }
+              />
+              <Route path={`/community/:id`} element={
+                <>
+                  {/* {user && <Header user={user}/>} */}
+                  {subscribedCommunities && <CommunityPage communities={subscribedCommunities} />}
+                </>
+              }
+              />
+
+            </Routes>
+          </>
+        )}
+
+      </div>
     </BrowserRouter>
   );
 }

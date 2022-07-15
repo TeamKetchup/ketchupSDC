@@ -30,12 +30,16 @@ const ProfilePageContainer = styled.div`
 `
 
 const UserContentContainer = styled.div`
+    display: flex;
+    flex-direction: column;
     width: 70%;
     justify-content: center;
     align-items: center;
 `
 
 const CardContainer = styled.div`
+    display: flex;
+    flex-direction: column;
     width: 30%;
     justify-content: center;
     align-items: center;
