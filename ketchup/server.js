@@ -62,13 +62,14 @@ app.post("/api/createprofile", upload.single("file"), async function (req, res, 
     uploadFile(req.file.originalname, req.file.buffer);
     const returnedURL = `https://teamketchupv2.s3.amazonaws.com/${req.file.originalname}`
     console.log(req.body)
-    await db.query(`INSERT INTO users (username, password, avatar, banner, bio) VALUES ('${req.body.username}', '${req.body.password}', '${returnedURL}', '${returnedURL}', 'This is cool.');`);
+    await db.query(`INSERT INTO users (username, password, avatar, banner, bio) VALUES ('${req.body.username}', '${req.body.password}', '${returnedURL}', '${returnedURL}', '${req.body.bio}');`);
     res.json('Success')
   } catch (error) {
     if (error) {
       res.json(error)
     }
   }
+}
 }
 );
 
@@ -79,6 +80,17 @@ app.post("/api/createprofile", upload.single("file"), async function (req, res, 
 app.get("/api/products", async (_, res) => {
   try {
     await db.query("SELECT * FROM products", (error, results) => {
+      console.log(results);
+      res.status(200).json(results.rows);
+    });
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+
+app.get("/api/users", async (_, res) => {
+  try {
+    await db.query("SELECT * FROM users", (error, results) => {
       console.log(results);
       res.status(200).json(results.rows);
     });
