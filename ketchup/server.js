@@ -91,21 +91,21 @@ app.get("/api/products", async (_, res) => {
 // });
 app.get("/api/login/:username/:password", async (req, res) => {
     try {
-    // const {username, password} = req.body
-    // const {rows} = await db
-    const username = req.params.username
-    const password = req.params.password
-    const data = await db
-    .query('SELECT * FROM users WHERE username = $1 AND password = $2;', [
-        username,
-        password
-    ])
-    res.send(data.rows)
-    console.log(data.rows)
+        // const {username, password} = req.body
+        // const {rows} = await db
+        const username = req.params.username
+        const password = req.params.password
+        const data = await db
+            .query('SELECT * FROM users WHERE username = $1 AND password = $2;', [
+                username,
+                password
+            ])
+        res.send(data.rows)
+        console.log(data.rows)
     } catch (error) {
         console.log(error.message)
     }
-})    
+})
 
 app.get("/api/products", async (_, res) => {
     try {
@@ -197,16 +197,33 @@ app.patch("/api/bio/:id", async (req, res) => {
 
 //get community info
 app.get("/community/:community", async (req, res) => {
-    const communityName = req.params.community;
+
     try {
+        let client = await db.connect();
+        const communityName = req.params.community;
         await db.query('SELECT * FROM community WHERE name = $1', [communityName], (error, results) => {
 
             res.status(200).json(results.rows)
+            client.release()
         })
     } catch (error) {
         console.error(error.message)
     }
 });
+
+//create community
+app.post("/api/postcommunity", async (req, res) => {
+    try {
+        let client = await db.connect();
+        const { name, category, banner, users_id } = req.body;
+        const { rows } = await db.query('INSERT INTO community (name, category, banner, users_id) VALUES($1, $2, $3, $4) RETURNING*', [name, category, banner, users_id]);
+        res.send({ data: (rows), message: "New community has been created" });
+        console.log({ rows });
+        client.release()
+    } catch (error) {
+        res.send(error.message);
+    }
+})
 
 
 app.get("/api/all", async (_, res) => {

@@ -6,13 +6,15 @@ const SubscribedCommunities = (props) => {
     // console.log(props.communities)
     return (
         <SubscribedCommunitiesContainer>
-        <SubscribedCommunitiesBanner>
-            <h4>Communities</h4>
-        </SubscribedCommunitiesBanner>
-            
+            <SubscribedCommunitiesBanner>
+                <h4>Communities</h4>
+            </SubscribedCommunitiesBanner>
+
             {props.communities.map((community) => (
                 <StyledLink to={`/community/${community.name}`} key={community.id}>{community.name}</StyledLink>
             ))}
+
+            <StyledLink to={`/createcommunity`}>Create Community</StyledLink>
         </SubscribedCommunitiesContainer>
     );
 }
@@ -38,6 +40,7 @@ const SubscribedCommunitiesContainer = styled.div`
     font-family: 'oswald, san serif';
     font-weight: bold;
     font-size: 20px;
+    height: 100%;
 `
 
 const StyledLink = styled(Link)`
@@ -60,8 +63,8 @@ const SubscribedCommunitiesBanner = styled.div`
     width: 300px;
     height: 100px;
     border-radius: 15px 15px 0px 0px;
-    background: rgb(0,0,0);
-    background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(209,44,44,1) 55%, rgba(255,0,0,1) 100%);
+    background: rgb(57,57,57);
+    background: linear-gradient(0deg, rgba(57,57,57,1) 0%, rgba(209,44,44,1) 43%, rgba(255,0,0,1) 100%);
     h4{
         margin: 0;
         font-family: 'Pacifico', cursive;
