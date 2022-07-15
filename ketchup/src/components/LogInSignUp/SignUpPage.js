@@ -28,12 +28,14 @@ function SignUpPage({ user }) {
      console.log(validatePassword);
   }
 
-  const sumbitProfile = async (file, username, password) => {
+  const sumbitProfile = async (file, username, password, newBio) => {
     const formData = new FormData();
     formData.append("username", username);
     formData.append("password", password);
     formData.append("file", file);
+    formData.append("bio", newBio);
     await axios.post("http://localhost:3025/api/createprofile", formData);
+    console.log('user created')
   };
   console.log(user);
   return (
@@ -44,19 +46,22 @@ function SignUpPage({ user }) {
         <Header2>Please Enter The Required Fields</Header2>
         <CreateAccountForm>
           <Input
-            onChange={(e) => {
-              handleUserName(e.target.value);
-            }}
-            id="username-create"
-            type="text"
-            placeholder="Pick a User Name, No Spaces"
+               onChange={(e) => {
+               handleUserName(e.target.value);
+               }}
+               id="username-create"
+               type="text"
+               placeholder="Pick a User Name, No Spaces"
           />
-          <Input onChange={(e) => {handlePassword(e.target.value)}} id="password-create" type="password" placeholder="Password" />
+          <Input 
+               onChange={(e) => {handlePassword(e.target.value)}} 
+               id="password-create" type="password" 
+               placeholder="Password" />
           <Input
-            onChange={(e) => {handleValidatePassword(e.target.value)}}
-            id="password-validate"
-            type="password"
-            placeholder="Verify Password"
+               onChange={(e) => {handleValidatePassword(e.target.value)}}
+               id="password-validate"
+               type="password"
+               placeholder="Verify Password"
           />
           <Header3>Select an Image for Your Avatar:</Header3>
           <HeaderDropZone images={images} setImages={setImages} />
@@ -72,12 +77,12 @@ function SignUpPage({ user }) {
               onClick={(e) => {
                 e.preventDefault();
                 if (password === validatePassword) {
-                    sumbitProfile(images[0], userName, password);
+                    sumbitProfile(images[0], userName, password, newBio);
               }}}
             >
               Submit
             </Button>
-            <Link to="/loginpage">
+            <Link to="/">
               <Button>Cancel</Button>
             </Link>
           </ButtonContainer>

@@ -26,7 +26,6 @@ function App() {
   //fetch request for a join table between community/posts/comments table
   const [user, setUser] = useState(false)
   // const [currentuser, setCurrentUser] = usePersistedState('currentuser',[])
-  const [currentuser, setCurrentUser] = usePersistedState('currentuser', [])
   const [profileInfo, setProfileInfo] = useState(false);
   const [subscribedCommunities, setsubscribedCommunities] = useState(false);
 
