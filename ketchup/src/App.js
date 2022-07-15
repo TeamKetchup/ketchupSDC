@@ -2,18 +2,16 @@ import "./App.css";
 import axios from "axios";
 import SubmitFile from "./components/SubmitFile";
 import './index.css'
-import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom';
-import Posts from './components/Posts_Comments/Posts';
-import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LogInPage from './components/LogInSignUp/LogInPage';
 import SignUpPage from './components/LogInSignUp/SignUpPage';
 import ProfilePage from './components/ProfilePage/ProfilePage';
+import Posts from './components/Posts_Comments/Posts';
 import LandingPage from './components/landingPage';
 import Header from './components/header';
-import { useState, useEffect, useLocalStorage } from 'react';
-import styled from 'styled-components';
+import { useState, useEffect } from 'react';
 import CommunityPage from './components/Communities/CommunityPage';
-import usePersistedState from 'use-persisted-state-hook'
+// import usePersistedState from 'use-persisted-state-hook'
 import CreateCommunity from './components/Communities/CreateCommunity';
 
 
@@ -28,7 +26,7 @@ function App() {
   // const [community, setCommunity] = useState(null);
   //fetch request for a join table between community/posts/comments table
   const [user, setUser] = useState(false)
-  const [currentuser, setCurrentUser] = usePersistedState('currentuser', [])
+  // const [currentuser, setCurrentUser] = usePersistedState('currentuser',[])
   const [profileInfo, setProfileInfo] = useState(false);
   const [subscribedCommunities, setsubscribedCommunities] = useState(false);
 
@@ -123,9 +121,5 @@ function App() {
     </BrowserRouter>
   );
 }
-
-const Test = styled.h1`
-  color: white;
-`
 
 export default App;

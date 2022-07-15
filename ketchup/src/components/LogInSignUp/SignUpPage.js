@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import BannerDropZone from "./BannerDropZone";
 import HeaderDropZone from "./HeaderDropZone";
 import Logo from "./image-removebg-preview.png";
 import axios from "axios";
 import { useState } from "react";
 
 function SignUpPage({ user }) {
+  const [newBio, setNewBio] = useState('');
   const [images, setImages] = useState([]);
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -28,12 +28,14 @@ function SignUpPage({ user }) {
      console.log(validatePassword);
   }
 
-  const sumbitProfile = async (file, username, password) => {
+  const sumbitProfile = async (file, username, password, newBio) => {
     const formData = new FormData();
     formData.append("username", username);
     formData.append("password", password);
     formData.append("file", file);
+    formData.append("bio", newBio);
     await axios.post("http://localhost:3025/api/createprofile", formData);
+    console.log('user created')
   };
   console.log(user);
   return (
@@ -44,34 +46,43 @@ function SignUpPage({ user }) {
         <Header2>Please Enter The Required Fields</Header2>
         <CreateAccountForm>
           <Input
-            onChange={(e) => {
-              handleUserName(e.target.value);
-            }}
-            id="username-create"
-            type="text"
-            placeholder="Pick a User Name, No Spaces"
+               onChange={(e) => {
+               handleUserName(e.target.value);
+               }}
+               id="username-create"
+               type="text"
+               placeholder="Pick a User Name, No Spaces"
           />
-          <Input onChange={(e) => {handlePassword(e.target.value)}} id="password-create" type="password" placeholder="Password" />
+          <Input 
+               onChange={(e) => {handlePassword(e.target.value)}} 
+               id="password-create" type="password" 
+               placeholder="Password" />
           <Input
-            onChange={(e) => {handleValidatePassword(e.target.value)}}
-            id="password-validate"
-            type="password"
-            placeholder="Verify Password"
+               onChange={(e) => {handleValidatePassword(e.target.value)}}
+               id="password-validate"
+               type="password"
+               placeholder="Verify Password"
           />
           <Header3>Select an Image for Your Avatar:</Header3>
           <HeaderDropZone images={images} setImages={setImages} />
-          {/* <BannerDropZone /> */}
+          <Header4>Enter a bio for your profile:</Header4>
+          <BioInput
+               type="text"
+               required
+               value={newBio}
+               onChange={(e) => setNewBio(e.target.value)}
+          />
           <ButtonContainer>
             <Button
               onClick={(e) => {
                 e.preventDefault();
                 if (password === validatePassword) {
-                    sumbitProfile(images[0], userName, password);
+                    sumbitProfile(images[0], userName, password, newBio);
               }}}
             >
               Submit
             </Button>
-            <Link to="/loginpage">
+            <Link to="/">
               <Button>Cancel</Button>
             </Link>
           </ButtonContainer>
@@ -142,20 +153,26 @@ const CreateAccountForm = styled.form`
 `;
 
 const Input = styled.input`
-  height: 40px;
-  width: 350px;
-  margin: 5px;
-  font-size: 20px;
-  font-family: "Oswald", sans-serif;
-  border: none;
-  border-radius: 5px;
-`;
+     height: 40px;
+     width: 350px;
+     margin: 5px;
+     font-size: 20px;
+     font-family: 'Oswald', sans-serif;
+     border: none;
+     border-radius: 5px;
+     :focus-within{
+          box-shadow: 0 0px 4px 4px red;
+          outline: 0;
+     }
+`
 
 const Header3 = styled.h3`
-  color: #ff0000;
-  font-family: "Oswald", sans-serif;
-  margin-bottom: -5px;
-`;
+     color: #FF0000;
+     font-family: 'Oswald', sans-serif;
+     margin-top: 5px;
+     margin-bottom: -5px;
+`
+
 const ButtonContainer = styled.div`
   display: flex;
 `;
@@ -176,10 +193,30 @@ const Button = styled.button`
   border-radius: 999px;
   margin: 10px;
   :hover {
-    background-color: #ff0000;
-    transform: scale(1.1);
-    color: white;
-    border-radius: 999px;
-    cursor: pointer;
-  }
-`;
+      background-color: #FF0000;
+      transform: scale(1.1);
+      color: white;
+      border-radius: 999px;
+      cursor: pointer;
+     }
+`
+const BioInput = styled.textarea`
+    vertical-align: top;
+    height: 100px;
+    width: 350px;
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 15px;
+    :focus-within{
+          box-shadow: 0 0px 4px 4px red;
+          outline: 0;
+     }
+`
+
+const Header4 = styled.h3`
+     margin: 0;
+     margin-bottom: 5px;
+     color: #FF0000;
+     font-family: 'Oswald', sans-serif;
+
+`
