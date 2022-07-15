@@ -36,7 +36,6 @@ const uploadFile = (fileName, fileBuffer) => {
     if (err) {
       throw err;
     }
-    console.log(data.Location);
   });
 };
 
@@ -60,10 +59,11 @@ app.post("/api/createprofile", upload.single("file"), async function (req, res, 
     try{
         const fileName = `avatar${Math.floor(Math.random() * 100000)}${req.file.originalname}`
         req.file.originalname = fileName;
-        await uploadFile(req.file.originalname, req.file.buffer);
+        uploadFile(req.file.originalname, req.file.buffer);
         const returnedURL = `https://teamketchupv2.s3.amazonaws.com/${req.file.originalname}`
-        console.log(returnedURL)
-        await db.query(`INSERT INTO users (username, password, avatar, banner, bio) VALUES ('${req.body.username}', '${req.body.password}', '${returnedURL}', 'https://www.gamingscan.com/wp-content/uploads/2020/07/Best-Gaming-Setups.jpg', 'I live for coding and styled components';`)
+        console.log(req.body)
+        await db.query(`INSERT INTO users (username, password, avatar, banner, bio) VALUES ('${req.body.username}', '${req.body.password}', '${returnedURL}', '${returnedURL}', 'This is cool'.');`);
+        res.json('Success')
     } catch (error) {
         if(error){
             res.json(error)
