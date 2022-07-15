@@ -4,7 +4,8 @@ import styled from 'styled-components';
 import { useState, useEffect } from "react";
 
 
-const ProfilePage = ({ profileInfo, subscribedCommunities }) => {
+const ProfilePage = ({ user, subscribedCommunities }) => {
+    console.log(user)
 
     return (
         <ProfilePageContainer>
@@ -14,7 +15,7 @@ const ProfilePage = ({ profileInfo, subscribedCommunities }) => {
             </UserContentContainer>
             <CardContainer>
                 {/* {!profileInfo && <Loading>loading...</Loading>} */}
-                <ProfileCard profileInfo={profileInfo} />
+                <ProfileCard user={user} />
                 <SubscribedCommunities communities={subscribedCommunities} />
             </CardContainer>
 

@@ -70,7 +70,6 @@ app.post("/api/createprofile", upload.single("file"), async function (req, res, 
     }
   }
 }
-}
 );
 
 // app.get('/', function (req, res) {
