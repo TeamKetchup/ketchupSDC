@@ -14,7 +14,7 @@ function PostsItem({
   community_id,
 }) {
   return (
-    <PostItemContainer className="post-1">
+    <PostItemContainer className="post-1" key={id}>
       <HeaderContainer className='postheader'>
         <a
           click-id="subreddit-id"
@@ -47,7 +47,7 @@ function PostsItem({
             <FaFlag className="report-button"/>report
             </PostIcons>
             
-            <div class="_21pmAV9gWG6F_UKVe7YIE0"></div>
+            <div className="_21pmAV9gWG6F_UKVe7YIE0"></div>
           </FooterItems>
         </div>
       </PostFooter>
