@@ -10,6 +10,7 @@ import { useState, useEffect, useLocalStorage } from 'react';
 import styled from 'styled-components';
 import CommunityPage from './components/Communities/CommunityPage';
 import usePersistedState from 'use-persisted-state-hook'
+import CreateCommunity from './components/Communities/CreateCommunity';
 
 
 
@@ -19,12 +20,12 @@ function App() {
   const [user, setUser] = useState(false)
   const [currentuser, setCurrentUser] = usePersistedState('currentuser', [])
   const [profileInfo, setProfileInfo] = useState(false);
-  const [allCommunities, setallCommunities] = useState(false);
+  const [subscribedCommunities, setsubscribedCommunities] = useState(false);
 
   console.log(user[0])
   useEffect(() => {
     fetchProfileInfo();
-    fetchallCommunities();
+    fetchsubscribedCommunities();
   }, []);
 
   const fetchProfileInfo = async () => {
@@ -42,7 +43,7 @@ function App() {
     }
   }
 
-  const fetchallCommunities = async () => {
+  const fetchsubscribedCommunities = async () => {
     try {
       const response = await fetch(`http://localhost:3025/api/subscribedcommunities/1`);
       if (!response.ok) {
@@ -51,7 +52,7 @@ function App() {
         )
       }
       let actualData = await response.json();
-      setallCommunities(actualData);
+      setsubscribedCommunities(actualData);
     } catch (error) {
       console.log(error);
     }
@@ -90,6 +91,10 @@ function App() {
                 </>
 
               } />
+              <Route exact path={`/createcommunity`} element={
+                <CreateCommunity />
+              }
+              />
               <Route path={`/community/:id`} element={
                 <>
                   {/* {user && <Header user={user}/>} */}
@@ -97,6 +102,7 @@ function App() {
                 </>
               }
               />
+
             </Routes>
           </>
         )}

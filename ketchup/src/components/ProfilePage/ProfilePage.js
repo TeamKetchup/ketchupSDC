@@ -1,10 +1,10 @@
 import ProfileCard from "./ProfileCard";
-import AllCommunities from "../Communities/AllCommunities";
+import SubscribedCommunities from "./SubscribedCommunities";
 import styled from 'styled-components';
 import { useState, useEffect } from "react";
 
 
-const ProfilePage = ({ profileInfo, allCommunities }) => {
+const ProfilePage = ({ profileInfo, subscribedCommunities }) => {
 
     return (
         <ProfilePageContainer>
@@ -15,7 +15,7 @@ const ProfilePage = ({ profileInfo, allCommunities }) => {
             <CardContainer>
                 {/* {!profileInfo && <Loading>loading...</Loading>} */}
                 <ProfileCard profileInfo={profileInfo} />
-                <AllCommunities communities={allCommunities} />
+                <SubscribedCommunities communities={subscribedCommunities} />
             </CardContainer>
 
         </ProfilePageContainer>
@@ -30,12 +30,16 @@ const ProfilePageContainer = styled.div`
 `
 
 const UserContentContainer = styled.div`
+    display: flex;
+    flex-direction: column;
     width: 70%;
     justify-content: center;
     align-items: center;
 `
 
 const CardContainer = styled.div`
+    display: flex;
+    flex-direction: column;
     width: 30%;
     justify-content: center;
     align-items: center;

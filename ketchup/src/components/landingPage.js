@@ -2,9 +2,9 @@ import React from 'react'
 import Header from './header'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import AllCommunities from './Communities/AllCommunities'
-import './LandingPage.css'
 import SubscribedCommunities from './ProfilePage/SubscribedCommunities'
+import './LandingPage.css'
+
 
 const landingPage = ({ communities, user }) => {
 
