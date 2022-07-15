@@ -250,20 +250,6 @@ app.get("/api/products", async (_, res) => {
 
  // =========================END COMMENTS SECTION=======================================
 
-  app.get("/api/all", async (_, res) => {
-    // const id = req.params.id
-    try {
-        await db.query('SELECT * FROM images INNER JOIN products ON images.product_id = products.id', (error, results) => {
-  try {
-    await db.query('SELECT * FROM products', (error, results) => {
-      console.log(results)
-      res.status(200).json(results.rows)
-    })
-  } catch (error) {
-    console.error(error.message)
-  }
-});
-
 app.get("/api/all", async (_, res) => {
   // const id = req.params.id
   try {
