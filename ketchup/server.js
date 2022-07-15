@@ -51,10 +51,10 @@ app.get("/api/products", async (_, res) => {
 
 // =========================START POSTS SECTION=======================================
     // Get All POSTS
-    app.get("/api/posts", async (_, res) => {
+    app.get("/api/posts", async (req, res) => {
         try {
             await db.query('SELECT * FROM posts ORDER BY id DESC', (error, results) => {
-                console.log(results) 
+                console.log(req) 
                 res.status(200).json(results.rows)
             })
         } catch (error) {
@@ -96,7 +96,9 @@ app.get("/api/products", async (_, res) => {
     try {
         const {post_header, post_body,media,date,users_id,community_id} = req.body
         await db.query('INSERT INTO posts (post_header, post_body,media,date,users_id,community_id) VALUES ($1, $2, $3, $4, $5, $6)', [post_header, post_body,media,date,users_id,community_id], (error, results) => {
-        res.status(200).send(`post was added`)
+        console.log(req)
+            res.status(200).send(`post was added`)
+
      })
      } catch (error) {
         console.error(error.message)
@@ -110,8 +112,8 @@ app.get("/api/products", async (_, res) => {
         
       await db.query(
             'UPDATE posts SET post_header = $1, post_body = $2, media = $3, date = $4, users_id = $5, community_id = $6 WHERE id = $7', [post_header,post_body,media,date,users_id,community_id, id], (err, results) => {
-        //  console.log(req.body)
-         res.status(200).send(`post was updated`)
+         console.log(req)
+         res.status(200).send( `post was updated`)
      })
      } catch (error) {
         console.error(error.message)

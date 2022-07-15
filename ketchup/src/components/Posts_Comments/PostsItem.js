@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import avatar from "./avatar.png";
+import avatar from "./joshua.png";
 import {FaShare, FaBookmark, FaFlag} from 'react-icons/fa'
 import {BiHide} from 'react-icons/bi'
 
@@ -19,14 +19,19 @@ function PostsItem({
         <a
           click-id="subreddit-id"
           className="subreddit-name"
-          href="/k/TeamKetchup"
+          href="/posts/" 
         >
           <HeaderImg src={avatar} alt="image" />
         </a>
         <h1>{post_header}</h1>
       </HeaderContainer >
-      <PBodyContainer>{post_body}</PBodyContainer>
-      <PostMediaContainer>{media}</PostMediaContainer>
+      <PBodyContainer>
+        {post_body}
+        <PostMediaContainer>
+      <img className="post-img" src={avatar}/>
+      </PostMediaContainer>
+      </PBodyContainer>
+      
       <PostFooter>
         <div>
           <FooterItems className="footer-items">
@@ -58,9 +63,10 @@ background-color: #393939;
 color: white;
 margin-top: 20px;
 margin-right: 40px;
-width: 50%;
+width: 45%;
+height: auto;
 text-align:center;
-border-radius: 15px; 
+border-radius: 25px; 
 `;
 
 const SpaceDiv = styled.div`
@@ -91,12 +97,15 @@ const HeaderImg = styled.div`
   margin-right: 4px;
   vertical-align: middle;
   width: 20px;
-  background-color: rgb(0, 121, 211);
+  /* background-color: rgb(0, 121, 211); */
   
   
 
 `;
-const PostMediaContainer = styled.div``;
+const PostMediaContainer = styled.div`
+max-width:100%;
+max-height:100%;
+`;
 
 const PostFooter = styled.div`
 /* display: flex;
@@ -112,6 +121,11 @@ justify-content: center;
 const PostIcons = styled.div`
 display: flex;
 margin: 10px;
-font-size: 25px;
+font-size: 20px;
 
 `
+// const Avatar = styled.img`
+// max-width:100%;
+// max-height:100%;
+
+// `
