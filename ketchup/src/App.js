@@ -18,7 +18,7 @@ import CreateCommunity from './components/Communities/CreateCommunity';
 
 function App() {
   // const sumbitAvatar = async (file) => {
-    
+
   //   const formData = new FormData();
   //   formData.append("file", file);
   //   await axios.post("http://localhost:3025/api/postimage", formData);
@@ -32,28 +32,13 @@ function App() {
 
   console.log(user[0])
   useEffect(() => {
-    fetchProfileInfo();
+    // fetchProfileInfo();
     fetchsubscribedCommunities();
-  }, []);
-
-  const fetchProfileInfo = async () => {
-    try {
-      const response = await fetch(`http://localhost:3025/api/profileinfo/1`);
-      if (!response.ok) {
-        throw new Error(
-          `This is an HTTP error: The status is ${response.status}`
-        )
-      }
-      let actualData = await response.json();
-      setProfileInfo(actualData);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  }, [subscribedCommunities]);
 
   const fetchsubscribedCommunities = async () => {
     try {
-      const response = await fetch(`http://localhost:3025/api/subscribedcommunities/1`);
+      const response = await fetch(`http://localhost:3025/api/allcommunities`);
       if (!response.ok) {
         throw new Error(
           `This is an HTTP error: The status is ${response.status}`
@@ -97,7 +82,7 @@ function App() {
               <Route path='/userprofile' element={
                 <>
                   {/* {profileInfo && subscribedCommunities && user && <Header user={user} />} */}
-                  {profileInfo && subscribedCommunities && <ProfilePage profileInfo={profileInfo} subscribedCommunities={subscribedCommunities} />}
+                  {subscribedCommunities && <ProfilePage user={user} subscribedCommunities={subscribedCommunities} />}
                 </>
 
               } />
