@@ -65,7 +65,7 @@ background-color: #393939;
 color: white;
 margin-top: 20px;
 margin-right: 40px;
-width: 45%;
+width: 450px;
 height: auto;
 text-align:center;
 border-radius: 25px; 
