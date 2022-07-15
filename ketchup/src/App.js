@@ -1,4 +1,6 @@
-
+import "./App.css";
+import axios from "axios";
+import SubmitFile from "./components/SubmitFile";
 import './index.css'
 import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom';
 import LogInPage from './components/LogInSignUp/LogInPage';
@@ -15,6 +17,12 @@ import CreateCommunity from './components/Communities/CreateCommunity';
 
 
 function App() {
+  // const sumbitAvatar = async (file) => {
+    
+  //   const formData = new FormData();
+  //   formData.append("file", file);
+  //   await axios.post("http://localhost:3025/api/postimage", formData);
+  // }
   // const [community, setCommunity] = useState(null);
   //fetch request for a join table between community/posts/comments table
   const [user, setUser] = useState(false)
