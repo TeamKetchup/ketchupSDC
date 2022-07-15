@@ -62,7 +62,7 @@ app.post("/api/createprofile", upload.single("file"), async function (req, res, 
         uploadFile(req.file.originalname, req.file.buffer);
         const returnedURL = `https://teamketchupv2.s3.amazonaws.com/${req.file.originalname}`
         console.log(req.body)
-        await db.query(`INSERT INTO users (username, password, avatar, banner, bio) VALUES ('${req.body.username}', '${req.body.password}', '${returnedURL}', '${returnedURL}', 'This is cool.');`);
+        await db.query(`INSERT INTO users (username, password, avatar, banner, bio) VALUES ('${req.body.username}', '${req.body.password}', '${returnedURL}', null, 'This is cool.');`);
         res.json('Success')
     } catch (error) {
         if(error){
