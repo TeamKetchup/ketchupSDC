@@ -13,6 +13,7 @@ import { useState, useEffect } from 'react';
 import CommunityPage from './components/Communities/CommunityPage';
 // import usePersistedState from 'use-persisted-state-hook'
 import CreateCommunity from './components/Communities/CreateCommunity';
+import Register from "./components/LogInSignUp/Register";
 
 
 
@@ -25,7 +26,7 @@ function App() {
   // }
   // const [community, setCommunity] = useState(null);
   //fetch request for a join table between community/posts/comments table
-  const [user, setUser] = useState(false)
+  const [user, setUser] = useState('')
   // const [currentuser, setCurrentUser] = usePersistedState('currentuser',[])
   const [profileInfo, setProfileInfo] = useState(false);
   const [subscribedCommunities, setsubscribedCommunities] = useState(false);
@@ -62,6 +63,7 @@ function App() {
             <Routes>
               <Route path='/' element={<LogInPage setUser={setUser} />} />
               <Route path='/signuppage' element={<SignUpPage user={user} />} />
+              <Route path='/register' element={<Register user={user} setUser={setUser}/>} />
             </Routes>
           </>
 

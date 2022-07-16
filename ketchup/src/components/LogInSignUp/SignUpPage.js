@@ -28,7 +28,7 @@ function SignUpPage({ user }) {
      console.log(validatePassword);
   }
 
-  const sumbitProfile = async (file, username, password, newBio) => {
+  const submitProfile = async (file, username, password, newBio) => {
     const formData = new FormData();
     formData.append("username", username);
     formData.append("password", password);
@@ -77,7 +77,7 @@ function SignUpPage({ user }) {
               onClick={(e) => {
                 e.preventDefault();
                 if (password === validatePassword) {
-                    sumbitProfile(images[0], userName, password, newBio);
+                    submitProfile(images[0], userName, password, newBio);
               }}}
             >
               Submit
@@ -104,7 +104,7 @@ const SignUpContainer = styled.div`
   height: auto;
   width: 475px;
   padding-bottom: 15px;
-`;
+`
 const KetchupLogo = styled.img`
   border-radius: 50%;
   height: 125px;
@@ -130,7 +130,7 @@ const KetchupLogo = styled.img`
       transform: translate(0, -0px);
     }
   }
-`;
+`
 
 const Header1 = styled.h2`
   color: #ff0000;

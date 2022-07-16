@@ -104,7 +104,7 @@ function LogInPage({ setUser }) {
                          </InnerModalContainer>
 
                     </Modal>
-                    <Link to='/signuppage'>
+                    <Link to='/register'>
                          <LogInPageBtn>Sign Up</LogInPageBtn>
                     </Link>
                </LogInBtnContainer>
