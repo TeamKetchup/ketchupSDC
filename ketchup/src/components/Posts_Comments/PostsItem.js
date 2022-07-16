@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import avatar from "./joshua.png";
+import avatar from './icons/avatar.png';
 import {FaShare, FaBookmark, FaFlag} from 'react-icons/fa'
 import {BiHide} from 'react-icons/bi'
 
@@ -14,6 +14,8 @@ function PostsItem({
   user_id,
   community_id,
 }) {
+
+  console.log(media)
   return (
     <PostItemContainer className="post-1">
       <HeaderContainer className='postheader'>
@@ -30,7 +32,7 @@ function PostsItem({
       <PBodyContainer>
         {post_body}
         <PostMediaContainer>
-      <Img className="post-img" src={media}/>
+      <Img className="post-img" src={`${media}`}/>
       </PostMediaContainer>
       </PBodyContainer>
       

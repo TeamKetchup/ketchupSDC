@@ -62,6 +62,7 @@ function App() {
             <Routes>
               <Route path='/' element={<LogInPage setUser={setUser} />} />
               <Route path='/signuppage' element={<SignUpPage user={user} />} />
+              <Route path='/posts' element={<Posts />}/>
             </Routes>
           </>
 
