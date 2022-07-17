@@ -176,9 +176,9 @@ app.get("/api/products", async (_, res) => {
     // Create POST
   app.post("/api/create_post", async (req, res) => {
     try {
-        const {post_header, post_body,media,date,users_id,community_id} = req.body
-        await db.query('INSERT INTO posts (post_header, post_body,media,date,users_id,community_id) VALUES ($1, $2, $3, $4, $5, $6)', [post_header, post_body,media,date,users_id,community_id], (error, results) => {
-        // console.log(req)
+        const {post_header, post_body,img,video,date,users_id,community_id} = req.body
+        await db.query('INSERT INTO posts (post_header, post_body,img,video,date,users_id,community_id) VALUES ($1, $2, $3, $4, $5, $6, $7)', [post_header, post_body,img,video,date,users_id,community_id], (error, results) => {
+        console.log(req.body)
             res.status(200).send(`post was added`)
 
      })
@@ -190,10 +190,10 @@ app.get("/api/products", async (_, res) => {
  app.put("/api/update_post/:id", async (req, res) => {
     try {
         const id = req.params.id
-        const {post_header,post_body,media,date,users_id,community_id} = req.body
+        const {post_header, post_body,img,video,date,users_id,community_id} = req.body
         
       await db.query(
-            'UPDATE posts SET post_header = $1, post_body = $2, media = $3, date = $4, users_id = $5, community_id = $6 WHERE id = $7', [post_header,post_body,media,date,users_id,community_id, id], (err, results) => {
+            'UPDATE posts SET post_header = $1, post_body = $2, img = $3, video = $4, date = $5, users_id = $6, community_id = $7 WHERE id = $8', [post_header, post_body,img,video,date,users_id,community_id, id], (err, results) => {
          console.log(req)
          res.status(200).send( `post was updated`)
      })
