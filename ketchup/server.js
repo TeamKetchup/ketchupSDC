@@ -7,10 +7,61 @@ const AWS = require("aws-sdk");
 const fs = require("fs");
 const multer = require("multer");
 const multerS3 = require("multer-s3");
+const cookieParser = require("cookie-parser");
+const passport = require("passport");
+const PassportLocal = require("passport-local");
+const expressSession = require("express-session");
+const bcrypt = require("bcrypt");
+const LocalStrategy = require("passport-local").Strategy;
+
+app.use(passport.initialize());
+
+passport.use(new PassportLocal.Strategy({
+    username: 'username',
+}, async (username, password, done) => {
+    try {
+        let findUser = await db.query(`SELECT * FROM users WHERE username = '${username}';`)
+        let user;
+        if(findUser.rows.length > 0){
+            user = findUser.rows[0];
+        } else {
+            user = undefined;
+        }
+        await bcrypt.compare(password, findUser.rows[0].password, (err, res) => {
+            if (err) { return done(err); }
+            if (!user) { return done(null, false); }
+            if (res === false) { return done(null, false); }
+            return done(null, user);
+            
+            })
+    } catch (error) {
+        done(error)
+    }
+    passport.serializeUser(function(user, done) {
+        done(null, user);
+      });
+    passport.deserializeUser(function(user, done) {
+        done(null, user);
+      });
+}))
+
+// app.use(cors({
+//     origin: "https://localhost:3000",
+//     credentials: true
+// }));
 
 app.use(cors());
 
-app.use(express.json())
+app.use(expressSession({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+}));
+
+app.use(cookieParser('secret'));
+
+app.use(express.json());
+
 // app.use(express.static(path.join(__dirname, 'build')));
 app.use(express.static("public"));
 
@@ -61,8 +112,8 @@ app.post("/api/createprofile", upload.single("file"), async function (req, res, 
         req.file.originalname = fileName;
         uploadFile(req.file.originalname, req.file.buffer);
         const returnedURL = `https://teamketchupv2.s3.amazonaws.com/${req.file.originalname}`
-        console.log(req.body)
-        await db.query(`INSERT INTO users (username, password, avatar, banner, bio) VALUES ('${req.body.username}', '${req.body.password}', '${returnedURL}', '${returnedURL}', '${req.body.bio}');`);
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
+        await db.query(`INSERT INTO users (username, password, avatar, banner, bio) VALUES ('${req.body.username}', '${hashedPassword}', '${returnedURL}', '${returnedURL}', '${req.body.bio}');`);
         res.json('Success')
     } catch (error) {
         if(error){
@@ -100,23 +151,33 @@ app.get("/api/users", async (_, res) => {
 // app.get('/', function (req, res) {
 //     res.sendFile(path.join("./my-app/public"));
 // });
-app.get("/api/login/:username/:password", async (req, res) => {
-    try {
-        // const {username, password} = req.body
-        // const {rows} = await db
-        const username = req.params.username
-        const password = req.params.password
-        const data = await db
-            .query('SELECT * FROM users WHERE username = $1 AND password = $2;', [
-                username,
-                password
-            ])
-        res.send(data.rows)
-        console.log(data.rows)
-    } catch (error) {
-        console.log(error.message)
-    }
-})
+
+// app.get("/api/login/:username/:password", async (req, res) => {
+//     try {
+//         // const {username, password} = req.body
+//         // const {rows} = await db
+//         const username = req.params.username
+//         const password = req.params.password
+//         const data = await db
+//             .query('SELECT * FROM users WHERE username = $1 AND password = $2;', [
+//                 username,
+//                 password
+//             ])
+//         res.send(data.rows)
+//         console.log(data.rows)
+//     } catch (error) {
+//         console.log(error.message)
+//     }
+// })
+
+app.post('/api/login', 
+  passport.authenticate('local', { failureRedirect: '/' }),
+  function(req, res) {
+    console.log(res)
+    // res.redirect('/profilepage', {
+    //     username: 'bsshapiro'
+    // })
+  });
 
 app.get("/api/products", async (_, res) => {
     try {

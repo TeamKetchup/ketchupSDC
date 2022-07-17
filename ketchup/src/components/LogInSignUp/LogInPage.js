@@ -5,6 +5,7 @@ import '../../index.css'
 import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
 import { useState } from 'react';
+import axios from 'axios';
 
 const customStyles = {
      overlay: {
@@ -31,11 +32,14 @@ function LogInPage({ setUser }) {
      let subtitle;
 
      const logIn = async (e) => {
-          e.preventDefault()
+          e.preventDefault();
+          const data = {
+               username: usernameInput,
+               password: passwordInput
+          }
 
-          await fetch(`http://localhost:3025/api/login/${usernameInput}/${passwordInput}`)
-          .then((res) => res.json())
-          .then((data) => setUser(data)
+          await axios.post('http://localhost:3025/api/login/', data)
+          .then((res) => console.log(res))
                // .map((userData) => (
                // {
                //      id: userData.id,
@@ -44,7 +48,6 @@ function LogInPage({ setUser }) {
                //      bio: userData.bio,
                //      username: userData.username
                // }
-          )
           .catch((error) => console.log(error))
      }
 
