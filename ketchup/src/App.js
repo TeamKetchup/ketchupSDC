@@ -30,11 +30,11 @@ function App() {
   const [profileInfo, setProfileInfo] = useState(false);
   const [subscribedCommunities, setsubscribedCommunities] = useState(false);
 
-  console.log(user[0])
+  // console.log(user[0])
   useEffect(() => {
     // fetchProfileInfo();
     fetchsubscribedCommunities();
-  }, [subscribedCommunities]);
+  }, []);
 
   const fetchsubscribedCommunities = async () => {
     try {
@@ -52,9 +52,9 @@ function App() {
   }
 
   return (
-      <BrowserRouter>
+    <BrowserRouter>
       <div className="App">
-      
+
 
         {!user ? (
           <>
@@ -76,7 +76,7 @@ function App() {
               } />
               <Route path='/loginpage' element={<LogInPage />} />
               <Route path='/signuppage' element={<SignUpPage user={user} />} />
-              <Route path='/posts' element={<Posts />}/>
+              <Route path='/posts' element={<Posts />} />
               {/* <Route path='/' element={<HomePage />} /> */}
               {/* <Route path='/community' element={<Community />}/> */}
               <Route path='/userprofile' element={
@@ -87,7 +87,7 @@ function App() {
 
               } />
               <Route exact path={`/createcommunity`} element={
-                <CreateCommunity />
+                <CreateCommunity user={user} />
               }
               />
               <Route path={`/community/:id`} element={

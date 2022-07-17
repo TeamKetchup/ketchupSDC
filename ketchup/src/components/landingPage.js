@@ -10,16 +10,16 @@ import './LandingPage.css'
 
 const landingPage = ({ communities, user }) => {
 
-  console.log(user)
+
   return (
 
     <>
-    {/* <Header user={user}/> */}
-    <div className='landing'>
+      {/* <Header user={user}/> */}
+      <div className='landing'>
         <Posts />
-    <div className='communities'>
-        <SubscribedCommunities communities={communities} />
-        {/* <div>
+        <div className='communities'>
+          <SubscribedCommunities communities={communities} />
+          {/* <div>
         <h2>Communities</h2>
         <hr></hr>
         <p>cars</p>

@@ -6,13 +6,13 @@ import { Link } from 'react-router-dom';
 
 Modal.setAppElement('#root');
 
-const CreateCommunity = () => {
+const CreateCommunity = (user) => {
 
     const [newCommunity, setNewCommunity] = useState('');
     const [newCategory, setNewCategory] = useState('');
     const [newBanner, setNewBanner] = useState('');
+    const [userID, setUserId] = useState(user.user[0].id);
     const [isLoading, setIsLoading] = useState(false);
-
 
 
     const createCommunity = (e) => {
@@ -21,7 +21,7 @@ const CreateCommunity = () => {
             name: newCommunity,
             category: newCategory,
             banner: newBanner,
-            users_id: 1
+            users_id: userID
         }
         setIsLoading(true);
         console.log(postObj)
