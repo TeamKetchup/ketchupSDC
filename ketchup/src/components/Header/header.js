@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import './header.css'
+import './header.css';
 import SearchBar from './searchBar';
 
 import Logo from '../LogInSignUp/image-removebg-preview.png'
@@ -21,13 +21,8 @@ const Header = ({user, setUser}) => {
           <SearchBar />
 
           <div className='avaterusernameContainer'>
-<<<<<<< HEAD:ketchup/src/components/header.js
             <Link to='/userprofile'>
                 <img alt="" className='headerAvatar' src={user[0].avatar}></img>
-=======
-            <Link to='/userprofile' >
-                <img className='headerAvatar' src={user[0].avatar}></img>
->>>>>>> 18cb4a5e006d5b25b7388c8d5977b042c13aca78:ketchup/src/components/Header/header.js
                 <h1>@{user[0].username}</h1>
             </Link>
             <Link to='/'>
