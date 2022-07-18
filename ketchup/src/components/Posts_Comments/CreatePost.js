@@ -1,72 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import Header from '../header'
+import HeaderDropZone from '../LogInSignUp/HeaderDropZone'
+
+
 
 function CreatePost() {
+  const [images, setImages] = useState([])
   return (
-    <FormDiv>CreatePost
-    {/* <Header /> */}
+    
+    <FormDiv>Create a Post 
+   
 
     <Postform id="new-post-form" >
+
+    
+                <label>
+                    Post Title:
                     <input 
-                        type="text" 
-                        name="new-post-input" 
-                        id="new-post-input" 
-                        placeholder="What do you have planned?" />
+                    name='new-post-header'
+                    type='text' 
+                    />
+                </label>
+                <div><SpaceDiv className="space"></SpaceDiv></div>
+                <PostContent>
+                    Post Content:
+                    <PostTextArea 
+                    name='new-post-body'
+                    />
+                </PostContent>
 
-<input 
-                        type="text" 
-                        name="new-post-input" 
-                        id="new-post-input" 
-                        placeholder="What do you have planned?" />
-
-<input 
-                        type="text" 
-                        name="new-post-input" 
-                        id="new-post-input" 
-                        placeholder="What do you have planned?" />
-
-<input 
-                        type="text" 
-                        name="new-post-input" 
-                        id="new-post-input" 
-                        placeholder="What do you have planned?" />
-
-<input 
-                        type="text" 
-                        name="new-post-input" 
-                        id="new-post-input" 
-                        placeholder="What do you have planned?" />
-
-<input 
-                        type="text" 
-                        name="new-post-input" 
-                        id="new-post-input" 
-                        placeholder="What do you have planned?" />
-
-<input 
-                        type="text" 
-                        name="new-post-input" 
-                        id="new-post-input" 
-                        placeholder="What do you have planned?" />
-
-<input 
-                        type="text" 
-                        name="new-post-input" 
-                        id="new-post-input" 
-                        placeholder="What do you have planned?" />
-
-<input 
-                        type="text" 
-                        name="new-post-input" 
-                        id="new-post-input" 
-                        placeholder="What do you have planned?" />
+<HeaderDropZone images={images} setImages={setImages}/>
 
 
-                    <input 
-                        type="submit"
-                        id="new-post-submit" 
-                        value="Add post" />
           </Postform>
     </FormDiv>
   )
@@ -81,7 +47,7 @@ background-color: #393939;
 color: white;
 margin-top: 20px;
 margin-right: 40px;
-width: 450px;
+width: 750px;
 height: auto;
 text-align:center;
 border-radius: 25px;
@@ -94,9 +60,25 @@ background-color: #393939;
 color: white;
 margin-top: 20px;
 margin-right: 40px;
-width: 450px;
-height: auto;
+width: 750px;
+height: 600px;
 text-align:center;
+align-items: center;
+/* justify-content: center; */
 border-radius: 25px; 
+
+`
+
+const SpaceDiv = styled.div`
+padding: 10px;
+`
+
+const PostContent = styled.label`
+width: 750px
+`
+const PostTextArea = styled.textarea`
+width: 500px;
+height: 300px;
+border-radius: 25px;
 
 `
