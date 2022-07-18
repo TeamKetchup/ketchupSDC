@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LogInPage from './components/LogInSignUp/LogInPage';
 import SignUpPage from './components/LogInSignUp/SignUpPage';
 import ProfilePage from './components/ProfilePage/ProfilePage';
+import Posts from './components/Posts_Comments/Posts';
 import LandingPage from './components/landingPage';
 import Header from './components/header';
 import { useState, useEffect } from 'react';
@@ -13,12 +14,13 @@ import CommunityPage from './components/Communities/CommunityPage';
 // import usePersistedState from 'use-persisted-state-hook'
 import CreateCommunity from './components/Communities/CreateCommunity';
 import loadingGif from "./components/LogInSignUp/loading.gif"
+import CreatePost from "./components/Posts_Comments/CreatePost";
 
 
 
 function App() {
   // const sumbitAvatar = async (file) => {
-    
+
   //   const formData = new FormData();
   //   formData.append("file", file);
   //   await axios.post("http://localhost:3025/api/postimage", formData);
@@ -31,30 +33,15 @@ function App() {
   const [profileInfo, setProfileInfo] = useState(false);
   const [subscribedCommunities, setsubscribedCommunities] = useState(false);
 
-  console.log(user[0])
+  // console.log(user[0])
   useEffect(() => {
-    fetchProfileInfo();
+    // fetchProfileInfo();
     fetchsubscribedCommunities();
   }, [])
 
-  const fetchProfileInfo = async () => {
-    try {
-      const response = await fetch(`http://localhost:3025/api/profileinfo/1`);
-      if (!response.ok) {
-        throw new Error(
-          `This is an HTTP error: The status is ${response.status}`
-        )
-      }
-      let actualData = await response.json();
-      setProfileInfo(actualData);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   const fetchsubscribedCommunities = async () => {
     try {
-      const response = await fetch(`http://localhost:3025/api/subscribedcommunities/1`);
+      const response = await fetch(`http://localhost:3025/api/allcommunities`);
       if (!response.ok) {
         throw new Error(
           `This is an HTTP error: The status is ${response.status}`
@@ -67,8 +54,9 @@ function App() {
     }
   }
   return (
-    <BrowserRouter>
+      <BrowserRouter>
       <div className="App">
+      
 
         {!user ? (
           <>
@@ -76,6 +64,8 @@ function App() {
             <Routes>
               <Route path='/' element={<LogInPage setLoading={setLoading} setUser={setUser} />} />
               <Route path='/signuppage' element={<SignUpPage user={user} />} />
+              <Route path='/posts' element={<Posts />}/>
+              <Route path='/createpost' element={<CreatePost />}/>
             </Routes>
           </>
 
@@ -88,12 +78,15 @@ function App() {
                   {subscribedCommunities && user && <LandingPage communities={subscribedCommunities} user={user} />}
                 </>
               } />
+              <Route path='/loginpage' element={<LogInPage />} />
+              <Route path='/signuppage' element={<SignUpPage user={user} />} />
+              <Route path='/posts' element={<Posts />}/>
               {/* <Route path='/' element={<HomePage />} /> */}
               {/* <Route path='/community' element={<Community />}/> */}
               <Route path='/userprofile' element={
                 <>
                   {/* {profileInfo && subscribedCommunities && user && <Header user={user} />} */}
-                  {profileInfo && subscribedCommunities && <ProfilePage profileInfo={profileInfo} subscribedCommunities={subscribedCommunities} />}
+                  {subscribedCommunities && <ProfilePage user={user} subscribedCommunities={subscribedCommunities} />}
                 </>
 
               } />

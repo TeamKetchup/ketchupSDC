@@ -41,8 +41,10 @@ CREATE TABLE subscriptions(
 
 CREATE TABLE posts(
    id SERIAL PRIMARY KEY NOT NULL,
+   post_header TEXT NOT NULL,
    post_body TEXT NOT NULL,
-   media TEXT NULL,
+   img VARCHAR NULL,
+   video VARCHAR NULL,
    date timestamp with time zone NOT NULL,
    users_id INT REFERENCES users(id),
    community_id INT REFERENCES community(id)

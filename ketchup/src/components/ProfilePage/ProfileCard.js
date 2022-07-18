@@ -3,12 +3,13 @@ import styled from 'styled-components';
 import Modal from 'react-modal';
 
 
-const ProfileCard = (profileInfo) => {
+const ProfileCard = (user) => {
 
+    console.log(user)
     const [modalIsOpen, setIsOpen] = useState(false);
-    const [bio, setBio] = useState(profileInfo.profileInfo[0].bio);
-    const [avatar, setAvatar] = useState(profileInfo.profileInfo[0].avatar);
-    const [userName, setUserName] = useState(profileInfo.profileInfo[0].username);
+    const [bio, setBio] = useState(user.user[0].bio);
+    const [avatar, setAvatar] = useState(user.user[0].avatar);
+    const [userName, setUserName] = useState(user.user[0].username);
     const [newBio, setNewBio] = useState('');
 
     const updateBio = (e) => {
@@ -17,7 +18,7 @@ const ProfileCard = (profileInfo) => {
         setBio(newBio)
         let updateObj = { bio: newBio };
         console.log(newBio);
-        fetch(`http://localhost:3025/api/bio/1`, {
+        fetch(`http://localhost:3025/api/bio/${user.user[0].id}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updateObj)
@@ -127,6 +128,7 @@ const ProfileName = styled.h3`
 `
 
 const Bio = styled.p`
+    margin-top: 20px;
     text-align: center;
     max-width: 90%;
     padding-bottom: 150px;

@@ -10,7 +10,7 @@ const Header = ({user, setUser}) => {
     // function userlogin(){
 
     // }
-    console.log(user[0])
+    // console.log(user[0])
   return (
       <>
       <nav className='navBar'>

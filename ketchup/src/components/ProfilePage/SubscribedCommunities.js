@@ -13,8 +13,11 @@ const SubscribedCommunities = (props) => {
             {props.communities.map((community) => (
                 <StyledLink to={`/community/${community.name}`} key={community.id}>{community.name}</StyledLink>
             ))}
+            <SubscribedCommunitiesFooter>
+                <CreateCommunityLink to={`/createcommunity`}>Create Community</CreateCommunityLink>
+                
+            </SubscribedCommunitiesFooter>
 
-            <StyledLink to={`/createcommunity`}>Create Community</StyledLink>
         </SubscribedCommunitiesContainer>
     );
 }
@@ -27,13 +30,9 @@ const SubscribedCommunitiesContainer = styled.div`
     background-color: #393939;
     width: 300px;
     height: 300px;
-    /* min-width: 13%;
-    min-height: 350px; */
     border-radius: 15px;
     padding: 20px;
     padding-top: 0;
-    /* width: 50%; */
-    /* height: 100%; */
     font-size: 18px;
     color: white;
     margin-top: 20px;
@@ -42,10 +41,26 @@ const SubscribedCommunitiesContainer = styled.div`
     font-size: 20px;
     height: 100%;
 `
+const SubscribedCommunitiesFooter = styled.div`
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+`
 
 const StyledLink = styled(Link)`
     color: white;
     position: relative;
+    margin-top: 15px;
+    cursor: pointer;
+    :hover {
+        color: #FF0000;
+        cursor: pointer;
+    }
+`
+
+const CreateCommunityLink = styled(Link)`
+    font-size: 25px;
+    color: white;
     margin-top: 15px;
     cursor: pointer;
     :hover {
