@@ -5,7 +5,7 @@ import Modal from 'react-modal';
 
 const ProfileCard = (user) => {
 
-    console.log(user)
+
     const [modalIsOpen, setIsOpen] = useState(false);
     const [bio, setBio] = useState(user.user[0].bio);
     const [avatar, setAvatar] = useState(user.user[0].avatar);
@@ -14,10 +14,10 @@ const ProfileCard = (user) => {
 
     const updateBio = (e) => {
         e.preventDefault()
-        console.log(newBio)
         setBio(newBio)
+        setIsOpen(false);
         let updateObj = { bio: newBio };
-        console.log(newBio);
+
         fetch(`http://localhost:3025/api/bio/${user.user[0].id}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },

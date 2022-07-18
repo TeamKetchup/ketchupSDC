@@ -19,13 +19,13 @@ function SignUpPage({ user }) {
   };
 
   const handlePassword = (value) => {
-     setPassword(value);
-     console.log(password);
+    setPassword(value);
+    console.log(password);
   }
 
   const handleValidatePassword = (value) => {
-     setValidatePassword(value);
-     console.log(validatePassword);
+    setValidatePassword(value);
+    console.log(validatePassword);
   }
 
   const sumbitProfile = async (file, username, password, newBio) => {
@@ -46,39 +46,40 @@ function SignUpPage({ user }) {
         <Header2>Please Enter The Required Fields</Header2>
         <CreateAccountForm>
           <Input
-               onChange={(e) => {
-               handleUserName(e.target.value);
-               }}
-               id="username-create"
-               type="text"
-               placeholder="Pick a User Name, No Spaces"
+            onChange={(e) => {
+              handleUserName(e.target.value);
+            }}
+            id="username-create"
+            type="text"
+            placeholder="Pick a User Name, No Spaces"
           />
-          <Input 
-               onChange={(e) => {handlePassword(e.target.value)}} 
-               id="password-create" type="password" 
-               placeholder="Password" />
           <Input
-               onChange={(e) => {handleValidatePassword(e.target.value)}}
-               id="password-validate"
-               type="password"
-               placeholder="Verify Password"
+            onChange={(e) => { handlePassword(e.target.value) }}
+            id="password-create" type="password"
+            placeholder="Password" />
+          <Input
+            onChange={(e) => { handleValidatePassword(e.target.value) }}
+            id="password-validate"
+            type="password"
+            placeholder="Verify Password"
           />
           <Header3>Select an Image for Your Avatar:</Header3>
           <HeaderDropZone images={images} setImages={setImages} />
           <Header4>Enter a bio for your profile:</Header4>
           <BioInput
-               type="text"
-               required
-               value={newBio}
-               onChange={(e) => setNewBio(e.target.value)}
+            type="text"
+            required
+            value={newBio}
+            onChange={(e) => setNewBio(e.target.value)}
           />
           <ButtonContainer>
             <Button
               onClick={(e) => {
                 e.preventDefault();
                 if (password === validatePassword) {
-                    sumbitProfile(images[0], userName, password, newBio);
-              }}}
+                  sumbitProfile(images[0], userName, password, newBio);
+                }
+              }}
             >
               Submit
             </Button>
