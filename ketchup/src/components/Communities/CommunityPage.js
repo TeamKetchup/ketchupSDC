@@ -2,7 +2,7 @@ import SubscribedCommunities from "../ProfilePage/SubscribedCommunities";
 import styled from 'styled-components';
 import { useParams } from "react-router";
 import { useState, useEffect } from "react";
-import Posts from "../Posts_Comments/Posts";
+import Posts from "../Posts_Comments/All_Posts/Posts";
 
 
 
@@ -13,6 +13,7 @@ const CommunityPage = (communities) => {
     console.log(communities.communities);
     const { id } = useParams();
     const [singleCommunity, setSingleCommunity] = useState(null);
+    const [searchPosts, setPosts] = useState(null)
 
     useEffect(() => {
         fetchCommunityPage();
@@ -33,7 +34,15 @@ const CommunityPage = (communities) => {
         }
     }
 
-
+    // function loadCommunityPosts() {
+ 
+    
+    //     setLoadingMessage("App is Loading");
+    //     fetch(`http://localhost:3025/api/posts/${id}`)
+    //       .then((response) => response.json())
+    //       .then((data) => setPosts(data));
+    //     setLoading(false);
+    //   }
 
     return (
         <>

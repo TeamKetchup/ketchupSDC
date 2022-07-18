@@ -76,18 +76,7 @@ app.post("/api/createprofile", upload.single("file"), async function (req, res, 
 //     res.sendFile(path.join("./my-app/public"));
 //   });
 
-app.get("/api/products", async (_, res) => {
-  try {
-    await db.query("SELECT * FROM products", (error, results) => {
-      console.log(results);
-      res.status(200).json(results.rows);
-    });
-  } catch (error) {
-    console.error(error.message);
-  }
-});
-
-app.get("/api/users", async (_, res) => {
+app.get("/api/users", async (req, res) => {
   try {
     await db.query("SELECT * FROM users", (error, results) => {
       console.log(results);
@@ -97,9 +86,19 @@ app.get("/api/users", async (_, res) => {
     console.error(error.message);
   }
 });
-// app.get('/', function (req, res) {
-//     res.sendFile(path.join("./my-app/public"));
-// });
+
+app.delete("/api/delete_user/:id", async (req, res) => {
+  try {
+      const id = req.params.id
+      await db.query(
+          'DELETE FROM users WHERE id = $1', [id], (err, results) => {
+           res.status(200).send(`user was deleted`)
+   })
+   } catch (error) {
+      console.error(error.message)
+   }
+});
+
 app.get("/api/login/:username/:password", async (req, res) => {
   try {
     // const {username, password} = req.body
@@ -162,8 +161,8 @@ app.get("/api/products", async (_, res) => {
     app.get("/api/user_posts/:id", async (req, res) => {
 
         try {
-            const id = req.body.users_id
-            console.log(req.params.users_id)
+            const id = req.params.id
+            console.log(req.users_id)
             await db.query('SELECT * FROM posts WHERE users_id = $1', [id], (error, results) => {
                 console.log(results) 
                 res.status(200).json(results.rows)
@@ -173,6 +172,31 @@ app.get("/api/products", async (_, res) => {
         }
       });
       
+      app.get("/api/allposts", async (req, res) => {
+        try {
+            await db.query('SELECT * FROM posts INNER JOIN users ON posts.users_id = users.id', (error, results) => {
+                console.log(req) 
+                res.status(200).json(results.rows)
+            })
+        } catch (error) {
+            console.error(error.message)
+        }
+      });
+      
+
+      //Get Community Posts
+      app.get("/api/community_posts/:id", async (req, res) => {
+
+        try {
+            const id = req.params.id
+                await db.query('SELECT * FROM posts WHERE users_id = $1', [id], (error, results) => {
+                console.log(results) 
+                res.status(200).json(results.rows)
+            })
+        } catch (error) {
+            console.error(error.message)
+        }
+      });
     // Create POST
   app.post("/api/create_post", async (req, res) => {
     try {

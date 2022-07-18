@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import avatar from './icons/avatar.png';
-import {FaShare, FaBookmark, FaFlag} from 'react-icons/fa'
+// import avatar from '../icons/avatar';
 import {BiLike, BiDislike, BiCommentAdd} from 'react-icons/bi'
 import { Link } from "react-router-dom"
 
@@ -26,7 +25,7 @@ function PostsItem({
           className="subreddit-name"
           href="/posts/" 
         >
-          <HeaderImg src={avatar} alt="image" />
+          <HeaderImg src={img} alt="image" />
         </a>
         <h1>{post_header}</h1>
         <div></div>

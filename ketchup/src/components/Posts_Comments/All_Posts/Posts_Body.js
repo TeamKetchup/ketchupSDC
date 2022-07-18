@@ -2,7 +2,7 @@ import React from "react";
 import styled from 'styled-components';
 import PostsItem from "./PostsItem";
 
-function Posts_Body({searchPosts}) {
+function Posts_Body({searchPosts, user}) {
   console.log(searchPosts)
   return (
     <PostContent className="post-content">
@@ -12,6 +12,7 @@ function Posts_Body({searchPosts}) {
         {searchPosts.map((data, index) => (
             <PostsItem
 
+              
               key={index}
               id={data.id}
               post_header={data.post_header}

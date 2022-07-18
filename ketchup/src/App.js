@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LogInPage from './components/LogInSignUp/LogInPage';
 import SignUpPage from './components/LogInSignUp/SignUpPage';
 import ProfilePage from './components/ProfilePage/ProfilePage';
-import Posts from './components/Posts_Comments/Posts';
+import Posts from './components/Posts_Comments/All_Posts/Posts';
 import LandingPage from './components/landingPage';
 import Header from './components/Header/header';
 import { useState, useEffect } from 'react';
@@ -63,7 +63,7 @@ function App() {
             <Routes>
               <Route path='/' element={<LogInPage setUser={setUser} />} />
               <Route path='/signuppage' element={<SignUpPage user={user} />} />
-              <Route path='/posts' element={<Posts />}/>
+              <Route path='/posts' element={<Posts user={user}/>}/>
               <Route path='/createpost' element={<CreatePost />}/>
             </Routes>
           </>
@@ -79,7 +79,7 @@ function App() {
               } />
               <Route path='/loginpage' element={<LogInPage />} />
               <Route path='/signuppage' element={<SignUpPage user={user} />} />
-              <Route path='/posts' element={<Posts />}/>
+              <Route path='/posts' element={<Posts user={user}/>}/>
               {/* <Route path='/' element={<HomePage />} /> */}
               {/* <Route path='/community' element={<Community />}/> */}
               <Route path='/userprofile' element={
