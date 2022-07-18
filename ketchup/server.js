@@ -202,13 +202,8 @@ app.get("/api/products", async (_, res) => {
     // Create POST
   app.post("/api/create_post", async (req, res) => {
     try {
-<<<<<<< HEAD
-        const {post_header, post_body,media,date,users_id,community_id} = req.body
-        await db.query('INSERT INTO posts (post_header, post_body,media,date,users_id,community_id) VALUES ($1, $2, $3, $4, $5, $6)', [post_header, post_body,media,date,users_id,community_id], (error, results) => {
-=======
         const {post_header, post_body,img,video,date,users_id,community_id} = req.body
         await db.query('INSERT INTO posts (post_header, post_body,img,video,date,users_id,community_id) VALUES ($1, $2, $3, $4, $5, $6, $7)', [post_header, post_body,img,video,date,users_id,community_id], (error, results) => {
->>>>>>> 18cb4a5e006d5b25b7388c8d5977b042c13aca78
         console.log(req.body)
             res.status(200).send(`post was added`)
 
