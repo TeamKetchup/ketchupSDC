@@ -28,7 +28,7 @@ function SignUpPage({ user }) {
      console.log(validatePassword);
   }
 
-  const sumbitProfile = async (file, username, password, newBio) => {
+  const submitProfile = async (file, username, password, newBio) => {
     const formData = new FormData();
     formData.append("username", username);
     formData.append("password", password);
@@ -77,7 +77,7 @@ function SignUpPage({ user }) {
               onClick={(e) => {
                 e.preventDefault();
                 if (password === validatePassword) {
-                    sumbitProfile(images[0], userName, password, newBio);
+                    submitProfile(images[0], userName, password, newBio);
               }}}
             >
               Submit

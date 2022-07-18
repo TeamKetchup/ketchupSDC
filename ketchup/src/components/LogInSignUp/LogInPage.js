@@ -4,7 +4,7 @@ import Logo from './image-removebg-preview.png'
 import '../../index.css'
 import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const customStyles = {
@@ -22,9 +22,16 @@ const customStyles = {
      },
 };
 
+
 Modal.setAppElement('#root');
 
-function LogInPage({ setUser }) {
+function LogInPage({ setUser, setLoading }) {
+     useEffect(() => {
+          const currentUser = localStorage.getItem('currentUser');
+          if(currentUser !== null){
+               setUser(JSON.parse(currentUser));
+          }
+     });
      
      const [usernameInput, setUserNameInput] = useState('');
      const [passwordInput, setPasswordInput] = useState('');
@@ -38,8 +45,16 @@ function LogInPage({ setUser }) {
                password: passwordInput
           }
 
-          await axios.post('http://localhost:3025/api/login/', data)
-          .then((res) => console.log(res))
+          let returnedData = await axios.post('http://localhost:3025/api/login/', data)
+          // .then((res) => localStorage.setItem("currentUser",JSON.stringify([res.data])))
+          // .then((res) => setUser([res.data]))
+          localStorage.setItem("currentUser",JSON.stringify([returnedData.data]));
+          setUser([returnedData.data])
+          setLoading(false)
+
+          // .then((res) => localStorage.setItem('user', JSON.stringify([res.data])))
+          
+          // .then((data) => console.log(data))
                // .map((userData) => (
                // {
                //      id: userData.id,
@@ -48,7 +63,6 @@ function LogInPage({ setUser }) {
                //      bio: userData.bio,
                //      username: userData.username
                // }
-          .catch((error) => console.log(error))
      }
 
 

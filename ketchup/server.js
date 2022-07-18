@@ -16,56 +16,74 @@ const LocalStrategy = require("passport-local").Strategy;
 
 app.use(passport.initialize());
 
-passport.use(new PassportLocal.Strategy({
-    username: 'username',
-}, async (username, password, done) => {
-    try {
-        let findUser = await db.query(`SELECT * FROM users WHERE username = '${username}';`)
+passport.use(
+  new PassportLocal.Strategy(
+    {
+      username: "username",
+    },
+    async (username, password, done) => {
+      try {
+        let findUser = await db.query(
+          `SELECT * FROM users WHERE username = '${username}';`
+        );
         let user;
-        if(findUser.rows.length > 0){
-            user = findUser.rows[0];
+        if (findUser.rows.length > 0) {
+          user = findUser.rows[0];
         } else {
-            user = undefined;
+          user = undefined;
+          return done({ Error: "No user exists." });
         }
-        await bcrypt.compare(password, findUser.rows[0].password, (err, res) => {
-            if (err) { return done(err); }
-            if (!user) { return done(null, false); }
-            if (res === false) { return done(null, false); }
-            return done(null, user);
-            
-            })
-    } catch (error) {
-        done(error)
+        await bcrypt.compare(
+          password,
+          findUser.rows[0].password,
+          (err, res) => {
+            if (err) {
+              return done(err);
+            }
+            if (res === false) {
+              return done(null, false);
+            } else {
+              return done(null, user);
+            }
+          }
+        );
+      } catch (error) {
+        done(error);
+      }
+      passport.serializeUser(function (user, done) {
+        done(null, user.id);
+      });
+
+      passport.deserializeUser(async function (id, done) {
+        await db.query(`SELECT * FROM users WHERE id = ${id};`)(id, function (err, user) {
+          done(err, user);
+        });
+      });
     }
-    passport.serializeUser(function(user, done) {
-        done(null, user);
-      });
-    passport.deserializeUser(function(user, done) {
-        done(null, user);
-      });
-}))
+  )
+);
 
 // app.use(cors({
-//     origin: "https://localhost:3000",
+//     origin: "*",
 //     credentials: true
 // }));
 
 app.use(cors());
 
-app.use(expressSession({
-    secret: 'secret',
+app.use(
+  expressSession({
+    secret: "secret",
     resave: true,
-    saveUninitialized: true
-}));
+    saveUninitialized: true,
+  })
+);
 
-app.use(cookieParser('secret'));
+app.use(cookieParser("secret"));
 
 app.use(express.json());
 
 // app.use(express.static(path.join(__dirname, 'build')));
 app.use(express.static("public"));
-
-
 
 const s3 = new AWS.S3({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
@@ -106,19 +124,26 @@ const deleteFile = (objectName) => {
 
 const upload = multer();
 
-app.post("/api/createprofile", upload.single("file"), async function (req, res, next) {
-    try{
-        const fileName = `avatar${Math.floor(Math.random() * 100000)}${req.file.originalname}`
-        req.file.originalname = fileName;
-        uploadFile(req.file.originalname, req.file.buffer);
-        const returnedURL = `https://teamketchupv2.s3.amazonaws.com/${req.file.originalname}`
-        const hashedPassword = await bcrypt.hash(req.body.password, 10);
-        await db.query(`INSERT INTO users (username, password, avatar, banner, bio) VALUES ('${req.body.username}', '${hashedPassword}', '${returnedURL}', '${returnedURL}', '${req.body.bio}');`);
-        res.json('Success')
+app.post(
+  "/api/createprofile",
+  upload.single("file"),
+  async function (req, res, next) {
+    try {
+      const fileName = `avatar${Math.floor(Math.random() * 100000)}${
+        req.file.originalname
+      }`;
+      req.file.originalname = fileName;
+      uploadFile(req.file.originalname, req.file.buffer);
+      const returnedURL = `https://teamketchupv2.s3.amazonaws.com/${req.file.originalname}`;
+      const hashedPassword = await bcrypt.hash(req.body.password, 10);
+      await db.query(
+        `INSERT INTO users (username, password, avatar, banner, bio) VALUES ('${req.body.username}', '${hashedPassword}', '${returnedURL}', '${returnedURL}', '${req.body.bio}');`
+      );
+      res.json("Success");
     } catch (error) {
-        if(error){
-            res.json(error)
-        }
+      if (error) {
+        res.json(error);
+      }
     }
   }
 );
@@ -170,133 +195,166 @@ app.get("/api/users", async (_, res) => {
 //     }
 // })
 
-app.post('/api/login', 
-  passport.authenticate('local', { failureRedirect: '/' }),
-  function(req, res) {
-    console.log(res)
-    // res.redirect('/profilepage', {
-    //     username: 'bsshapiro'
-    // })
-  });
+app.post("/api/login", (req, res, next) =>
+  passport.authenticate("local", function (err, user, info) {
+    if (err) {
+      return next(err);
+    }
+
+    // req / res held in closure
+    req.logIn(user, function (err) {
+      if (err) {
+        return res.json(err);
+      } 
+      if (user){
+        console.log(user)
+        res.send(user); 
+      }
+    });
+  })(req, res, next)
+);
+
+app.get("/", function (req, res){
+    res.json('An error has occurred.')
+})
 
 app.get("/api/products", async (_, res) => {
-    try {
-        await db.query('SELECT * FROM products', (error, results) => {
-            console.log(results)
-            res.status(200).json(results.rows)
-        })
-    } catch (error) {
-        console.error(error.message)
-    }
+  try {
+    await db.query("SELECT * FROM products", (error, results) => {
+      console.log(results);
+      res.status(200).json(results.rows);
+    });
+  } catch (error) {
+    console.error(error.message);
+  }
 });
 
 app.get("/api/all", async (_, res) => {
-    // const id = req.params.id
-    try {
-        await db.query('SELECT * FROM images INNER JOIN products ON images.product_id = products.id', (error, results) => {
-
-            res.status(200).json(results.rows)
-        })
-    } catch (error) {
-        console.error(error.message)
-    }
+  // const id = req.params.id
+  try {
+    await db.query(
+      "SELECT * FROM images INNER JOIN products ON images.product_id = products.id",
+      (error, results) => {
+        res.status(200).json(results.rows);
+      }
+    );
+  } catch (error) {
+    console.error(error.message);
+  }
 });
 
 app.get("/api/products/:id", async (req, res) => {
-    const id = req.params.id
-    try {
-        await db.query('SELECT * FROM images INNER JOIN products ON images.product_id = products.id WHERE product_id = $1', [id], (error, results) => {
-
-            res.status(200).json(results.rows)
-        })
-    } catch (error) {
-        console.error(error.message)
-    }
+  const id = req.params.id;
+  try {
+    await db.query(
+      "SELECT * FROM images INNER JOIN products ON images.product_id = products.id WHERE product_id = $1",
+      [id],
+      (error, results) => {
+        res.status(200).json(results.rows);
+      }
+    );
+  } catch (error) {
+    console.error(error.message);
+  }
 });
 
 app.get("/api/profileinfo/:id", async (req, res) => {
-    const id = req.params.id;
-    try {
-        await db.query('SELECT * FROM users WHERE id = $1', [id], (error, results) => {
-
-            res.status(200).json(results.rows)
-        })
-    } catch (error) {
-        console.error(error.message)
-    }
+  const id = req.params.id;
+  try {
+    await db.query(
+      "SELECT * FROM users WHERE id = $1",
+      [id],
+      (error, results) => {
+        res.status(200).json(results.rows);
+      }
+    );
+  } catch (error) {
+    console.error(error.message);
+  }
 });
 
 app.get("/api/allcommunities", async (req, res) => {
-    const id = req.params.id;
-    try {
-        await db.query('SELECT * FROM community', (error, results) => {
-
-            res.status(200).json(results.rows)
-        })
-    } catch (error) {
-        console.error(error.message)
-    }
+  const id = req.params.id;
+  try {
+    await db.query("SELECT * FROM community", (error, results) => {
+      res.status(200).json(results.rows);
+    });
+  } catch (error) {
+    console.error(error.message);
+  }
 });
 
 app.get("/api/subscribedcommunities/:id", async (req, res) => {
-    const id = req.params.id;
-    try {
-        await db.query('SELECT * FROM community WHERE users_id = $1', [id], (error, results) => {
-
-            res.status(200).json(results.rows)
-        })
-    } catch (error) {
-        console.error(error.message)
-    }
+  const id = req.params.id;
+  try {
+    await db.query(
+      "SELECT * FROM community WHERE users_id = $1",
+      [id],
+      (error, results) => {
+        res.status(200).json(results.rows);
+      }
+    );
+  } catch (error) {
+    console.error(error.message);
+  }
 });
 
 //update Bio
 app.patch("/api/bio/:id", async (req, res) => {
-    try {
-        let client = await db.connect();
-        const { bio } = req.body;
-        const currentBio = await db.query('SELECT * FROM users WHERE id = $1', [req.params.id]);
-        const bioObj = {
-            bio: bio || currentBio.rows[0].bio
-        }
-        const updatedBio = await db.query('UPDATE users SET bio = $1 WHERE id = $2 RETURNING *', [bioObj.bio, req.params.id]);
-        res.send(updatedBio.rows[0]);
-        client.release()
-    } catch (error) {
-        res.send(error.message);
-    }
-})
+  try {
+    let client = await db.connect();
+    const { bio } = req.body;
+    const currentBio = await db.query("SELECT * FROM users WHERE id = $1", [
+      req.params.id,
+    ]);
+    const bioObj = {
+      bio: bio || currentBio.rows[0].bio,
+    };
+    const updatedBio = await db.query(
+      "UPDATE users SET bio = $1 WHERE id = $2 RETURNING *",
+      [bioObj.bio, req.params.id]
+    );
+    res.send(updatedBio.rows[0]);
+    client.release();
+  } catch (error) {
+    res.send(error.message);
+  }
+});
 
 //get community info
 app.get("/community/:community", async (req, res) => {
-
-    try {
-        let client = await db.connect();
-        const communityName = req.params.community;
-        await db.query('SELECT * FROM community WHERE name = $1', [communityName], (error, results) => {
-
-            res.status(200).json(results.rows)
-            client.release()
-        })
-    } catch (error) {
-        console.error(error.message)
-    }
+  try {
+    let client = await db.connect();
+    const communityName = req.params.community;
+    await db.query(
+      "SELECT * FROM community WHERE name = $1",
+      [communityName],
+      (error, results) => {
+        res.status(200).json(results.rows);
+        client.release();
+      }
+    );
+  } catch (error) {
+    console.error(error.message);
+  }
 });
 
 //create community
 app.post("/api/postcommunity", async (req, res) => {
-    try {
-        let client = await db.connect();
-        const { name, category, banner, users_id } = req.body;
-        const { rows } = await db.query('INSERT INTO community (name, category, banner, users_id) VALUES($1, $2, $3, $4) RETURNING*', [name, category, banner, users_id]);
-        res.send({ data: (rows), message: "New community has been created" });
-        console.log({ rows });
-        client.release()
-    } catch (error) {
-        res.send(error.message);
-    }
-})
-
+  try {
+    let client = await db.connect();
+    const { name, category, banner, users_id } = req.body;
+    const { rows } = await db.query(
+      "INSERT INTO community (name, category, banner, users_id) VALUES($1, $2, $3, $4) RETURNING*",
+      [name, category, banner, users_id]
+    );
+    res.send({ data: rows, message: "New community has been created" });
+    console.log({ rows });
+    client.release();
+  } catch (error) {
+    res.send(error.message);
+  }
+});
 
 app.get("/api/all", async (_, res) => {
   // const id = req.params.id

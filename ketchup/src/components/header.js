@@ -4,7 +4,7 @@ import './header.css'
 
 import Logo from './LogInSignUp/image-removebg-preview.png'
 
-const Header = ({user}) => {
+const Header = ({user, setUser}) => {
     let [login,setLogin] = useState({href: '/loginpage', li: 'Login/Signin'})
     // let [user, setUser] = useState()
     // function userlogin(){
@@ -24,8 +24,11 @@ const Header = ({user}) => {
 
           <div className='avaterusernameContainer'>
             <Link to='/userprofile'>
-                <img className='headerAvatar' src={user[0].avatar}></img>
+                <img alt="" className='headerAvatar' src={user[0].avatar}></img>
                 <h1>@{user[0].username}</h1>
+            </Link>
+            <Link to='/'>
+            <button className="logout" onClick={()=>{setUser(false); localStorage.clear()}}>Logout</button>
             </Link>
           </div>
               {/* <li className='active'><Link to='/loginpage'>{login.li}</Link></li> */}
