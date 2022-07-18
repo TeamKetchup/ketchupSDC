@@ -46,7 +46,7 @@ const CommunityPage = (communities) => {
             <CommunityContainer>
 
                 <PostContainer>
-                    <Posts />
+                    <Posts communityid={id}/>
                 </PostContainer>
                 <CardContainer>
                     <SubscribedCommunities communities={communities.communities} />
