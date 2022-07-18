@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import avatar from "./joshua.png";
+import avatar from './icons/avatar.png';
 import {FaShare, FaBookmark, FaFlag} from 'react-icons/fa'
 import {BiHide} from 'react-icons/bi'
 
@@ -9,11 +9,14 @@ function PostsItem({
   id,
   post_header,
   post_body,
-  media,
+  img,
+  video,
   date,
   user_id,
   community_id,
 }) {
+
+  console.log(img, video)
   return (
     <PostItemContainer className="post-1" key={id}>
       <HeaderContainer className='postheader'>
@@ -25,12 +28,15 @@ function PostsItem({
           <HeaderImg src={avatar} alt="image" />
         </a>
         <h1>{post_header}</h1>
-        <div></div>
+        <div>
+          
+        </div>
       </HeaderContainer >
       <PBodyContainer>
         {post_body}
         <PostMediaContainer>
-      <Img className="post-img" src={media}/>
+      <Img className="post-img" src={`${img}`}/>
+      <Video controls className="post-video" src={`${video}`}/>
       </PostMediaContainer>
       </PBodyContainer>
       
@@ -125,6 +131,12 @@ font-size: 20px;
 
 `
 const Img = styled.img`
+max-width:100%;
+max-height:100%;
+
+`
+
+const Video = styled.video`
 max-width:100%;
 max-height:100%;
 

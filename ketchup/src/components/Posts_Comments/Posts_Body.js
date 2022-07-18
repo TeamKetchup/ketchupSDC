@@ -16,7 +16,8 @@ function Posts_Body({searchPosts}) {
               id={data.id}
               post_header={data.post_header}
               post_body={data.post_body}
-              media={data.media}
+              img={data.img}
+              video={data.video}
               date={data.date}
               user_id={data.user_id}
               community_id={data.community_id}

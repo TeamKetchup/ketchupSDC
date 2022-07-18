@@ -2,6 +2,7 @@ import SubscribedCommunities from "../ProfilePage/SubscribedCommunities";
 import styled from 'styled-components';
 import { useParams } from "react-router";
 import { useState, useEffect } from "react";
+import Posts from "../Posts_Comments/Posts";
 
 
 
@@ -45,7 +46,7 @@ const CommunityPage = (communities) => {
             <CommunityContainer>
 
                 <PostContainer>
-
+                    <Posts />
                 </PostContainer>
                 <CardContainer>
                     <SubscribedCommunities communities={communities.communities} />

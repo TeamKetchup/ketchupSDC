@@ -8,11 +8,12 @@ import SignUpPage from './components/LogInSignUp/SignUpPage';
 import ProfilePage from './components/ProfilePage/ProfilePage';
 import Posts from './components/Posts_Comments/Posts';
 import LandingPage from './components/landingPage';
-import Header from './components/header';
+import Header from './components/Header/header';
 import { useState, useEffect } from 'react';
 import CommunityPage from './components/Communities/CommunityPage';
 import CreateCommunity from './components/Communities/CreateCommunity';
 import Register from "./components/LogInSignUp/Register";
+import CreatePost from "./components/Posts_Comments/CreatePost";
 
 
 
@@ -64,6 +65,8 @@ function App() {
               <Route path='/' element={<LogInPage setUser={setUser} />} />
               <Route path='/signuppage' element={<SignUpPage user={user} />} />
               <Route path='/register' element={<Register user={user} setUser={setUser}/>} />
+              <Route path='/posts' element={<Posts />}/>
+              <Route path='/createpost' element={<CreatePost />}/>
             </Routes>
           </>
 

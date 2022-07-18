@@ -96,6 +96,7 @@ function LogInPage({ setUser }) {
                          <LogInPageBtn>Sign Up</LogInPageBtn>
                     </Link>
                </LogInBtnContainer>
+               
 
           </div>
      )
