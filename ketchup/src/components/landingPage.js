@@ -22,8 +22,6 @@ const landingPage = ({ communities, user }) => {
           <SubscribedCommunities communities={communities} />
         </CommunityContainer>
       </PageContainer>
-
-
     </>
 
   )

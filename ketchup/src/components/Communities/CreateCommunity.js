@@ -40,8 +40,6 @@ const CreateCommunity = (user) => {
 
         <CreateCommunityContainer>
             <FormContainer>
-
-
                 <HeaderContainer>
                     <Header1>To Create A Community</Header1>
                     <Header2>Please Enter The Required Fields</Header2>
@@ -68,8 +66,6 @@ const CreateCommunity = (user) => {
                         placeholder='Enter Image URL for banner..'
                         onChange={(e) => setNewBanner(e.target.value)}
                     />
-                    {/* <BannerDropZone /> */}
-
                     <ButtonContainer>
                         <Button type="submit">Submit</Button>
                         <Link to='/'>
