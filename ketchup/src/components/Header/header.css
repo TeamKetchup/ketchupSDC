@@ -3,7 +3,7 @@
     color: #FF0000;
     display: flex;
     justify-content: space-between;
-    align-items: stretch;
+    align-items: center;
     gap: 2rem;
     padding: 0 1rem;
     font-family: 'Oswald', sans-serif;
@@ -24,12 +24,16 @@
     list-style: none;
     display: flex;
     gap: 1rem;
+    align-self: center;
+    align-items: center;
   }
-  .navBar li.active{
-    background-color: #393939;
-  }
-  .navBar li:hover{
-    background-color: #525151;
+ 
+
+  .navBar li{
+    text-align: center;
+    font-size: 1.5rem;
+    
+    
   }
   
   .logo{
@@ -47,7 +51,7 @@
   /* .navBar input{
     padding: 0;
     height: 2rem;
-    width: 40%;
+    width: 37%;
     display: flex;
     align-self: center;
     border-radius: 5px;
@@ -59,7 +63,7 @@
   width: 5rem;
   position: absolute;
   top: 2.4%;
-  left: 28%;
+  left: 27%;
   justify-content: center;
   align-items: center;
   align-content: center;
@@ -87,20 +91,8 @@
   /* animation: floating 3s ease-in-out infinite; */
 }
 
-.navBar button:hover {
-  background-color: #FF0000;
-  transform: scale(1.1);
-  color: white;
-  border-radius: 999px;
-  cursor: pointer;
-}
-  .navBar button:hover{
-    background-color: #FF0000;
-    transform: scale(1.1);
-    color: white;
-     border-radius: 999px;
-    cursor: pointer;
-  }
+
+  
   body{
     background-color: black;
   }
@@ -117,22 +109,7 @@
     align-items: center;
   }
   
-.inputContainer{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 1000px;
-}
 
-.headerInput{
-  width: 500px;
-  height: 35px;
-  font-size: 17px;
-  border-radius: 5px;
-  border: 0;
-}
 
-.headerInput:focus-within{
-  box-shadow: 0 0px 4px 4px red;
-  outline: 0;
-}
+
+
