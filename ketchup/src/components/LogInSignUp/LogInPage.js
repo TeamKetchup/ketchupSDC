@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
 import { useState } from 'react';
 
+
 const customStyles = {
      overlay: {
           backgroundColor: 'rgba(0,0,0,.4)',
@@ -108,6 +109,7 @@ function LogInPage({ setUser }) {
                          <LogInPageBtn>Sign Up</LogInPageBtn>
                     </Link>
                </LogInBtnContainer>
+               
 
           </div>
      )
