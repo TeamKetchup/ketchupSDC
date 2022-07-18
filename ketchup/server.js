@@ -311,12 +311,26 @@ app.get("/api/subscribedcommunities/:id", async (req, res) => {
 
 
 //get community info
-app.get("/community/:community", async (req, res) => {
-
+app.get("/community/:id", async (req, res) => {
   try {
     let client = await db.connect();
-    const communityName = req.params.community;
-    await db.query('SELECT * FROM community WHERE name = $1', [communityName], (error, results) => {
+    const id = req.params.id;
+    await db.query('SELECT * FROM community WHERE id = $1', [id], (error, results) => {
+
+      res.status(200).json(results.rows)
+      client.release()
+    })
+  } catch (error) {
+    console.error(error.message)
+  }
+});
+
+//get community posts
+app.get("/community/posts/:id", async (req, res) => {
+  try {
+    let client = await db.connect();
+    const id = req.params.id;
+    await db.query('SELECT * FROM posts WHERE community_id = $1', [id], (error, results) => {
 
       res.status(200).json(results.rows)
       client.release()
