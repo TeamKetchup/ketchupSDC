@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 import { useState, useEffect } from "react";
 import Posts_Body from "../Posts_Comments/Posts_Body";
 import CommunityPosts from "../Posts_Comments/CommunityPosts";
+import Posts from "../Posts_Comments/Posts";
 
 
 

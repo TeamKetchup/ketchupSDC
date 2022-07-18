@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './header.css'
+import SearchBar from './searchBar';
 
-import Logo from './LogInSignUp/image-removebg-preview.png'
+import Logo from '../LogInSignUp/image-removebg-preview.png'
 
 const Header = ({user}) => {
     let [login,setLogin] = useState({href: '/loginpage', li: 'Login/Signin'})
@@ -10,20 +11,17 @@ const Header = ({user}) => {
     // function userlogin(){
 
     // }
-    console.log(user[0])
+    // console.log(user[0])
   return (
       <>
       <nav className='navBar'>
         
           <Link to='/' className='
           logo'> <img src={Logo}/> KETCHUP</Link>
-          <div className='inputContainer'>
-            <button>search</button>
-            <input className='headerInput' type='text'></input>
-          </div>
+          <SearchBar />
 
           <div className='avaterusernameContainer'>
-            <Link to='/userprofile'>
+            <Link to='/userprofile' >
                 <img className='headerAvatar' src={user[0].avatar}></img>
                 <h1>@{user[0].username}</h1>
             </Link>
