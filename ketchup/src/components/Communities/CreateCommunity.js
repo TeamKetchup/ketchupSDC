@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 import BannerDropZone from '../LogInSignUp/BannerDropZone';
 import { useState } from "react";
 import { Link } from 'react-router-dom';
+import axios from "axios";
 
 Modal.setAppElement('#root');
 
@@ -12,27 +13,38 @@ const CreateCommunity = (user) => {
     const [newCategory, setNewCategory] = useState('');
     const [newBanner, setNewBanner] = useState('');
     const [userID, setUserId] = useState(user.user[0].id);
+    const [images, setImages] = useState([])
     const [isLoading, setIsLoading] = useState(false);
 
 
-    const createCommunity = (e) => {
-        e.preventDefault();
-        let postObj = {
-            name: newCommunity,
-            category: newCategory,
-            banner: newBanner,
-            users_id: userID
-        }
-        setIsLoading(true);
-        console.log(postObj)
-        fetch(`http://localhost:3025/api/postcommunity`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(postObj)
-        }).then(() => {
-            setIsLoading(false)
-            console.log('Community Created')
-        })
+    // const createCommunity = (e) => {
+    //     e.preventDefault();
+    //     let postObj = {
+    //         name: newCommunity,
+    //         category: newCategory,
+    //         banner: newBanner,
+    //         users_id: userID
+    //     }
+    //     setIsLoading(true);
+    //     console.log(postObj)
+    //     fetch(`http://localhost:3025/api/postcommunity`, {
+    //         method: 'POST',
+    //         headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify(postObj)
+    //     }).then(() => {
+    //         setIsLoading(false)
+    //         console.log('Community Created')
+    //     })
+    // }
+
+    const submitCommunity = async (file, newCommunity, category, users_id) => {
+        const formData = new FormData();
+        formData.append("name", newCommunity);
+        formData.append("category", category);
+        formData.append("file", file);
+        formData.append("users_id", users_id);
+        await axios.post("http://localhost:3025/api/createcommunity", formData);
+        console.log('Community created')
     }
 
 
@@ -44,7 +56,7 @@ const CreateCommunity = (user) => {
                     <Header1>To Create A Community</Header1>
                     <Header2>Please Enter The Required Fields</Header2>
                 </HeaderContainer>
-                <CreateCommunityForm onSubmit={createCommunity}>
+                <CreateCommunityForm >
                     <Input
                         type='text'
                         required
@@ -59,25 +71,26 @@ const CreateCommunity = (user) => {
                         placeholder='Enter Community Category..'
                         onChange={(e) => setNewCategory(e.target.value)}
                     />
-                    <Input
+                    <Header3>Select an Image for Community Banner:</Header3>
+                    <BannerDropZone images={images} setImages={setImages} />
+                    {/* <Input
                         type='text'
                         required
                         value={newBanner}
                         placeholder='Enter Image URL for banner..'
                         onChange={(e) => setNewBanner(e.target.value)}
-                    />
+                    /> */}
                     <ButtonContainer>
-                        <Button type="submit">Submit</Button>
+                        <Button onClick={(e) => {
+                            e.preventDefault();
+                            submitCommunity(images[0], newCommunity, newCategory, userID);
+                        }}>Submit</Button>
                         <Link to='/'>
                             <Button>Cancel</Button>
                         </Link>
                     </ButtonContainer>
-
                 </CreateCommunityForm>
-
             </FormContainer>
-
-
         </CreateCommunityContainer >
 
     );
@@ -129,6 +142,12 @@ const Header2 = styled.h2`
     color: gray;
     font-family: 'Oswald', sans-serif;
     margin: 0;
+`
+const Header3 = styled.h3`
+    color: #FF0000;
+    font-family: 'Oswald', sans-serif;
+    margin-top: 5px;
+    margin-bottom: -5px;
 `
 
 const ButtonContainer = styled.div`

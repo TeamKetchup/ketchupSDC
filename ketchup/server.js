@@ -285,7 +285,7 @@ app.patch("/api/bio/:id", async (req, res) => {
 // =========================STARTS COMMUNITY SECTION=======================================
 
 app.get("/api/allcommunities", async (req, res) => {
-  const id = req.params.id;
+
   try {
     await db.query('SELECT * FROM community', (error, results) => {
 
@@ -340,19 +340,37 @@ app.get("/community/posts/:id", async (req, res) => {
   }
 });
 
-//create community
-app.post("/api/postcommunity", async (req, res) => {
+// //create community
+// app.post("/api/postcommunity", async (req, res) => {
+//   try {
+//     let client = await db.connect();
+//     const { name, category, banner, users_id } = req.body;
+//     const { rows } = await db.query('INSERT INTO community (name, category, banner, users_id) VALUES($1, $2, $3, $4) RETURNING*', [name, category, banner, users_id]);
+//     res.send({ data: (rows), message: "New community has been created" });
+//     console.log({ rows });
+//     client.release()
+//   } catch (error) {
+//     res.send(error.message);
+//   }
+// })
+
+//create community - using S3 bucket
+app.post("/api/createcommunity", upload.single("file"), async function (req, res, next) {
   try {
-    let client = await db.connect();
-    const { name, category, banner, users_id } = req.body;
-    const { rows } = await db.query('INSERT INTO community (name, category, banner, users_id) VALUES($1, $2, $3, $4) RETURNING*', [name, category, banner, users_id]);
-    res.send({ data: (rows), message: "New community has been created" });
-    console.log({ rows });
-    client.release()
+    const fileName = `banner${Math.floor(Math.random() * 100000)}${req.file.originalname}`
+    req.file.originalname = fileName;
+    uploadFile(req.file.originalname, req.file.buffer);
+    const returnedURL = `https://teamketchupv2.s3.amazonaws.com/${req.file.originalname}`
+    console.log(req.body)
+    await db.query(`INSERT INTO community (name, category, banner, users_id) VALUES ('${req.body.name}', '${req.body.category}', '${returnedURL}', '${req.body.users_id}');`);
+    res.json('Success')
   } catch (error) {
-    res.send(error.message);
+    if (error) {
+      res.json(error)
+    }
   }
-})
+}
+);
 
 // =========================ENDS COMMUNITY SECTION=======================================
 

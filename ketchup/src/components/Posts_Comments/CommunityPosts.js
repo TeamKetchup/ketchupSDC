@@ -2,7 +2,7 @@ import Posts_Body from "./Posts_Body";
 import styled from 'styled-components';
 
 const CommunityPosts = (posts) => {
-    console.log(posts.posts)
+    // console.log(posts.posts)
     return (
         <CommunityPostsContainer>
             <Posts_Body searchPosts={posts.posts} />
