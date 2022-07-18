@@ -28,7 +28,9 @@ function PostsItem({
           <HeaderImg src={avatar} alt="image" />
         </a>
         <h1>{post_header}</h1>
-        <div></div>
+        <div>
+          
+        </div>
       </HeaderContainer >
       <PBodyContainer>
         {post_body}

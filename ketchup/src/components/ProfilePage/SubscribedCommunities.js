@@ -15,6 +15,7 @@ const SubscribedCommunities = (props) => {
             ))}
             <SubscribedCommunitiesFooter>
                 <CreateCommunityLink to={`/createcommunity`}>Create Community</CreateCommunityLink>
+                
             </SubscribedCommunitiesFooter>
 
         </SubscribedCommunitiesContainer>

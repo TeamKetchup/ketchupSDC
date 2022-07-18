@@ -13,6 +13,7 @@ import { useState, useEffect } from 'react';
 import CommunityPage from './components/Communities/CommunityPage';
 // import usePersistedState from 'use-persisted-state-hook'
 import CreateCommunity from './components/Communities/CreateCommunity';
+import CreatePost from "./components/Posts_Comments/CreatePost";
 
 
 
@@ -63,6 +64,7 @@ function App() {
               <Route path='/' element={<LogInPage setUser={setUser} />} />
               <Route path='/signuppage' element={<SignUpPage user={user} />} />
               <Route path='/posts' element={<Posts />}/>
+              <Route path='/createpost' element={<CreatePost />}/>
             </Routes>
           </>
 
