@@ -4,6 +4,8 @@ import Logo from './image-removebg-preview.png'
 import '../../index.css'
 import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
+import { useState } from 'react';
+
 
 const customStyles = {
      overlay: {
@@ -22,9 +24,31 @@ const customStyles = {
 
 Modal.setAppElement('#root');
 
-function LogInPage() {
-     let subtitle;
+function LogInPage({ setUser }) {
+     
+     const [usernameInput, setUserNameInput] = useState('');
+     const [passwordInput, setPasswordInput] = useState('');
      const [modalIsOpen, setIsOpen] = React.useState(false);
+     let subtitle;
+
+     const logIn = async (e) => {
+          e.preventDefault()
+
+          await fetch(`http://localhost:3025/api/login/${usernameInput}/${passwordInput}`)
+          .then((res) => res.json())
+          .then((data) => setUser(data)
+               // .map((userData) => (
+               // {
+               //      id: userData.id,
+               //      avatar: userData.avatar,
+               //      banner: userData.banner,
+               //      bio: userData.bio,
+               //      username: userData.username
+               // }
+          )
+          .catch((error) => console.log(error))
+     }
+
 
      function openModal() {
           setIsOpen(true);
@@ -59,13 +83,24 @@ function LogInPage() {
                     >
                          <InnerModalContainer>
                               <ModalHeader ref={(_subtitle) => (subtitle = _subtitle)}>Log In</ModalHeader>
-                              <ModalForm>
-                                   <InputContainer>
-                                        <Input type='text' placeholder='Enter User Name' />
-                                        <Input type='password' placeholder='Enter Password' />
-                                   </InputContainer>
+                              <ModalForm onSubmit={logIn}>
+                                   {/* <InputContainer> */}
+                                        <Input 
+                                             type='text' 
+                                             placeholder='Enter User Name'
+                                             value={usernameInput}
+                                             onChange={(e) => setUserNameInput(e.target.value)} 
+                                        />
+                                        <Input 
+                                             type='password' 
+                                             placeholder='Enter Password' 
+                                             value={passwordInput}
+                                             onChange={(e) => setPasswordInput(e.target.value)}
+                                        />
+                                        <ModalSubmitBtn type='submit'></ModalSubmitBtn>
+                                   {/* </InputContainer> */}
                               </ModalForm>
-                              <ModalBtn>Submit</ModalBtn>
+                              {/* <ModalBtn>Submit</ModalBtn> */}
                               <ModalBtn onClick={closeModal}>Cancel</ModalBtn>
                          </InnerModalContainer>
 
@@ -74,6 +109,7 @@ function LogInPage() {
                          <LogInPageBtn>Sign Up</LogInPageBtn>
                     </Link>
                </LogInBtnContainer>
+               
 
           </div>
      )
@@ -174,7 +210,10 @@ const InnerModalContainer = styled.div`
      width: 350px;
 `
 const ModalForm = styled.form`
-
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     flex-direction: column;
 `
 
 const Input = styled.input`
@@ -183,6 +222,11 @@ const Input = styled.input`
      width: 270px;
      font-size: 17px;
      border-radius: 5px;
+     border: 0;
+     :focus-within{
+          box-shadow: 0 0px 4px 4px red;
+          outline: 0;
+     }
 `
 
 const InputContainer = styled.div`
@@ -220,5 +264,31 @@ const ModalBtn = styled.button`
 
 const ModalHeader = styled.h1`
      font-family: 'Oswald', sans-serif;
-     padding-bottom: 15px;
+     padding-bottom: 5px;
+`
+
+const ModalSubmitBtn = styled.input`
+  display: flex;
+  box-shadow: 0px 5px 17px -7px rgba(0, 0, 0, 0.75);
+  height: 40px;
+  width: 180px;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  margin: auto;
+  font-family: 'Pacifico', cursive;
+  font-size: 25px;
+  border: transparent;
+  background-color: white;
+  border-radius: 999px;
+  margin: 10px;
+  /* animation: floating 3s ease-in-out infinite; */
+  :hover {
+     background-color: #FF0000;
+     transform: scale(1.1);
+     color: white;
+      border-radius: 999px;
+     cursor: pointer;
+     }
+
 `

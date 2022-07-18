@@ -3,20 +3,21 @@ import styled from 'styled-components';
 import Modal from 'react-modal';
 
 
-const ProfileCard = (userInfo) => {
+const ProfileCard = (profileInfo) => {
 
     const [modalIsOpen, setIsOpen] = useState(false);
-    const [bio, setBio] = useState(userInfo.userInfo.bio);
-    const [avatar, setAvatar] = useState(userInfo.userInfo.avatar);
-    const [userName, setUserName] = useState(userInfo.userInfo.username);
+    const [bio, setBio] = useState(profileInfo.profileInfo[0].bio);
+    const [avatar, setAvatar] = useState(profileInfo.profileInfo[0].avatar);
+    const [userName, setUserName] = useState(profileInfo.profileInfo[0].username);
     const [newBio, setNewBio] = useState('');
 
     const updateBio = async (e) => {
+        e.preventDefault()
         console.log(newBio)
         setBio(newBio)
         let updateObj = { bio: newBio };
         console.log(newBio);
-        fetch(`http://localhost:3000/api/bio/1`, {
+        fetch(`http://localhost:3025/api/bio/1`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updateObj)
@@ -59,7 +60,7 @@ const ProfileCard = (userInfo) => {
                 isOpen={modalIsOpen}
                 style={customStyles}
             >
-                <form onSubmit={updateBio}>
+                <form onSubmit={updateBio} >
                     <label>Update Bio: </label>
                     <BioInput
                         type="text"
@@ -92,7 +93,7 @@ const ProfileCardContainer = styled.div`
     font-size: 18px;
     color: white;
     margin: 80px;
-    font-family: 'oswald, san serif'
+    font-family: 'oswald, san serif';
 `
 
 const ProfileCardHeader = styled.div`

@@ -6,7 +6,8 @@ import HeaderDropZone from './HeaderDropZone';
 import Logo from './image-removebg-preview.png';
 
 
-function SignUpPage() {
+function SignUpPage({ user }) {
+     console.log(user)
      return (
           <div className='signUpPage'>
                <SignUpContainer>
@@ -28,11 +29,11 @@ function SignUpPage() {
                          />
                          <Header3>Select an Image for Your Avatar:</Header3>
                          <HeaderDropZone />
-                         <Header3>Select an Image for Your Profile Banner:</Header3>
-                         <BannerDropZone />
+                         {/* <Header3>Select an Image for Your Profile Banner:</Header3> */}
+                         {/* <BannerDropZone /> */}
                          <ButtonContainer>
                               <Button>Submit</Button>
-                              <Link to='/loginpage'>
+                              <Link to='/'>
                                    <Button>Cancel</Button>
                               </Link>
                          </ButtonContainer>
@@ -54,7 +55,7 @@ const SignUpContainer = styled.div`
      border-radius: 8px;
      background-color: #393939;
      height: auto;
-     width: 500px;
+     width: 475px;
      padding-bottom: 15px;
 `
 const KetchupLogo = styled.img`
@@ -111,7 +112,7 @@ const Input = styled.input`
 const Header3 = styled.h3`
      color: #FF0000;
      font-family: 'Oswald', sans-serif;
-     margin: 0;
+     margin-bottom: -5px;
 `
 const ButtonContainer = styled.div`
      display: flex;
