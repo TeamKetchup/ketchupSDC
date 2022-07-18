@@ -1,30 +1,16 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
 import styled from 'styled-components';
 import Logo from './image-removebg-preview.png'
 import '../../index.css'
 import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
-import { useState } from 'react';
-
-const customStyles = {
-     overlay: {
-          backgroundColor: 'rgba(0,0,0,.4)',
-     },
-     content: {
-          top: '50%',
-          left: '50%',
-          right: 'auto',
-          bottom: 'auto',
-          marginRight: '-50%',
-          transform: 'translate(-50%, -50%)',
-          backgroundColor: '#F1F2F5',
-     },
-};
+import AuthContext from '../../context/AuthProvider';
 
 Modal.setAppElement('#root');
 
 function LogInPage({ setUser }) {
      
+     const { setAuth } = useContext(AuthContext);
      const [usernameInput, setUserNameInput] = useState('');
      const [passwordInput, setPasswordInput] = useState('');
      const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -88,13 +74,15 @@ function LogInPage({ setUser }) {
                                              type='text' 
                                              placeholder='Enter User Name'
                                              value={usernameInput}
-                                             onChange={(e) => setUserNameInput(e.target.value)} 
+                                             onChange={(e) => setUserNameInput(e.target.value)}
+                                             required 
                                         />
                                         <Input 
                                              type='password' 
                                              placeholder='Enter Password' 
                                              value={passwordInput}
                                              onChange={(e) => setPasswordInput(e.target.value)}
+                                             required
                                         />
                                         <ModalSubmitBtn type='submit'></ModalSubmitBtn>
                                    {/* </InputContainer> */}
@@ -114,6 +102,21 @@ function LogInPage({ setUser }) {
 }
 
 export default LogInPage;
+
+const customStyles = {
+     overlay: {
+          backgroundColor: 'rgba(0,0,0,.4)',
+     },
+     content: {
+          top: '50%',
+          left: '50%',
+          right: 'auto',
+          bottom: 'auto',
+          marginRight: '-50%',
+          transform: 'translate(-50%, -50%)',
+          backgroundColor: '#F1F2F5',
+     },
+};
 
 const HeaderLogoContainer = styled.div`
      display: flex;
@@ -216,11 +219,13 @@ const ModalForm = styled.form`
 
 const Input = styled.input`
      margin: 10px 0px;
-     height: 35px;
+     height: 40px;
      width: 270px;
      font-size: 17px;
      border-radius: 5px;
      border: 0;
+     font-family: 'Oswald', sans-serif;
+     font-size: 21px;
      :focus-within{
           box-shadow: 0 0px 4px 4px red;
           outline: 0;

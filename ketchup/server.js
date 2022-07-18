@@ -1,18 +1,26 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
+const path = require('path');
 const db = require("./db/conn");
 const cors = require("cors");
 const AWS = require("aws-sdk");
 const fs = require("fs");
 const multer = require("multer");
 const multerS3 = require("multer-s3");
+const credentials = require('./middleware/credentials');
+const corsOptions = require("./config/corsOptions");
 
-app.use(cors());
+app.use(credentials);
+
+app.use(cors(corsOptions));
+
+// app.use(express.urlencoded({ extended: false }));
 
 app.use(express.json())
+app.use(express.static(path.join(__dirname, 'public')));
 // app.use(express.static(path.join(__dirname, 'build')));
-app.use(express.static("public"));
+// app.use(express.static("public"));
 
 
 
@@ -87,6 +95,7 @@ app.get("/api/products", async (_, res) => {
   }
 });
 
+// get all users
 app.get("/api/users", async (_, res) => {
   try {
     await db.query("SELECT * FROM users", (error, results) => {
@@ -97,6 +106,23 @@ app.get("/api/users", async (_, res) => {
     console.error(error.message);
   }
 });
+
+//get one user
+app.get("/api/login/:username", async (req, res) => {
+  try {
+    const username = req.params.username
+    const data = await db
+      .query('SELECT username FROM users WHERE username = $1', [
+        username
+      ])
+    res.send(data.rows)
+    console.log(data.rows)
+  } catch (error) {
+    console.log(error.message)
+  }
+})
+
+
 // app.get('/', function (req, res) {
 //     res.sendFile(path.join("./my-app/public"));
 // });
@@ -355,7 +381,7 @@ app.post("/api/postcommunity", async (req, res) => {
   } catch (error) {
     res.send(error.message);
   }
-})
+});
 
 
 app.get("/api/all", async (_, res) => {

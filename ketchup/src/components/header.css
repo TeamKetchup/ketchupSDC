@@ -111,6 +111,21 @@
     margin-right: 15px;
   }
 
+  .headerUsername{
+    font-family: 'Pacifico', cursive;
+    font-size: 27px;
+    color: white;
+    text-shadow: 
+    #FFF 0px 0px 5px, 
+    #FF0000 0px 0px 10px, 
+    #FF0000 0px 0px 15px, 
+    #FF0000 0px 0px 20px, 
+    #FF0000 0px 0px 30px, 
+    #FF0000 0px 0px 40px, 
+    #FF0000 0px 0px 50px, 
+    #FF0000 0px 0px 75px; 
+  }
+
   .avaterusernameContainer{
     display: flex;
     justify-content: center;

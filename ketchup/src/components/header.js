@@ -25,7 +25,7 @@ const Header = ({user}) => {
           <div className='avaterusernameContainer'>
             <Link to='/userprofile'>
                 <img className='headerAvatar' src={user[0].avatar}></img>
-                <h1>@{user[0].username}</h1>
+                <h1 className='headerUsername'>{user[0].username}</h1>
             </Link>
           </div>
               {/* <li className='active'><Link to='/loginpage'>{login.li}</Link></li> */}

@@ -63,21 +63,50 @@ const Register = ({ user, setUser }) => {
       }, [pwd, matchPwd])
   
       //error message 
-      //anytime user changes the state of username, password or match massword
+      //anytime user changes the state of username, password or match password
       //it will clear the error message from displaying
       useEffect(() => {
           setErrMsg('');
       }, [userName, pwd, matchPwd])
 
       const submitProfile = async (file, username, password, newBio) => {
-          const formData = new FormData();
-          formData.append("username", username);
-          formData.append("password", password);
-          formData.append("file", file);
-          formData.append("bio", newBio);
-          await axios.post("http://localhost:3025/api/createprofile", formData);
-          console.log('user created')
-        };
+          
+          try{
+               const response = await axios.get(`http://localhost:3025/api/login/${userName}`)
+               // .then((res) => 
+               if(response.data.length === 0){
+                    // setErrMsg('User name is not taken')
+                    const formData = new FormData();
+                    formData.append("username", username);
+                    formData.append("password", password);
+                    formData.append("file", file);
+                    formData.append("bio", newBio);
+                    try{
+                       const response = await axios.post("http://localhost:3025/api/createprofile", formData, {
+                         headers: { 'Content-Type': 'application/json' },
+                         withCredentials: true
+                       }
+                       );
+                       setSuccess(true);
+                       console.log('user created')
+                    } catch (err){
+                         if(!err?.response){
+                              setErrMsg('No Server Response');
+                         } else if (err.response?.status === 409) {
+                              setErrMsg('Oof, that user name is taken.');
+                         } else {
+                              setErrMsg('Registration failed please try again.')
+                         }
+                         errRef.current.focus();
+                    }
+               } else {
+                    setErrMsg('Oof, that user name is already taken.')
+               }
+          }catch (err){
+               console.log(err)
+          }
+
+     };
 
   return (
   <>
@@ -85,7 +114,7 @@ const Register = ({ user, setUser }) => {
           <div className='register'>
                <SuccessHeader>Woo Hoo! Your account has been created!</SuccessHeader>
                <SuccessLogo src={DancingTomato}></SuccessLogo>
-               <Button>Return To Log In Page</Button>
+               <Link to='/'><Button>Return To Log In Page</Button></Link>
           </div>
      ) : ( 
      
@@ -218,7 +247,7 @@ const Register = ({ user, setUser }) => {
                               //      return;
                               // }
                               submitProfile(images[0], userName, pwd, newBio);
-                              setSuccess(true)
+                              // setSuccess(true)
                          }}
                     >
                          Submit
@@ -285,6 +314,8 @@ const P = styled.p`
      font-size: 15px;
      width: 350px;
      margin-left: 15px;
+     margin-bottom: 10px;
+     margin-top: -5px;
 `
 
 const RegisterTitle = styled.h1`
@@ -397,6 +428,15 @@ const BioInput = styled.textarea`
 
 const SuccessHeader = styled.h1`
      color: white;
+     text-shadow: 
+     #FFF 0px 0px 5px, 
+     #FF0000 0px 0px 10px, 
+     #FF0000 0px 0px 15px, 
+     #FF0000 0px 0px 20px, 
+     #FF0000 0px 0px 30px, 
+     #FF0000 0px 0px 40px, 
+     #FF0000 0px 0px 50px, 
+     #FF0000 0px 0px 75px; 
 `
 
 const SuccessLogo = styled.img`

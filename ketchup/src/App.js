@@ -11,7 +11,6 @@ import LandingPage from './components/landingPage';
 import Header from './components/header';
 import { useState, useEffect } from 'react';
 import CommunityPage from './components/Communities/CommunityPage';
-// import usePersistedState from 'use-persisted-state-hook'
 import CreateCommunity from './components/Communities/CreateCommunity';
 import Register from "./components/LogInSignUp/Register";
 
@@ -30,6 +29,7 @@ function App() {
   // const [currentuser, setCurrentUser] = usePersistedState('currentuser',[])
   const [profileInfo, setProfileInfo] = useState(false);
   const [subscribedCommunities, setsubscribedCommunities] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // console.log(user[0])
   useEffect(() => {
@@ -68,40 +68,49 @@ function App() {
           </>
 
         ) : (
-          <>
-            {user && <Header user={user} />}
-            <Routes>
-              <Route path='/' element={
-                <>
-                  {subscribedCommunities && user && <LandingPage communities={subscribedCommunities} user={user} />}
-                </>
-              } />
-              <Route path='/loginpage' element={<LogInPage />} />
-              <Route path='/signuppage' element={<SignUpPage user={user} />} />
-              <Route path='/posts' element={<Posts />}/>
-              {/* <Route path='/' element={<HomePage />} /> */}
-              {/* <Route path='/community' element={<Community />}/> */}
-              <Route path='/userprofile' element={
-                <>
-                  {/* {profileInfo && subscribedCommunities && user && <Header user={user} />} */}
-                  {subscribedCommunities && <ProfilePage user={user} subscribedCommunities={subscribedCommunities} />}
-                </>
+              // <>
+              //   {loading === true ? (
+              //     <>
+              //       <div>loading...</div>
+              //     </>
+              //   ) : (
+                  <>
+                    {user && <Header user={user} />}
+                    <Routes>
+                    <Route path='/' element={
+                    <>
+                     {subscribedCommunities && user && <LandingPage communities={subscribedCommunities} user={user} />}
+                    </>
+                  } />
+                <Route path='/loginpage' element={<LogInPage />} />
+                <Route path='/signuppage' element={<SignUpPage user={user} />} />
+                <Route path='/posts' element={<Posts />}/>
+                {/* <Route path='/' element={<HomePage />} /> */}
+                {/* <Route path='/community' element={<Community />}/> */}
+                <Route path='/userprofile' element={
+                  <>
+                    {/* {profileInfo && subscribedCommunities && user && <Header user={user} />} */}
+                    {subscribedCommunities && <ProfilePage user={user} subscribedCommunities={subscribedCommunities} />}
+                  </>
 
-              } />
-              <Route exact path={`/createcommunity`} element={
-                <CreateCommunity />
-              }
-              />
-              <Route path={`/community/:id`} element={
-                <>
-                  {/* {user && <Header user={user}/>} */}
-                  {subscribedCommunities && <CommunityPage communities={subscribedCommunities} />}
-                </>
-              }
-              />
+                } />
+                <Route exact path={`/createcommunity`} element={
+                 <CreateCommunity />
+                }
+                />
+                <Route path={`/community/:id`} element={
+                  <>
+                    {/* {user && <Header user={user}/>} */}
+                    {subscribedCommunities && <CommunityPage communities={subscribedCommunities} />}
+                  </>
+                }
+                />
 
-            </Routes>
-          </>
+                </Routes>
+                
+                </>
+              //   )}
+              // </>
         )}
 
       </div>
