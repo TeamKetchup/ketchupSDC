@@ -7,6 +7,7 @@ import Modal from 'react-modal';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
+
 const customStyles = {
      overlay: {
           backgroundColor: 'rgba(0,0,0,.4)',
@@ -125,6 +126,7 @@ function LogInPage({ setUser, setLoading }) {
                          <LogInPageBtn>Sign Up</LogInPageBtn>
                     </Link>
                </LogInBtnContainer>
+               
 
           </div>
      )

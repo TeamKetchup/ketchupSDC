@@ -8,7 +8,7 @@ import SignUpPage from './components/LogInSignUp/SignUpPage';
 import ProfilePage from './components/ProfilePage/ProfilePage';
 import Posts from './components/Posts_Comments/Posts';
 import LandingPage from './components/landingPage';
-import Header from './components/header';
+import Header from './components/Header/header';
 import { useState, useEffect } from 'react';
 import CommunityPage from './components/Communities/CommunityPage';
 // import usePersistedState from 'use-persisted-state-hook'
