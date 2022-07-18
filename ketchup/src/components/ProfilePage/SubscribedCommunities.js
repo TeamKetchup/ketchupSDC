@@ -6,13 +6,17 @@ const SubscribedCommunities = (props) => {
     // console.log(props.communities)
     return (
         <SubscribedCommunitiesContainer>
-        <SubscribedCommunitiesBanner>
-            <h4>Communities</h4>
-        </SubscribedCommunitiesBanner>
-            
+            <SubscribedCommunitiesBanner>
+                <h4>Communities</h4>
+            </SubscribedCommunitiesBanner>
+
             {props.communities.map((community) => (
                 <StyledLink to={`/community/${community.name}`} key={community.id}>{community.name}</StyledLink>
             ))}
+            <SubscribedCommunitiesFooter>
+                <CreateCommunityLink to={`/createcommunity`}>Create Community</CreateCommunityLink>
+            </SubscribedCommunitiesFooter>
+
         </SubscribedCommunitiesContainer>
     );
 }
@@ -25,24 +29,37 @@ const SubscribedCommunitiesContainer = styled.div`
     background-color: #393939;
     width: 300px;
     height: 300px;
-    /* min-width: 13%;
-    min-height: 350px; */
     border-radius: 15px;
     padding: 20px;
     padding-top: 0;
-    /* width: 50%; */
-    /* height: 100%; */
     font-size: 18px;
     color: white;
     margin-top: 20px;
     font-family: 'oswald, san serif';
     font-weight: bold;
     font-size: 20px;
+    height: 100%;
+`
+const SubscribedCommunitiesFooter = styled.div`
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
 `
 
 const StyledLink = styled(Link)`
     color: white;
     position: relative;
+    margin-top: 15px;
+    cursor: pointer;
+    :hover {
+        color: #FF0000;
+        cursor: pointer;
+    }
+`
+
+const CreateCommunityLink = styled(Link)`
+    font-size: 25px;
+    color: white;
     margin-top: 15px;
     cursor: pointer;
     :hover {
@@ -60,8 +77,8 @@ const SubscribedCommunitiesBanner = styled.div`
     width: 300px;
     height: 100px;
     border-radius: 15px 15px 0px 0px;
-    background: rgb(0,0,0);
-    background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(209,44,44,1) 55%, rgba(255,0,0,1) 100%);
+    background: rgb(57,57,57);
+    background: linear-gradient(0deg, rgba(57,57,57,1) 0%, rgba(209,44,44,1) 43%, rgba(255,0,0,1) 100%);
     h4{
         margin: 0;
         font-family: 'Pacifico', cursive;

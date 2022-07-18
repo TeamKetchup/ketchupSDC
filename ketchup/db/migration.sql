@@ -41,6 +41,7 @@ CREATE TABLE subscriptions(
 
 CREATE TABLE posts(
    id SERIAL PRIMARY KEY NOT NULL,
+   post_header TEXT NOT NULL,
    post_body TEXT NOT NULL,
    media TEXT NULL,
    date timestamp with time zone NOT NULL,

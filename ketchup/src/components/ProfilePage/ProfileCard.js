@@ -3,21 +3,22 @@ import styled from 'styled-components';
 import Modal from 'react-modal';
 
 
-const ProfileCard = (profileInfo) => {
+const ProfileCard = (user) => {
 
+    console.log(user)
     const [modalIsOpen, setIsOpen] = useState(false);
-    const [bio, setBio] = useState(profileInfo.profileInfo[0].bio);
-    const [avatar, setAvatar] = useState(profileInfo.profileInfo[0].avatar);
-    const [userName, setUserName] = useState(profileInfo.profileInfo[0].username);
+    const [bio, setBio] = useState(user.user[0].bio);
+    const [avatar, setAvatar] = useState(user.user[0].avatar);
+    const [userName, setUserName] = useState(user.user[0].username);
     const [newBio, setNewBio] = useState('');
 
-    const updateBio = async (e) => {
+    const updateBio = (e) => {
         e.preventDefault()
         console.log(newBio)
         setBio(newBio)
         let updateObj = { bio: newBio };
         console.log(newBio);
-        fetch(`http://localhost:3025/api/bio/1`, {
+        fetch(`http://localhost:3025/api/bio/${user.user[0].id}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updateObj)
@@ -84,11 +85,12 @@ const ProfileCardContainer = styled.div`
     display: flex;
     flex-direction: column;
     background-color: #393939;
+    align-items: center;
     min-width: 13%;
     min-height: 350px;
     border-radius: 25px;
-    padding: 20px;
-    width: 50%;
+    /* padding: 20px; */
+    width: 300px;
     /* height: 100%; */
     font-size: 18px;
     color: white;
@@ -98,10 +100,20 @@ const ProfileCardContainer = styled.div`
 
 const ProfileCardHeader = styled.div`
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-bottom: 30px;
+    justify-self: center;
+    align-self: center;
+    justify-content: space-evenly;
     align-items: center;
+    width: 300px;
+    height: 100px;
+    border-radius: 15px 15px 0px 0px;
+    background: rgb(57,57,57);
+    background: linear-gradient(0deg, rgba(57,57,57,1) 0%, rgba(209,44,44,1) 43%, rgba(255,0,0,1) 100%);
+    h4{
+        margin: 0;
+        font-family: 'Pacifico', cursive;
+        font-size: 45px;
+    }
 `
 
 const ProfileAvatar = styled.img`
@@ -116,6 +128,7 @@ const ProfileName = styled.h3`
 `
 
 const Bio = styled.p`
+    margin-top: 20px;
     text-align: center;
     max-width: 90%;
     padding-bottom: 150px;
