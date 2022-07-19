@@ -1,10 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react'
 import styled from 'styled-components';
-import Logo from "./image-removebg-preview.png";
-import DancingTomato from "./dancingtomato.gif"
-import Check from "./checkmark.png";
-import Xmark from "./xmark.png";
-import Info from "./info.svg.png"
+import Logo from "./images/image-removebg-preview.png";
+import DancingTomato from "./images/dancingtomato.gif"
+import Check from "./images/checkmark.png";
+import Xmark from "./images/xmark.png";
+import Info from "./images/info.svg.png"
 import { Link } from 'react-router-dom';
 import HeaderDropZone from "./HeaderDropZone";
 import axios from "axios";

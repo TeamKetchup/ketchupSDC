@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
 import styled from 'styled-components';
-import Logo from './image-removebg-preview.png'
+import Logo from './images/image-removebg-preview.png'
 import '../../index.css'
 import { Link } from 'react-router-dom';
 import Modal from 'react-modal';

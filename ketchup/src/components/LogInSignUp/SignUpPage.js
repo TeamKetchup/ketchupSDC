@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import HeaderDropZone from "./HeaderDropZone";
-import Logo from "./image-removebg-preview.png";
+import Logo from "./images/image-removebg-preview.png";
 import axios from "axios";
 import { useState } from "react";
 

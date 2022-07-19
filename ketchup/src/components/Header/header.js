@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './header.css'
 import SearchBar from './searchBar';
 
-import Logo from '../LogInSignUp/image-removebg-preview.png'
+import Logo from '../LogInSignUp/images/image-removebg-preview.png'
 
 const Header = ({user}) => {
     let [login,setLogin] = useState({href: '/loginpage', li: 'Login/Signin'})

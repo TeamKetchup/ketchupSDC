@@ -1,9 +1,8 @@
 .landing{
     display: flex;
     justify-content: center;
-    align-items: center;
-    
-    
+    align-items: start;
+    overflow: hidden;
 }
 .landingPageUserPosts {
     background-color: #393939;
@@ -24,11 +23,15 @@
     padding: 5px;
 }
 
+.landingright {
+    top: 5px;
+}
 
 .communities{
    
-    display: flex;
-    justify-content: flex-start;
+    /* display: flex;
+    justify-content: flex-start; */
+    top: 10px;
     /* position: absolute; */
     /* right: 5%;
     top: 5.3rem;  */

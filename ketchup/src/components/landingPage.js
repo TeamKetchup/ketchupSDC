@@ -16,9 +16,14 @@ const landingPage = ({ communities, user }) => {
     <>
     {/* <Header user={user}/> */}
     <div className='landing'>
+      <div className='landingleft'>
         <Posts />
-    <div className='communities'>
-        <SubscribedCommunities communities={communities} />
+      </div>  
+    <div className='landingright'>
+      <div className='communities'>
+      <SubscribedCommunities communities={communities} />
+      </div>
+        
         {/* <div>
         <h2>Communities</h2>
         <hr></hr>
