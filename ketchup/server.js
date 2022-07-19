@@ -75,7 +75,7 @@ app.use(credentials);
 
 app.use(cors(corsOptions));
 
-// app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false }));
 
 app.use(express.json())
 app.use(express.static(path.join(__dirname, 'public')));
@@ -276,6 +276,18 @@ app.patch("/api/bio/:id", async (req, res) => {
   }
 })
 
+app.delete("/api/delete", async (req, res) => {
+  try {
+    const {userid} = req.body;
+    const {rows} = await db
+    .query('DELETE FROM users WHERE id = $1;', [userid])
+    res.send({rows}.rows)
+    console.log({rows}.rows)
+    console.log('The user has been been deleted')
+  } catch (error) {
+    console.error(error.message)
+  }
+});
 // //get user posts
 app.get("/user/posts/:id", async (req, res) => {
   try {
@@ -289,6 +301,7 @@ app.get("/user/posts/:id", async (req, res) => {
     console.error(error.message)
   }
 });
+
 
 // =========================ENDS PROFILE SECTION=======================================
 
@@ -590,7 +603,7 @@ app.patch("/api/bio/:id", async (req, res) => {
   } catch (error) {
     res.send(error.message);
   }
-})
+});
 
 //get community info
 app.get("/community/:community", async (req, res) => {
