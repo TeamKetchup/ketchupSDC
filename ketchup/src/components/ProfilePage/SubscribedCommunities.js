@@ -15,7 +15,7 @@ const SubscribedCommunities = (props) => {
             ))}
             <SubscribedCommunitiesFooter>
                 <CreateCommunityLink to={`/createcommunity`}>Create Community</CreateCommunityLink>
-                
+
             </SubscribedCommunitiesFooter>
 
         </SubscribedCommunitiesContainer>
@@ -39,7 +39,6 @@ const SubscribedCommunitiesContainer = styled.div`
     font-family: 'oswald, san serif';
     font-weight: bold;
     font-size: 20px;
-    
 `
 const SubscribedCommunitiesFooter = styled.div`
     display: flex;
