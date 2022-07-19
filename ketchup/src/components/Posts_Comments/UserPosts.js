@@ -1,4 +1,4 @@
-import PostsBody from "./All_Posts/Posts_Body";
+import Posts_Body from "./All_Posts/Posts_Body";
 import styled from 'styled-components';
 
 const UserPosts = (posts) => {
