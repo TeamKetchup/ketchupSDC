@@ -1,31 +1,31 @@
 import React from 'react'
 import axios from 'axios'
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import {GoSearch} from 'react-icons/go'
+import { GoSearch } from 'react-icons/go'
 import "./searchbar.css"
 
 function SearchBar() {
     const [comName, setComName] = useState(null)
     const [load, setLoad] = useState(true)
     const [filterData, setFilterData] = useState([])
-    const [inputVal , setInputVal] = useState([])
+    const [inputVal, setInputVal] = useState([])
     useEffect(() => {
         getCom()
-        
-    },[])
+
+    }, [])
 
     const getCom = () => {
         axios.get('http://localhost:3025/api/allcommunities')
-        .then((response) => {
-            setComName(response.data.map((value) =>{
-                return value.name
-             }))
-            setLoad(false)
-            
-        }
+            .then((response) => {
+                setComName(response.data.map((value) => {
+                    return value.name
+                }))
+                setLoad(false)
+
+            }
             );
-            
+
 
     };
     const handleChange = (e) => {
@@ -55,15 +55,13 @@ if(load === true){
             <input type='text' value={inputVal} onChange={handleChange}  />
             <div className='searchIcon'><GoSearch/></div>
         </div>
-
-         
-                    {filterData.length !== 0 && (
-                        <div className={inputVal ? 'dataResult' : 'hide'}>{filterData.map((value) => {
-                             return( <Link className='dataItem' to={`/community/${value}`}>{value}</Link>
-                             )        
-                            })}
-                        </div>
-                    )}
+            {filterData.length !== 0 && (
+                <div className={inputVal ? 'dataResult' : 'hide'}>{filterData.map((value) => {
+                    return( <Link className='dataItem' to={`/community/${value}`}>{value}</Link>
+                        )        
+                    })}
+                </div>
+            )}
                 
         
 

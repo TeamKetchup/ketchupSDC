@@ -13,21 +13,14 @@ import { useState, useEffect } from 'react';
 import CommunityPage from './components/Communities/CommunityPage';
 import CreateCommunity from './components/Communities/CreateCommunity';
 import Register from "./components/LogInSignUp/Register";
+import loadingGif from "./components/LogInSignUp/loading.gif"
 import CreatePost from "./components/Posts_Comments/CreatePost";
 
 
 
 function App() {
-  // const sumbitAvatar = async (file) => {
 
-  //   const formData = new FormData();
-  //   formData.append("file", file);
-  //   await axios.post("http://localhost:3025/api/postimage", formData);
-  // }
-  // const [community, setCommunity] = useState(null);
-  //fetch request for a join table between community/posts/comments table
   const [user, setUser] = useState('')
-  // const [currentuser, setCurrentUser] = usePersistedState('currentuser',[])
   const [profileInfo, setProfileInfo] = useState(false);
   const [subscribedCommunities, setsubscribedCommunities] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -36,7 +29,7 @@ function App() {
   useEffect(() => {
     // fetchProfileInfo();
     fetchsubscribedCommunities();
-  }, []);
+  }, [])
 
   const fetchsubscribedCommunities = async () => {
     try {
@@ -52,17 +45,15 @@ function App() {
       console.log(error);
     }
   }
-
   return (
-      <BrowserRouter>
+    <BrowserRouter>
       <div className="App">
-      
+
 
         {!user ? (
           <>
-            {/* <LogInPage setUser={setUser}/> */}
             <Routes>
-              <Route path='/' element={<LogInPage setUser={setUser} />} />
+              <Route path='/' element={<LogInPage setLoading={setLoading} setUser={setUser} />} />
               <Route path='/signuppage' element={<SignUpPage user={user} />} />
               <Route path='/register' element={<Register user={user} setUser={setUser}/>} />
               <Route path='/posts' element={<Posts />}/>
@@ -71,43 +62,33 @@ function App() {
           </>
 
         ) : (
-              // <>
-              //   {loading === true ? (
-              //     <>
-              //       <div>loading...</div>
-              //     </>
-              //   ) : (
-                  <>
-                    {user && <Header user={user} />}
-                    <Routes>
-                    <Route path='/' element={
-                    <>
-                     {subscribedCommunities && user && <LandingPage communities={subscribedCommunities} user={user} />}
-                    </>
-                  } />
-                <Route path='/loginpage' element={<LogInPage />} />
-                <Route path='/signuppage' element={<SignUpPage user={user} />} />
-                <Route path='/posts' element={<Posts />}/>
-                {/* <Route path='/' element={<HomePage />} /> */}
-                {/* <Route path='/community' element={<Community />}/> */}
-                <Route path='/userprofile' element={
-                  <>
-                    {/* {profileInfo && subscribedCommunities && user && <Header user={user} />} */}
-                    {subscribedCommunities && <ProfilePage user={user} subscribedCommunities={subscribedCommunities} />}
-                  </>
+          <>
+            {user && <Header user={user} setUser={setUser} />}
+            <Routes>
+              <Route path='/' element={
+                <>
+                  {subscribedCommunities && user && <LandingPage communities={subscribedCommunities} user={user} />}
+                </>
+              } />
+              <Route path='/loginpage' element={<LogInPage />} />
+              <Route path='/signuppage' element={<SignUpPage user={user} />} />
+              <Route path='/posts' element={<Posts />} />
+              <Route path='/userprofile' element={
+                <>
+                  {subscribedCommunities && <ProfilePage user={user} subscribedCommunities={subscribedCommunities} />}
+                </>
 
-                } />
-                <Route exact path={`/createcommunity`} element={
-                 <CreateCommunity />
-                }
-                />
-                <Route path={`/community/:id`} element={
-                  <>
-                    {/* {user && <Header user={user}/>} */}
-                    {subscribedCommunities && <CommunityPage communities={subscribedCommunities} />}
-                  </>
-                }
-                />
+              } />
+              <Route exact path={`/createcommunity`} element={
+                <CreateCommunity user={user} />
+              }
+              />
+              <Route path={`/community/:id`} element={
+                <>
+                  {subscribedCommunities && <CommunityPage communities={subscribedCommunities} />}
+                </>
+              }
+              />
 
                 </Routes>
                 
@@ -120,5 +101,4 @@ function App() {
     </BrowserRouter>
   );
 }
-
 export default App;

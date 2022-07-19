@@ -43,20 +43,26 @@ const landingPage = ({ communities, user }) => {
 
 
 
-export default landingPage
+export default landingPage;
 
-const AllCommunitiesContainer = styled.div`
+
+const PageContainer = styled.div`
     display: flex;
-    flex-direction: column;
-    background-color: #393939;
-    min-width: 13%;
-    min-height: 350px;
-    border-radius: 25px;
-    padding: 20px;
-    width: 50%;
-    /* height: 100%; */
-    font-size: 18px;
+    flex-direction: row;
+    margin-top: 100px;
+`
+
+
+const PostContainer = styled.div`
+    width: 70%;
+    justify-content: center;
+    align-items: center;
+`
+
+const CommunityContainer = styled.div`
+    width: 30%;
+    justify-content: center;
+    align-items: center;
     color: white;
-    margin: 80px;
-    font-family: 'oswald, san serif'
+
 `

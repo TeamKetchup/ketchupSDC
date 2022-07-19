@@ -1,52 +1,86 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import styled from 'styled-components';
 import Logo from './images/image-removebg-preview.png'
 import '../../index.css'
 import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
 import AuthContext from '../../context/AuthProvider';
+import axios from 'axios';
 
 Modal.setAppElement('#root');
 
-function LogInPage({ setUser }) {
-     
-     const { setAuth } = useContext(AuthContext);
-     const [usernameInput, setUserNameInput] = useState('');
-     const [passwordInput, setPasswordInput] = useState('');
-     const [modalIsOpen, setIsOpen] = React.useState(false);
-     let subtitle;
 
-     const logIn = async (e) => {
-          e.preventDefault()
+function LogInPage({ setUser, setLoading }) {
+  useEffect(() => {
+    const currentUser = localStorage.getItem("currentUser");
+    if (currentUser !== null) {
+      setUser(JSON.parse(currentUser));
+    }
+  });
 
-          await fetch(`http://localhost:3025/api/login/${usernameInput}/${passwordInput}`)
-          .then((res) => res.json())
-          .then((data) => setUser(data)
-               // .map((userData) => (
-               // {
-               //      id: userData.id,
-               //      avatar: userData.avatar,
-               //      banner: userData.banner,
-               //      bio: userData.bio,
-               //      username: userData.username
-               // }
-          )
-          .catch((error) => console.log(error))
-     }
+  const [usernameInput, setUserNameInput] = useState("");
+  const [passwordInput, setPasswordInput] = useState("");
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+  let subtitle;
 
+  const logIn = async (e) => {
+    e.preventDefault();
+    const data = {
+      username: usernameInput,
+      password: passwordInput,
+    };
+    // .then((res) => localStorage.setItem("currentUser",JSON.stringify([res.data])))
+    // .then((res) => setUser([res.data]))
+    try {
+     let returnedData = await axios.post(
+      "http://localhost:3025/api/login/",
+      data
+    );
+      if (!returnedData.data.username) {
+        alert("Invalid login. Please check your username or password.");
+      } else {
+        localStorage.setItem(
+          "currentUser",
+          JSON.stringify([returnedData.data])
+        );
+        setUser([returnedData.data]);
+        setLoading(false);
+      }
+    } catch (error) {
+      if (error) {
+        alert("User does not exist. Please create an account.");
+        console.error(error);
+        return undefined;
+      }
+    }
 
-     function openModal() {
-          setIsOpen(true);
-     }
+    // .then((res) => localStorage.setItem('user', JSON.stringify([res.data])))
 
-     function afterOpenModal() {
-          // references are now sync'd and can be accessed.
-          subtitle.style.color = '#f00';
-     }
+    // .then((data) => console.log(data))
+    // .map((userData) => (
+    // {
+    //      id: userData.id,
+    //      avatar: userData.avatar,
+    //      banner: userData.banner,
+    //      bio: userData.bio,
+    //      username: userData.username
+    // }
+  };
+
+  function openModal() {
+     setIsOpen(true);
+}
+
+function afterOpenModal() {
+     // references are now sync'd and can be accessed.
+     subtitle.style.color = '#f00';
+}
+
 
      function closeModal() {
           setIsOpen(false);
      }
+
      return (
           <div className='loginPage'>
                <HeaderLogoContainer>
@@ -96,9 +130,8 @@ function LogInPage({ setUser }) {
                          <LogInPageBtn>Sign Up</LogInPageBtn>
                     </Link>
                </LogInBtnContainer>
-               
-
           </div>
+               
      )
 }
 
@@ -120,62 +153,68 @@ const customStyles = {
 };
 
 const HeaderLogoContainer = styled.div`
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     font-family: 'Oswald', sans-serif;
-     font-size: 45px;
-`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Oswald", sans-serif;
+  font-size: 45px;
+`;
 const HeaderContainer = styled.div`
-     display: flex;
-     flex-direction: column;
-     span{
-          color: gray;
-          font-size: 27px;
-     }
-`
+  display: flex;
+  flex-direction: column;
+  span {
+    color: gray;
+    font-size: 27px;
+  }
+`;
 const LoginHeader = styled.h1`
-     display: flex;
+  display: flex;
 
-     justify-content: center;
-     align-content: center;
-     color: #FF0000;
-     margin: 0px;
-     a{
-          color: #FF0000;
-     }
-     :hover{
-          text-decoration: underline;
-          cursor: pointer;
-          color: red;
-     }
-`
+  justify-content: center;
+  align-content: center;
+  color: #ff0000;
+  margin: 0px;
+  a {
+    color: #ff0000;
+  }
+  :hover {
+    text-decoration: underline;
+    cursor: pointer;
+    color: red;
+  }
+`;
 
 const KetchupLogo = styled.img`
-     border-radius: 50%;
-     height: 270px;
-     width: 270px;
-     margin-right: 5px;
-     animation: floating 3s ease-in-out infinite;
-     .floating { 
-          animation-name: floating;
-          animation-duration: 3s;
-          animation-iteration-count: infinite;
-          animation-timing-function: ease-in-out;
-          /* margin-left: 30px;
+  border-radius: 50%;
+  height: 270px;
+  width: 270px;
+  margin-right: 5px;
+  animation: floating 3s ease-in-out infinite;
+  .floating {
+    animation-name: floating;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    /* margin-left: 30px;
           margin-top: 5px; */
-     }
-     @keyframes floating {
-          0%   { transform: translate(0,  0px); };
-          50%  { transform: translate(0, 25px); };
-          100% { transform: translate(0, -0px); }; 
-     }
-`
+  }
+  @keyframes floating {
+    0% {
+      transform: translate(0, 0px);
+    }
+    50% {
+      transform: translate(0, 25px);
+    }
+    100% {
+      transform: translate(0, -0px);
+    }
+  }
+`;
 
 const LogInBtnContainer = styled.div`
-     display: flex;
-     margin-top: 10px;
-`
+  display: flex;
+  margin-top: 10px;
+`;
 
 const LogInPageBtn = styled.button`
   display: flex;
@@ -186,7 +225,7 @@ const LogInPageBtn = styled.button`
   align-items: center;
   align-content: center;
   margin: auto;
-  font-family: 'Pacifico', cursive;
+  font-family: "Pacifico", cursive;
   font-size: 25px;
   border: transparent;
   background-color: white;
@@ -194,29 +233,28 @@ const LogInPageBtn = styled.button`
   margin: 10px;
   /* animation: floating 3s ease-in-out infinite; */
   :hover {
-     background-color: #FF0000;
-     transform: scale(1.1);
-     color: white;
-     border-radius: 999px;
-     cursor: pointer;
-     }
-
-`
+    background-color: #ff0000;
+    transform: scale(1.1);
+    color: white;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+`;
 
 const InnerModalContainer = styled.div`
-     display: flex;
-     flex-direction: column;
-     justify-content: center;
-     align-items: center;
-     height: 300px;
-     width: 350px;
-`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  width: 350px;
+`;
 const ModalForm = styled.form`
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     flex-direction: column;
-`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
 
 const Input = styled.input`
      margin: 10px 0px;
@@ -234,11 +272,11 @@ const Input = styled.input`
 `
 
 const InputContainer = styled.div`
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     flex-direction: column;
-`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
 
 const ModalBtn = styled.button`
   display: flex;
@@ -249,7 +287,7 @@ const ModalBtn = styled.button`
   align-items: center;
   align-content: center;
   margin: auto;
-  font-family: 'Pacifico', cursive;
+  font-family: "Pacifico", cursive;
   font-size: 25px;
   border: transparent;
   background-color: white;
@@ -257,19 +295,18 @@ const ModalBtn = styled.button`
   margin: 10px;
   /* animation: floating 3s ease-in-out infinite; */
   :hover {
-     background-color: #FF0000;
-     transform: scale(1.1);
-     color: white;
-      border-radius: 999px;
-     cursor: pointer;
-     }
-
-`
+    background-color: #ff0000;
+    transform: scale(1.1);
+    color: white;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+`;
 
 const ModalHeader = styled.h1`
-     font-family: 'Oswald', sans-serif;
-     padding-bottom: 5px;
-`
+  font-family: "Oswald", sans-serif;
+  padding-bottom: 5px;
+`;
 
 const ModalSubmitBtn = styled.input`
   display: flex;
@@ -280,7 +317,7 @@ const ModalSubmitBtn = styled.input`
   align-items: center;
   align-content: center;
   margin: auto;
-  font-family: 'Pacifico', cursive;
+  font-family: "Pacifico", cursive;
   font-size: 25px;
   border: transparent;
   background-color: white;
@@ -288,11 +325,10 @@ const ModalSubmitBtn = styled.input`
   margin: 10px;
   /* animation: floating 3s ease-in-out infinite; */
   :hover {
-     background-color: #FF0000;
-     transform: scale(1.1);
-     color: white;
-      border-radius: 999px;
-     cursor: pointer;
-     }
-
-`
+    background-color: #ff0000;
+    transform: scale(1.1);
+    color: white;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+`;

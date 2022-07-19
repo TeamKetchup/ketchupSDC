@@ -39,6 +39,30 @@ body {
   flex-direction: column;
   height: 100vh;
 }
+.logout{
+  display: flex;
+  box-shadow: 0px 5px 17px -7px rgba(0, 0, 0, 0.75);
+  height: 50px;
+  width: 200px;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  margin: auto;
+  font-family: "Pacifico", cursive;
+  font-size: 25px;
+  border: transparent;
+  background-color: white;
+  border-radius: 999px;
+  margin: 10px;
+  font-size: 15px !important;
+}
+.logout:hover{
+  background-color: #ff0000;
+  /* transform: scale(1.1); */
+  color: white;
+  border-radius: 999px;
+  cursor: pointer;
+}
 
 a {
   text-decoration: none;
