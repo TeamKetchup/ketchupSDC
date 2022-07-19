@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState} from "react";
+import { useParams } from "react-router";
 import Posts_Body from "./Posts_Body";
-import Post_Footer from "./Post_Footer";
-import Post_Header from "./Post_Header";
-import Post_Media from "./Post_Media";
 import styled from 'styled-components';
 
-function Posts() {
-
+function Posts({user}) {
+  const { id } = useParams();
   const [searchPosts, setPosts] = useState(null)
+  
   const [searchComments, setComments] = useState(null)
   const [loading, setLoading] = useState(true)
   const [loadingMessage, setLoadingMessage] = useState("")
@@ -20,20 +19,20 @@ function Posts() {
  
     
     setLoadingMessage("App is Loading");
-    fetch("http://localhost:3025/api/posts")
+    fetch(`http://localhost:3025/api/allposts`)
       .then((response) => response.json())
       .then((data) => setPosts(data));
     setLoading(false);
   }
 
-
+ 
   return (
 
     // {}
 
     <PostContainer className="post-container">
       {!searchPosts && <Loading>Loading....</Loading>} 
-      {searchPosts && <Posts_Body searchPosts={searchPosts} />}
+      {searchPosts && <Posts_Body user={user}  searchPosts={searchPosts} />}
     </PostContainer>
   );
 }

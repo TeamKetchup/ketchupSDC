@@ -238,7 +238,159 @@ app.get("/api/products", async (_, res) => {
   }
 });
 
-app.get("/api/all", async (req, res) => {
+
+
+// =========================START POSTS SECTION=======================================
+// Get All POSTS
+app.get("/api/posts", async (req, res) => {
+  try {
+    await db.query('SELECT * FROM posts ORDER BY id DESC', (error, results) => {
+      console.log(req)
+      res.status(200).json(results.rows)
+    })
+  } catch (error) {
+    console.error(error.message)
+  }
+});
+
+// Get single POST
+app.get("/api/posts/:id", async (req, res) => {
+
+  try {
+    const id = req.params.id
+    await db.query('SELECT * FROM posts WHERE id = $1', [id], (error, results) => {
+      console.log(results)
+      res.status(200).json(results.rows)
+    })
+  } catch (error) {
+    console.error(error.message)
+  }
+});
+
+// Get User POSTS
+app.get("/api/user_posts/:id", async (req, res) => {
+
+        try {
+            const id = req.params.id
+            console.log(req.users_id)
+            await db.query('SELECT * FROM posts WHERE users_id = $1', [id], (error, results) => {
+                console.log(results) 
+                res.status(200).json(results.rows)
+            })
+        } catch (error) {
+            console.error(error.message)
+        }
+      });
+      
+      app.get("/api/allposts", async (req, res) => {
+        try {
+            await db.query('SELECT * FROM posts INNER JOIN users ON posts.users_id = users.id', (error, results) => {
+                console.log(req) 
+                res.status(200).json(results.rows)
+            })
+        } catch (error) {
+            console.error(error.message)
+        }
+      });
+      
+
+ 
+// Create POST
+app.post("/api/create_post", async (req, res) => {
+  try {
+    const { post_header, post_body, img, date, users_id, community_id } = req.body
+    await db.query('INSERT INTO posts (post_header, post_body,img,video,date,users_id,community_id) VALUES ($1, $2, $3, $4, $5, $6, $7)', [post_header, post_body, img, video, date, users_id, community_id], (error, results) => {
+      console.log(req.body)
+      res.status(200).send(`post was added`)
+
+    })
+  } catch (error) {
+    console.error(error.message)
+  }
+});
+
+app.post("/api/createpost", upload.single("file"), async function (req, res, next) {
+  try {
+    const { post_header, post_body, video, date, users_id, community_id } = req.body
+    const fileName = `postimg${Math.floor(Math.random() * 100000)}${req.file.originalname}`
+    req.file.originalname = fileName;
+    uploadFile(req.file.originalname, req.file.buffer);
+    const returnedURL = `https://teamketchupv2.s3.amazonaws.com/${req.file.originalname}`
+    console.log(req.body)
+    await db.query(`INSERT INTO posts (post_header, post_body,img,video,date,users_id,community_id) VALUES ($1, $2, ${returnedURL}, NULL, $4, $5, $6)`, [post_header, post_body, video, date, users_id, community_id] );
+    res.json('Success')
+  } catch (error) {
+    if (error) {
+      res.json(error)
+    }
+  }
+}
+);
+
+//Update post
+app.put("/api/update_post/:id", async (req, res) => {
+  try {
+    const id = req.params.id
+    const { post_header, post_body, img, video, date, users_id, community_id } = req.body
+
+    await db.query(
+      'UPDATE posts SET post_header = $1, post_body = $2, img = $3, video = $4, date = $5, users_id = $6, community_id = $7 WHERE id = $8', [post_header, post_body, img, video, date, users_id, community_id, id], (err, results) => {
+        console.log(req)
+        res.status(200).send(`post was updated`)
+      })
+  } catch (error) {
+    console.error(error.message)
+  }
+});
+
+app.delete("/api/delete_post/:id", async (req, res) => {
+  try {
+    const id = req.params.id
+    await db.query(
+      'DELETE FROM posts WHERE id = $1', [id], (err, results) => {
+        res.status(200).send(`post was deleted`)
+      })
+  } catch (error) {
+    console.error(error.message)
+  }
+});
+
+// =========================END POSTS SECTION=======================================
+
+// Get single POST
+app.get("/api/posts/:id", async (req, res) => {
+
+  try {
+    const id = req.params.id
+    await db.query('SELECT * FROM posts WHERE id = $1', [id], (error, results) => {
+      console.log(results)
+      res.status(200).json(results.rows)
+    })
+  } catch (error) {
+    console.error(error.message)
+  }
+});
+
+
+// Create Comments
+app.post("/api/create_comment", async (req, res) => {
+  try {
+    const { comment_body, users_id, posts_id } = req.body
+    console.log(req)
+    await db.query('INSERT INTO comments (comment_body,users_id,posts_id) VALUES ($1, $2, $3)', [comment_body, users_id, posts_id], (error, results) => {
+      console.log(req.body)
+      res.status(200).send(`${req.body} comment was added`)
+    })
+  } catch (error) {
+    console.error(error.message)
+  }
+});
+
+
+
+// =========================END COMMENTS SECTION=======================================
+
+app.get("/api/all", async (_, res) => {
   // const id = req.params.id
   try {
     const { post_header, post_body, media, date, users_id, community_id } = req.body
@@ -409,7 +561,7 @@ app.get("/community/posts/:id", async (req, res) => {
   try {
     let client = await db.connect();
     const id = req.params.id;
-    await db.query('SELECT * FROM posts WHERE community_id = $1', [id], (error, results) => {
+    await db.query('SELECT * FROM posts INNER JOIN users ON posts.users_id = users.id where community_id = $1', [id], (error, results) => {
 
       res.status(200).json(results.rows)
       client.release()

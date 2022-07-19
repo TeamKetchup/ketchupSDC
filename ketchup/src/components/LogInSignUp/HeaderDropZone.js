@@ -38,7 +38,7 @@ const img = {
 
 function HeaderDropZone({ images, setImages }) {
   const { getRootProps, getInputProps } = useDropzone({
-    accept: { 'image/*': [] },
+    accept: { 'image/*': []},
     onDrop: acceptedFiles => {
       setImages(acceptedFiles.map(image => Object.assign(image, {
         preview: URL.createObjectURL(image)
