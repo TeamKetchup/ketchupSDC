@@ -13,6 +13,7 @@ import { useState, useEffect } from 'react';
 import CommunityPage from './components/Communities/CommunityPage';
 // import usePersistedState from 'use-persisted-state-hook'
 import CreateCommunity from './components/Communities/CreateCommunity';
+import loadingGif from "./components/LogInSignUp/loading.gif"
 import CreatePost from "./components/Posts_Comments/CreatePost";
 
 
@@ -27,6 +28,7 @@ function App() {
   // const [community, setCommunity] = useState(null);
   //fetch request for a join table between community/posts/comments table
   const [user, setUser] = useState(false)
+  const [loading, setLoading] = useState(true);
   // const [currentuser, setCurrentUser] = usePersistedState('currentuser',[])
   const [profileInfo, setProfileInfo] = useState(false);
   const [subscribedCommunities, setsubscribedCommunities] = useState(false);
@@ -35,7 +37,7 @@ function App() {
   useEffect(() => {
     // fetchProfileInfo();
     fetchsubscribedCommunities();
-  }, []);
+  }, [])
 
   const fetchsubscribedCommunities = async () => {
     try {
@@ -51,7 +53,6 @@ function App() {
       console.log(error);
     }
   }
-
   return (
     <BrowserRouter>
       <div className="App">
@@ -60,7 +61,7 @@ function App() {
         {!user ? (
           <>
             <Routes>
-              <Route path='/' element={<LogInPage setUser={setUser} />} />
+              <Route path='/' element={<LogInPage setLoading={setLoading} setUser={setUser} />} />
               <Route path='/signuppage' element={<SignUpPage user={user} />} />
               <Route path='/posts' element={<Posts />}/>
               <Route path='/createpost' element={<CreatePost />}/>
@@ -69,7 +70,7 @@ function App() {
 
         ) : (
           <>
-            {user && <Header user={user} />}
+            {user && <Header user={user} setUser={setUser} />}
             <Routes>
               <Route path='/' element={
                 <>
@@ -104,5 +105,4 @@ function App() {
     </BrowserRouter>
   );
 }
-
 export default App;
