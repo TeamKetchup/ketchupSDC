@@ -448,7 +448,7 @@ app.post("/api/createpost", upload.single("file"), async function (req, res, nex
     req.file.originalname = fileName;
     uploadFile(req.file.originalname, req.file.buffer);
     const returnedURL = `https://teamketchupv2.s3.amazonaws.com/${req.file.originalname}`
-    console.log(req, returnedURL)
+    console.log(req.body, returnedURL)
     await db.query(`INSERT INTO posts (post_header, post_body,img,users_id,community_id) VALUES ('${req.body.post_header}', '${req.body.post_body}', '${returnedURL}', '${req.body.users_id}', '${req.body.community_id}')`)
     res.json('Success')
   } catch (error) {

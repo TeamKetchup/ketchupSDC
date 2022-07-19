@@ -63,9 +63,9 @@ function PostsItem({
 
         </div>
       </PostFooter>
-      {/* <CommentContainer>
-              <Comments />
-            </CommentContainer> */}
+      <CommentContainer>
+              {/* {comment} */}
+            </CommentContainer>
 
     </PostItemContainer>
   );

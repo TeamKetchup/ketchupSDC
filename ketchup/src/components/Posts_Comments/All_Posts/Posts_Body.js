@@ -4,7 +4,7 @@ import PostsItem from "./PostsItem";
 import Comments from "../Comments";
 
 function Posts_Body({searchPosts, searchComments}) {
-  console.log(searchPosts)
+  console.log(searchPosts, searchComments)
   return (
     <PostContent className="post-content">
       {/* <div><img src="./KETCHUP.png"></img></div> */}
@@ -30,7 +30,7 @@ function Posts_Body({searchPosts, searchComments}) {
           />
         ))}
          
-        {/* {searchComments.map((data, index) => (
+        {searchComments.map((data, index) => (
           <Comments 
           key={index}
           id ={data.id}
@@ -39,12 +39,12 @@ function Posts_Body({searchPosts, searchComments}) {
           comment_post_id={data.posts_id}
           
           />
-        ))} */}
+        ))}
         
         
       </PostBody>
       <div>
-
+          <Comments />
       </div>
 
     </PostContent>

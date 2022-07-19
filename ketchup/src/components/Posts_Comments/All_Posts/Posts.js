@@ -13,6 +13,7 @@ function Posts({user}) {
 
   useEffect(() => {
     loadPosts()
+    loadComments()
   }, [])
 
   function loadPosts() {
@@ -25,6 +26,15 @@ function Posts({user}) {
     setLoading(false);
   }
 
+  function loadComments() {
+ 
+    
+    setLoadingMessage("App is Loading");
+    fetch(`http://localhost:3025/api/comments`)
+      .then((response) => response.json())
+      .then((data) => setComments(data));
+    setLoading(false);
+  }
  
   return (
 
@@ -32,7 +42,8 @@ function Posts({user}) {
 
     <PostContainer className="post-container">
       {!searchPosts && <Loading>Loading....</Loading>} 
-      {searchPosts && <Posts_Body user={user}  searchPosts={searchPosts} />}
+      {searchPosts && <Posts_Body user={user}  
+     searchComments={searchComments} searchPosts={searchPosts} />}
     </PostContainer>
   );
 }
