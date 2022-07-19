@@ -11,7 +11,7 @@ const SubscribedCommunities = (props) => {
             </SubscribedCommunitiesBanner>
 
             {props.communities.map((community) => (
-                <StyledLink to={`/community/${community.id}`} key={community.id}>{community.name}</StyledLink>
+                <StyledLink to={`/community/${community.name}`} key={community.id}>{community.name}</StyledLink>
             ))}
             <SubscribedCommunitiesFooter>
                 <CreateCommunityLink to={`/createcommunity`}>Create Community</CreateCommunityLink>
@@ -39,7 +39,7 @@ const SubscribedCommunitiesContainer = styled.div`
     font-family: 'oswald, san serif';
     font-weight: bold;
     font-size: 20px;
-    height: 100%;
+    
 `
 const SubscribedCommunitiesFooter = styled.div`
     display: flex;

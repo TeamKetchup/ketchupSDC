@@ -10,6 +10,7 @@ function SearchBar() {
     const [load, setLoad] = useState(true)
     const [filterData, setFilterData] = useState([])
     const [inputVal, setInputVal] = useState([])
+    const [id, setId] = useState([])
     useEffect(() => {
         getCom()
 
