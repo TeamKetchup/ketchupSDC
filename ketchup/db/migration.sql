@@ -45,7 +45,7 @@ CREATE TABLE posts(
    post_body TEXT NOT NULL,
    img VARCHAR NULL,
    video VARCHAR NULL,
-   date timestamp with time zone NOT NULL,
+   -- date timestamp with time zone NOT NULL,
    users_id INT REFERENCES users(id),
    community_id INT REFERENCES community(id)
 

@@ -299,25 +299,25 @@ app.get("/api/user_posts/:id", async (req, res) => {
 app.post("/api/create_post", async (req, res) => {
   try {
     const { post_header, post_body, img, date, users_id, community_id } = req.body
-    await db.query('INSERT INTO posts (post_header, post_body,img,video,date,users_id,community_id) VALUES ($1, $2, $3, $4, $5, $6, $7)', [post_header, post_body, img, video, date, users_id, community_id], (error, results) => {
+    await db.query(`INSERT INTO posts (post_header, post_body,img,video,date,users_id,community_id) VALUES ()`)
       console.log(req.body)
       res.status(200).send(`post was added`)
 
-    })
-  } catch (error) {
+    } catch (error) {
     console.error(error.message)
-  }
-});
+  }})
 
 app.post("/api/createpost", upload.single("file"), async function (req, res, next) {
   try {
-    const { post_header, post_body, video, date, users_id, community_id } = req.body
+    // const { post_header, post_body, video, date, users_id, community_id } = req.body
     const fileName = `postimg${Math.floor(Math.random() * 100000)}${req.file.originalname}`
     req.file.originalname = fileName;
+    const parseUser = parseInt(req.body.user_id)
+    const parseCom = parseInt(req.body.com_id)
     uploadFile(req.file.originalname, req.file.buffer);
     const returnedURL = `https://teamketchupv2.s3.amazonaws.com/${req.file.originalname}`
     console.log(req.body)
-    await db.query(`INSERT INTO posts (post_header, post_body,img,video,date,users_id,community_id) VALUES ($1, $2, ${returnedURL}, NULL, $4, $5, $6)`, [post_header, post_body, video, date, users_id, community_id] );
+    await db.query(`INSERT INTO posts (post_header, post_body, img, video, users_id, community_id) VALUES ('${req.body.post_header}', '${req.body.post_body}', '${returnedURL}', NULL, ${parseUser}, ${parseCom});`)
     res.json('Success')
   } catch (error) {
     if (error) {
@@ -390,7 +390,7 @@ app.post("/api/create_comment", async (req, res) => {
 
 // =========================END COMMENTS SECTION=======================================
 
-app.get("/api/all", async (_, res) => {
+app.get("/api/all", async (req, res) => {
   // const id = req.params.id
   try {
     const { post_header, post_body, media, date, users_id, community_id } = req.body
