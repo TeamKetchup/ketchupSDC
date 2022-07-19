@@ -313,23 +313,23 @@ app.get("/api/allposts", async (req, res) => {
 //   }
 // });
 
-// app.post("/api/createpost", upload.single("file"), async function (req, res, next) {
-//   try {
-//     const { post_header, post_body, video, date, users_id, community_id } = req.body
-//     const fileName = `postimg${Math.floor(Math.random() * 100000)}${req.file.originalname}`
-//     req.file.originalname = fileName;
-//     uploadFile(req.file.originalname, req.file.buffer);
-//     const returnedURL = `https://teamketchupv2.s3.amazonaws.com/${req.file.originalname}`
-//     console.log(req.body)
-//     await db.query(`INSERT INTO posts (post_header, post_body,img,video,date,users_id,community_id) VALUES ($1, $2, ${returnedURL}, NULL, $4, $5, $6)`, [post_header, post_body, video, date, users_id, community_id] );
-//     res.json('Success')
-//   } catch (error) {
-//     if (error) {
-//       res.json(error)
-//     }
-//   }
-// }
-// );
+app.post("/api/createpost", upload.single("file"), async function (req, res, next) {
+  try {
+    const { post_header, post_body, video, date, users_id, community_id } = req.body
+    const fileName = `postimg${Math.floor(Math.random() * 100000)}${req.file.originalname}`
+    req.file.originalname = fileName;
+    uploadFile(req.file.originalname, req.file.buffer);
+    const returnedURL = `https://teamketchupv2.s3.amazonaws.com/${req.file.originalname}`
+    console.log(req.body)
+    await db.query(`INSERT INTO posts (post_header, post_body,img,video,date,users_id,community_id) VALUES ($1, $2, ${returnedURL}, NULL, $4, $5, $6)`, [post_header, post_body, video, date, users_id, community_id]);
+    res.json('Success')
+  } catch (error) {
+    if (error) {
+      res.json(error)
+    }
+  }
+}
+);
 
 //Update post
 app.put("/api/update_post/:id", async (req, res) => {
@@ -639,33 +639,6 @@ app.get("/api/user_posts/:id", async (req, res) => {
   }
 });
 
-// // Create POST
-// app.post("/api/create_post", async (req, res) => {
-//   try {
-//     const { post_header, post_body, img, video, date, users_id, community_id } = req.body
-//     await db.query('INSERT INTO posts (post_header, post_body,img,video,date,users_id,community_id) VALUES ($1, $2, $3, $4, $5, $6, $7)', [post_header, post_body, img, video, date, users_id, community_id], (error, results) => {
-//       console.log(req.body)
-//       res.status(200).send(`post was added`)
-
-//     })
-//   } catch (error) {
-//     console.error(error.message)
-//   }
-// });
-
-// Create POST
-app.post("/api/create_post", async (req, res) => {
-  try {
-    const { post_header, post_body, users_id, community_id } = req.body
-    await db.query('INSERT INTO posts (post_header, post_body,users_id,community_id) VALUES ($1, $2, $3, $4)', [post_header, post_body, users_id, community_id], (error, results) => {
-      console.log(req.body)
-      res.status(200).send(`post was added`)
-
-    })
-  } catch (error) {
-    console.error(error.message)
-  }
-});
 
 app.put("/api/update_post/:id", async (req, res) => {
   try {
