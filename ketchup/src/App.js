@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LogInPage from './components/LogInSignUp/LogInPage';
 // import SignUpPage from './components/LogInSignUp/SignUpPage';
 import ProfilePage from './components/ProfilePage/ProfilePage';
-import Posts from './components/Posts_Comments/Posts';
+import Posts from './components/Posts_Comments/All_Posts/Posts';
 import LandingPage from './components/landingPage';
 import Header from './components/Header/header';
 import { useState, useEffect } from 'react';
@@ -60,11 +60,19 @@ function App() {
         {!user ? (
           <>
             <Routes>
+<<<<<<< HEAD
               <Route path='/' element={<LogInPage user={user} setLoading={setLoading} setUser={setUser} />} />
               {/* <Route path='/signuppage' element={<SignUpPage user={user} />} /> */}
               <Route path='/register' element={<Register user={user} setUser={setUser}/>} />
               <Route path='/posts' element={<Posts />}/>
               <Route path='/createpost' element={<CreatePost />}/>
+=======
+              <Route path='/' element={<LogInPage setLoading={setLoading} setUser={setUser} />} />
+              <Route path='/signuppage' element={<SignUpPage user={user} />} />
+              <Route path='/register' element={<Register user={user} setUser={setUser} />} />
+              <Route path='/posts' element={<Posts />} />
+              <Route path='/createpost' element={<CreatePost />} />
+>>>>>>> 63e7c9cd77abb0804c943e92ace8eba69e1c6db5
             </Routes>
           </>
 
@@ -80,7 +88,7 @@ function App() {
               <Route path='/loginpage' element={<LogInPage />} />
               <Route path='/deleted' element={<AccountDeleted />} />
               <Route path='/posts' element={<Posts />} />
-              <Route path='/userprofile' element={
+              <Route path='/userprofile/:id' element={
                 <>
                   {user && setUser && subscribedCommunities && <ProfilePage user={user} setUser={setUser} subscribedCommunities={subscribedCommunities} />}
                 </>
@@ -97,11 +105,11 @@ function App() {
               }
               />
 
-                </Routes>
-                
-                </>
-              //   )}
-              // </>
+            </Routes>
+
+          </>
+          //   )}
+          // </>
         )}
 
       </div>
