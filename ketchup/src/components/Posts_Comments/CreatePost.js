@@ -2,77 +2,101 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import axios from "axios";
 import HeaderDropZone from '../LogInSignUp/HeaderDropZone'
+import { useParams } from 'react-router';
 
 
 
-function CreatePost({user}) {
+function CreatePost({ user }) {
+  const { userID, communityID } = useParams();
+  // console.log(userID, communityID)
   const [images, setImages] = useState([])
   const [post_header, setTitle] = useState("")
   const [post_body, setPBody] = useState("")
   const date = new Date()
-  const user_id = 1
-  const com_id = 1
-  
+
+
   const submitPost = async (file, post_header, post_body, date, com_id, user_id) => {
     const formData = new FormData();
     formData.append("post_header", post_header);
     formData.append("post_body", post_body);
     formData.append("file", file);
     formData.append("date", date);
-    formData.append("user_id", user_id);
-    formData.append("com_id", com_id);
+    formData.append("user_id", com_id);
+    formData.append("com_id", user_id);
     await axios.post("http://localhost:3025/api/createpost", formData);
     console.log('post created')
   };
 
- 
+  // const submitPost = (e) => {
+  //   // e.preventDefault();
+  //   let postObj = {
+  //     post_header: post_header,
+  //     post_body: post_body,
+  //     community_id: communityID,
+  //     users_id: userID
+  //   }
+  //   // setIsLoading(true);
+  //   console.log(postObj)
+  //   fetch(`http://localhost:3025/api/postcommunity`, {
+  //     method: 'POST',
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: JSON.stringify(postObj)
+  //   }).then(() => {
+  //     // setIsLoading(false)
+  //     console.log('Community Created')
+  //   })
+  // }
 
-  console.log(images)
+
+
+
+
+  // console.log(images)
   return (
     <FormContainer>
-     {/* <FormDiv>Create a Post  */}
-   
+      {/* <FormDiv>Create a Post  */}
 
-    <Postform id="new-post-form" >
-                    
-                    <PostTitle><b>Create Post</b></PostTitle>
-                    <PostTitle>
-                      Post Title:
-                    <PostTitleText 
-                    onChange={(e) => setTitle(e.target.value)} 
-                    value={post_header}
-                    name='new-post-header'
-                    type='text' 
-                    />
-                </PostTitle>
-                <div><SpaceDiv className="space"></SpaceDiv></div>
-                <PostContent>
-                    Post Content:
-                    <PostContentTextArea
-                    onChange={(e) => setPBody(e.target.value)} 
-                    value={post_body}
-                    name='new-post-body'
-                    />
-                </PostContent>
 
-                Add Media<HeaderDropZone images={images} setImages={setImages}/>
+      <Postform id="new-post-form" >
 
-                <PostSubmit>
-                
-                    <PostSubmitText onClick={(e) => {
-                e.preventDefault();
-                submitPost(images[0], post_header, post_body, date, com_id, user_id)
-              }} 
-                    name='new-post-submit'
-                    type='submit' 
-                    />
-                </PostSubmit>
-          </Postform>
-    {/* </FormDiv> */}
-    
+        <PostTitle><b>Create Post</b></PostTitle>
+        <PostTitle>
+          Post Title:
+          <PostTitleText
+            onChange={(e) => setTitle(e.target.value)}
+            value={post_header}
+            name='new-post-header'
+            type='text'
+          />
+        </PostTitle>
+        <div><SpaceDiv className="space"></SpaceDiv></div>
+        <PostContent>
+          Post Content:
+          <PostContentTextArea
+            onChange={(e) => setPBody(e.target.value)}
+            value={post_body}
+            name='new-post-body'
+          />
+        </PostContent>
 
-  </FormContainer>
-    
+        Add Media<HeaderDropZone images={images} setImages={setImages} />
+
+        <PostSubmit>
+
+          <PostSubmitText onClick={(e) => {
+            e.preventDefault();
+            submitPost(images[0], post_header, post_body, date, communityID, userID)
+          }}
+            name='new-post-submit'
+            type='submit'
+          />
+        </PostSubmit>
+      </Postform>
+      {/* </FormDiv> */}
+
+
+    </FormContainer>
+
   )
 }
 
