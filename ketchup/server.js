@@ -299,7 +299,7 @@ app.get("/api/user_posts/:id", async (req, res) => {
 app.post("/api/create_post", async (req, res) => {
   try {
     const { post_header, post_body, img, date, users_id, community_id } = req.body
-    await db.query('INSERT INTO posts (post_header, post_body,img,video,date,users_id,community_id) VALUES ($1, $2, $3, $4, $5, $6, $7)', [post_header, post_body, img, video, date, users_id, community_id], (error, results) => {
+    await db.query('INSERT INTO posts (post_header, post_body,img,date,users_id,community_id) VALUES ($1, $2, $3, $4, $5, $6)', [post_header, post_body, img, date, users_id, community_id], (error, results) => {
       console.log(req.body)
       res.status(200).send(`post was added`)
 
@@ -311,13 +311,13 @@ app.post("/api/create_post", async (req, res) => {
 
 app.post("/api/createpost", upload.single("file"), async function (req, res, next) {
   try {
-    const { post_header, post_body, video, date, users_id, community_id } = req.body
+    // const { post_header, post_body, date, users_id, community_id } = req.body
     const fileName = `postimg${Math.floor(Math.random() * 100000)}${req.file.originalname}`
     req.file.originalname = fileName;
     uploadFile(req.file.originalname, req.file.buffer);
     const returnedURL = `https://teamketchupv2.s3.amazonaws.com/${req.file.originalname}`
-    console.log(req.body)
-    await db.query(`INSERT INTO posts (post_header, post_body,img,video,date,users_id,community_id) VALUES ($1, $2, ${returnedURL}, NULL, $4, $5, $6)`, [post_header, post_body, video, date, users_id, community_id] );
+    console.log(req.body, returnedURL)
+    await db.query(`INSERT INTO posts (post_header, post_body,img,date,users_id,community_id) VALUES ('${req.body.post_header}', '${req.body.post_body}', '${returnedURL}', '${req.body.date}', '${req.body.users_id}', '${req.body.community_id}')`)
     res.json('Success')
   } catch (error) {
     if (error) {
@@ -331,10 +331,10 @@ app.post("/api/createpost", upload.single("file"), async function (req, res, nex
 app.put("/api/update_post/:id", async (req, res) => {
   try {
     const id = req.params.id
-    const { post_header, post_body, img, video, date, users_id, community_id } = req.body
+    const { post_header, post_body, img, date, users_id, community_id } = req.body
 
     await db.query(
-      'UPDATE posts SET post_header = $1, post_body = $2, img = $3, video = $4, date = $5, users_id = $6, community_id = $7 WHERE id = $8', [post_header, post_body, img, video, date, users_id, community_id, id], (err, results) => {
+      'UPDATE posts SET post_header = $1, post_body = $2, img = $3, date = $4, users_id = $5, community_id = $6 WHERE id = $7', [post_header, post_body, img, date, users_id, community_id, id], (err, results) => {
         console.log(req)
         res.status(200).send(`post was updated`)
       })

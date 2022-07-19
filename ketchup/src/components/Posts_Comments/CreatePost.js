@@ -12,12 +12,14 @@ function CreatePost({user}) {
   const date = new Date()
   const user_id = 1
   const com_id = 1
+  // const video = ''
   
-  const submitPost = async (file, post_header, post_body, date, com_id, user_id) => {
+  const submitPost = async (file, post_header, post_body, date, com_id, user_id, video) => {
     const formData = new FormData();
     formData.append("post_header", post_header);
     formData.append("post_body", post_body);
     formData.append("file", file);
+    // formData.append("video", video);
     formData.append("date", date);
     formData.append("user_id", user_id);
     formData.append("com_id", com_id);
@@ -27,7 +29,7 @@ function CreatePost({user}) {
 
  
 
-  console.log(images)
+  
   return (
     <FormContainer>
     <FormDiv>Create a Post 
@@ -60,7 +62,7 @@ function CreatePost({user}) {
                 
                     <PostSubmitText onClick={(e) => {
                 e.preventDefault();
-                submitPost(images[0], post_header, post_body, date, com_id, user_id)
+                submitPost(images[0], post_header, post_body, date, user_id, com_id )
               }} 
                     name='new-post-submit'
                     type='submit' 

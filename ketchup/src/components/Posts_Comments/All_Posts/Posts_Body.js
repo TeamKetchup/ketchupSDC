@@ -17,13 +17,13 @@ function Posts_Body({searchPosts, user}) {
             post_header={data.post_header}
             post_body={data.post_body}
             img={data.img}
-            video={data.video}
+            
             date={data.date}
             user_id={data.user_id}
             community_id={data.community_id}
             username={data.username}
             avatar={data.avatar}
-            
+
 
           />
         ))}
