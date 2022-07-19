@@ -443,13 +443,15 @@ app.post("/api/create_post", async (req, res) => {
 //Create Post Page
 app.post("/api/createpost", upload.single("file"), async function (req, res, next) {
   try {
-    // const { post_header, post_body, date, users_id, community_id } = req.body
+    // const { post_header, post_body, video, date, users_id, community_id } = req.body
     const fileName = `postimg${Math.floor(Math.random() * 100000)}${req.file.originalname}`
     req.file.originalname = fileName;
+    const parseUser = parseInt(req.body.user_id)
+    const parseCom = parseInt(req.body.com_id)
     uploadFile(req.file.originalname, req.file.buffer);
     const returnedURL = `https://teamketchupv2.s3.amazonaws.com/${req.file.originalname}`
-    console.log(req.body, returnedURL)
-    await db.query(`INSERT INTO posts (post_header, post_body,img,users_id,community_id) VALUES ('${req.body.post_header}', '${req.body.post_body}', '${returnedURL}', '${req.body.users_id}', '${req.body.community_id}')`)
+    console.log(req.body)
+    await db.query(`INSERT INTO posts (post_header, post_body, img, video, users_id, community_id) VALUES ('${req.body.post_header}', '${req.body.post_body}', '${returnedURL}', ${parseUser}, ${parseCom});`)
     res.json('Success')
   } catch (error) {
     if (error) {
