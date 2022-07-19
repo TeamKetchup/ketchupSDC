@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import UserPosts from "../Posts_Comments/UserPosts";
 
 
-const ProfilePage = ({ user, subscribedCommunities }) => {
+const ProfilePage = ({ user, setUser, subscribedCommunities }) => {
     const user_id = user[0].id;
     const [posts, setPosts] = useState([]);
 
@@ -38,7 +38,7 @@ const ProfilePage = ({ user, subscribedCommunities }) => {
             </UserContentContainer>
             <CardContainer>
                 {/* {!profileInfo && <Loading>loading...</Loading>} */}
-                <ProfileCard user={user} />
+                <ProfileCard user={user} setUser={setUser} />
                 <SubscribedCommunities communities={subscribedCommunities} />
             </CardContainer>
 

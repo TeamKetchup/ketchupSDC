@@ -1,12 +1,14 @@
 import { React, useState } from 'react';
 import styled from 'styled-components';
 import Modal from 'react-modal';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
-const ProfileCard = (user) => {
-
+const ProfileCard = ( user, { setUser }) => {
 
     const [modalIsOpen, setIsOpen] = useState(false);
+    const [modal2IsOpen, set2IsOpen] = useState(false);
     const [bio, setBio] = useState(user.user[0].bio);
     const [avatar, setAvatar] = useState(user.user[0].avatar);
     const [userName, setUserName] = useState(user.user[0].username);
@@ -26,6 +28,31 @@ const ProfileCard = (user) => {
             console.log('Bio updated');
         })
     }
+
+    const DeleteAccount = async (e) => {
+        // setUser('')
+        window.localStorage.clear()
+        const deleteThisUser = {
+            userid: user.user[0].id 
+        }
+        console.log(deleteThisUser)
+
+        await fetch(`http://localhost:3025/api/delete`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(deleteThisUser),
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => { 
+             console.log(error)
+            //  confirm("") 
+            });
+            alert('Your account has been deleted, redirecting to log in page.')
+            console.log("User deleted")
+
+            window.location.reload()
+    } 
 
     Modal.setAppElement('#root');
 
@@ -56,7 +83,8 @@ const ProfileCard = (user) => {
             <Bio>
                 Bio: {bio}
             </Bio>
-            <FormButton onClick={() => setIsOpen(true)}>Update Bio</FormButton>
+            <UpdateBioBtn onClick={() => setIsOpen(true)}>Update Bio</UpdateBioBtn>
+            <DeleteButton onClick={() => set2IsOpen(true)}>Delete Account</DeleteButton>
             <Modal
                 isOpen={modalIsOpen}
                 style={customStyles}
@@ -74,6 +102,16 @@ const ProfileCard = (user) => {
                         <FormButton onClick={() => setIsOpen(false)}>Back</FormButton>
                     </ButtonContainer>
                 </form>
+            </Modal>
+            <Modal 
+                isOpen={modal2IsOpen}
+                style={customStyles2}    
+            >
+                <DeleteHeader>Are you sure that you want <br /> to delete your account?</DeleteHeader>
+                <Link to='/'><Button onClick={DeleteAccount}>Yes, delete my account.</Button></Link>
+                {/* <Button onClick={DeleteAccount}>Yes, delete my account.</Button> */}
+                <Button onClick={() => set2IsOpen(false)}>No, take me back to my profile.</Button>
+
             </Modal>
         </ProfileCardContainer >
     );
@@ -125,6 +163,8 @@ const ProfileAvatar = styled.img`
 const ProfileName = styled.h3`
     text-align: right;
     padding-right: 30px;
+    font-family: "Pacifico", cursive;
+    font-size: 40px;
 `
 
 const Bio = styled.p`
@@ -171,5 +211,96 @@ const ButtonContainer = styled.div`
     flex-direction: row;
     justify-content: center;
 `
+const DeleteButton = styled.button`
+    align-self: center;
+    color: black;
+    padding: 8px;
+    cursor: pointer;
+    display: flex;
+    box-shadow: 0px 5px 17px -7px rgba(0, 0, 0, 0.75);
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    font-family: 'Pacifico', cursive;
+    border: transparent;
+    background-color: white;
+    border-radius: 999px;
+    margin: 10px;
+    width: 200px;
+    :hover {
+        background-color: #FF0000;
+        transform: scale(1.1);
+        color: white;
+        border-radius: 999px;
+    }
+`
 
+const customStyles2 = {
+    overlay: {
+         backgroundColor: 'rgba(0,0,0,.55)',
+    },
+    content: {
+         top: '50%',
+         left: '50%',
+         right: 'auto',
+         bottom: 'auto',
+         marginRight: '-50%',
+         transform: 'translate(-50%, -50%)',
+         backgroundColor: '#F1F2F5',
+         borderRadius: '15px'
+    },
+};
+
+const UpdateBioBtn = styled.button`
+    align-self: center;
+    color: black;
+    padding: 8px;
+    cursor: pointer;
+    display: flex;
+    box-shadow: 0px 5px 17px -7px rgba(0, 0, 0, 0.75);
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    font-family: 'Pacifico', cursive;
+    border: transparent;
+    background-color: white;
+    border-radius: 999px;
+    margin: 10px;
+    width: 200px;
+    :hover {
+        background-color: #FF0000;
+        transform: scale(1.1);
+        color: white;
+        border-radius: 999px;
+    }
+`
+
+const Button = styled.button`
+    width: 300px;
+    align-self: center;
+    color: black;
+    padding: 8px;
+    cursor: pointer;
+    display: flex;
+    box-shadow: 0px 5px 17px -7px rgba(0, 0, 0, 0.75);
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    font-family: 'Pacifico', cursive;
+    font-size: 17px;
+    border: transparent;
+    background-color: white;
+    border-radius: 999px;
+    margin: 10px;
+    :hover {
+        background-color: #FF0000;
+        transform: scale(1.1);
+        color: white;
+        border-radius: 999px;
+    }
+`
+
+const DeleteHeader = styled.h2`
+    margin-bottom: 25px;
+`
 

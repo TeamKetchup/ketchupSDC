@@ -10,13 +10,13 @@ import axios from 'axios';
 Modal.setAppElement('#root');
 
 
-function LogInPage({ setUser, setLoading }) {
+function LogInPage({ user, setUser, setLoading }) {
   useEffect(() => {
     const currentUser = localStorage.getItem("currentUser");
     if (currentUser !== null) {
       setUser(JSON.parse(currentUser));
     }
-  });
+  },[]);
 
   const [usernameInput, setUserNameInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");

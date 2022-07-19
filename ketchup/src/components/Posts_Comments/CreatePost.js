@@ -30,13 +30,14 @@ function CreatePost({user}) {
   console.log(images)
   return (
     <FormContainer>
-    <FormDiv>Create a Post 
+     {/* <FormDiv>Create a Post  */}
    
 
     <Postform id="new-post-form" >
-
+                    
+                    <PostTitle><b>Create Post</b></PostTitle>
                     <PostTitle>
-                    Post Title:
+                      Post Title:
                     <PostTitleText 
                     onChange={(e) => setTitle(e.target.value)} 
                     value={post_header}
@@ -67,10 +68,10 @@ function CreatePost({user}) {
                     />
                 </PostSubmit>
           </Postform>
-    </FormDiv>
+    {/* </FormDiv> */}
     
 
-    </FormContainer>
+  </FormContainer>
     
   )
 }
@@ -124,7 +125,6 @@ padding: 10px;
 const PostTitle = styled.label`
 width: 500px;
 font-size: 20px;
-
 `
 
 

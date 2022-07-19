@@ -108,6 +108,8 @@ const Register = ({ user, setUser }) => {
 
      };
 
+
+
   return (
   <>
      {success ? (
