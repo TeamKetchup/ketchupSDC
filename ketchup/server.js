@@ -37,14 +37,14 @@ passport.use(
           password,
           findUser.rows[0].password,
           (err, res) => {
+            console.log(res)
             if (err) {
-              return done(err);
+             return done(err);
             }
             if (res === false) {
-              return done(null, false);
-            } else {
-              return done(null, user);
+             return done(null, false);
             }
+             return done(null, user);
           }
         );
       } catch (error) {
@@ -187,12 +187,11 @@ app.post("/api/login", (req, res, next) =>
     req.logIn(user, function (err) {
       if (err) {
         return res.json(err);
-      } 
-      if (user){
-        console.log(user)
-        res.send(user); 
+      } if(user){
+        res.send(user)
       }
-    });
+      }
+    );
   })(req, res, next)
 );
 
