@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './header.css';
 import SearchBar from './searchBar';
 
-import Logo from '../LogInSignUp/image-removebg-preview.png'
+import Logo from '../LogInSignUp/images/image-removebg-preview.png'
 
 const Header = ({user, setUser}) => {
     let [login,setLogin] = useState({href: '/loginpage', li: 'Login/Signin'})
@@ -23,7 +23,7 @@ const Header = ({user, setUser}) => {
           <div className='avaterusernameContainer'>
             <Link to='/userprofile'>
                 <img alt="" className='headerAvatar' src={user[0].avatar}></img>
-                <h1>@{user[0].username}</h1>
+                <h1 className='headerUsername'>{user[0].username}</h1>
             </Link>
             <Link to='/'>
             <button className="logout" onClick={()=>{setUser(false); localStorage.clear()}}>Logout</button>

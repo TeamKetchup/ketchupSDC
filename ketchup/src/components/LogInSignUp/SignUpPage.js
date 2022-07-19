@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import HeaderDropZone from "./HeaderDropZone";
-import Logo from "./image-removebg-preview.png";
+import Logo from "./images/image-removebg-preview.png";
 import axios from "axios";
 import { useState } from "react";
 
@@ -104,7 +104,7 @@ const SignUpContainer = styled.div`
   height: auto;
   width: 475px;
   padding-bottom: 15px;
-`;
+`
 const KetchupLogo = styled.img`
   border-radius: 50%;
   height: 125px;
@@ -130,7 +130,7 @@ const KetchupLogo = styled.img`
       transform: translate(0, -0px);
     }
   }
-`;
+`
 
 const Header1 = styled.h2`
   color: #ff0000;

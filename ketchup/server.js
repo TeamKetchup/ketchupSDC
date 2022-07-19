@@ -1,12 +1,15 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
+const path = require('path');
 const db = require("./db/conn");
 const cors = require("cors");
 const AWS = require("aws-sdk");
 const fs = require("fs");
 const multer = require("multer");
 const multerS3 = require("multer-s3");
+const credentials = require('./middleware/credentials');
+const corsOptions = require("./config/corsOptions");
 const cookieParser = require("cookie-parser");
 const passport = require("passport");
 const PassportLocal = require("passport-local");
@@ -68,8 +71,16 @@ passport.use(
 //     credentials: true
 // }));
 
-app.use(cors());
+app.use(credentials);
 
+app.use(cors(corsOptions));
+
+// app.use(express.urlencoded({ extended: false }));
+
+app.use(express.json())
+app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'build')));
+// app.use(express.static("public"));
 app.use(
   expressSession({
     secret: "secret",
@@ -163,6 +174,7 @@ app.get("/api/products", async (_, res) => {
   }
 });
 
+// get all users
 app.get("/api/users", async (_, res) => {
   try {
     await db.query("SELECT * FROM users", (error, results) => {
@@ -173,6 +185,23 @@ app.get("/api/users", async (_, res) => {
     console.error(error.message);
   }
 });
+
+//get one user
+app.get("/api/login/:username", async (req, res) => {
+  try {
+    const username = req.params.username
+    const data = await db
+      .query('SELECT username FROM users WHERE username = $1', [
+        username
+      ])
+    res.send(data.rows)
+    console.log(data.rows)
+  } catch (error) {
+    console.log(error.message)
+  }
+})
+
+
 // app.get('/', function (req, res) {
 //     res.sendFile(path.join("./my-app/public"));
 // });
@@ -417,7 +446,7 @@ app.post("/api/createcommunity", upload.single("file"), async function (req, res
     app.get("/api/posts", async (req, res) => {
         try {
             await db.query('SELECT * FROM posts ORDER BY id DESC', (error, results) => {
-                console.log(req) 
+                // console.log(req) 
                 res.status(200).json(results.rows)
             })
         } catch (error) {
@@ -530,6 +559,143 @@ app.post("/api/createcommunity", upload.single("file"), async function (req, res
  
 
  // =========================END COMMENTS SECTION=======================================
+
+app.get("/api/all", async (_, res) => {
+  // const id = req.params.id
+  try {
+    await db.query('SELECT * FROM images INNER JOIN products ON images.product_id = products.id', (error, results) => {
+
+      res.status(200).json(results.rows)
+    })
+  } catch (error) {
+    console.error(error.message)
+  }
+});
+
+app.get("/api/products/:id", async (req, res) => {
+  const id = req.params.id
+  try {
+    await db.query('SELECT * FROM images INNER JOIN products ON images.product_id = products.id WHERE product_id = $1', [id], (error, results) => {
+
+      res.status(200).json(results.rows)
+    })
+  } catch (error) {
+    console.error(error.message)
+  }
+});
+
+app.get("/api/profileinfo/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    await db.query('SELECT * FROM users WHERE id = $1', [id], (error, results) => {
+
+      res.status(200).json(results.rows)
+    })
+  } catch (error) {
+    console.error(error.message)
+  }
+});
+
+app.get("/api/allcommunities", async (req, res) => {
+  const id = req.params.id;
+  try {
+    await db.query('SELECT * FROM community', (error, results) => {
+
+      res.status(200).json(results.rows)
+    })
+  } catch (error) {
+    console.error(error.message)
+  }
+});
+
+app.get("/api/subscribedcommunities/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    await db.query('SELECT * FROM community WHERE users_id = $1', [id], (error, results) => {
+
+      res.status(200).json(results.rows)
+    })
+  } catch (error) {
+    console.error(error.message)
+  }
+});
+
+//update Bio
+app.patch("/api/bio/:id", async (req, res) => {
+  try {
+    let client = await db.connect();
+    const { bio } = req.body;
+    const currentBio = await db.query('SELECT * FROM users WHERE id = $1', [req.params.id]);
+    const bioObj = {
+      bio: bio || currentBio.rows[0].bio
+    }
+    const updatedBio = await db.query('UPDATE users SET bio = $1 WHERE id = $2 RETURNING *', [bioObj.bio, req.params.id]);
+    res.send(updatedBio.rows[0]);
+    client.release()
+  } catch (error) {
+    res.send(error.message);
+  }
+})
+
+//get community info
+app.get("/community/:community", async (req, res) => {
+
+  try {
+    let client = await db.connect();
+    const communityName = req.params.community;
+    await db.query('SELECT * FROM community WHERE name = $1', [communityName], (error, results) => {
+
+      res.status(200).json(results.rows)
+      client.release()
+    })
+  } catch (error) {
+    console.error(error.message)
+  }
+});
+
+//create community
+app.post("/api/postcommunity", async (req, res) => {
+  try {
+    let client = await db.connect();
+    const { name, category, banner, users_id } = req.body;
+    const { rows } = await db.query('INSERT INTO community (name, category, banner, users_id) VALUES($1, $2, $3, $4) RETURNING*', [name, category, banner, users_id]);
+    res.send({ data: (rows), message: "New community has been created" });
+    console.log({ rows });
+    client.release()
+  } catch (error) {
+    res.send(error.message);
+  }
+});
+
+
+app.get("/api/all", async (_, res) => {
+  // const id = req.params.id
+  try {
+    await db.query(
+      "SELECT * FROM images INNER JOIN products ON images.product_id = products.id",
+      (error, results) => {
+        res.status(200).json(results.rows);
+      }
+    );
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+
+app.get("/api/products/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    await db.query(
+      "SELECT * FROM images INNER JOIN products ON images.product_id = products.id WHERE product_id = $1",
+      [id],
+      (error, results) => {
+        res.status(200).json(results.rows);
+      }
+    );
+  } catch (error) {
+    console.error(error.message);
+  }
+});
 
 app.listen(process.env.API_PORT, () => {
   console.log(`Server is listening on port: ${process.env.API_PORT}`);

@@ -18,7 +18,7 @@ function PostsItem({
 
   console.log(img, video)
   return (
-    <PostItemContainer className="post-1">
+    <PostItemContainer className="post-1" key={id}>
       <HeaderContainer className='postheader'>
         <a
           click-id="subreddit-id"

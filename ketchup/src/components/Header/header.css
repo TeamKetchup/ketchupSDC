@@ -4,10 +4,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 2rem;
-    padding: 0 1rem;
+    /* gap: 2rem; */
+    padding: 0;
     font-family: 'Oswald', sans-serif;
-    
+    position: sticky;
+    top:0;
+    overflow: hidden;
+    z-index: 100;
   }
   .navBar a{
     color: inherit;
@@ -101,6 +104,21 @@
     height: 60px !important;
     width: 60px !important;
     margin-right: 15px;
+  }
+
+  .headerUsername{
+    font-family: 'Pacifico', cursive;
+    font-size: 27px;
+    color: white;
+    text-shadow: 
+    #FFF 0px 0px 5px, 
+    #FF0000 0px 0px 10px, 
+    #FF0000 0px 0px 15px, 
+    #FF0000 0px 0px 20px, 
+    #FF0000 0px 0px 30px, 
+    #FF0000 0px 0px 40px, 
+    #FF0000 0px 0px 50px, 
+    #FF0000 0px 0px 75px; 
   }
 
   .avaterusernameContainer{

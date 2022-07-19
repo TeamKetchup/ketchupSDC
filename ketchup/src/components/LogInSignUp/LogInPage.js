@@ -1,28 +1,14 @@
-import React from "react";
-import styled from "styled-components";
-import Logo from "./image-removebg-preview.png";
-import "../../index.css";
-import { Link } from "react-router-dom";
-import Modal from "react-modal";
-import { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useContext, useEffect } from 'react'
+import styled from 'styled-components';
+import Logo from './images/image-removebg-preview.png'
+import '../../index.css'
+import { Link } from 'react-router-dom';
+import Modal from 'react-modal';
+import AuthContext from '../../context/AuthProvider';
+import axios from 'axios';
 
-const customStyles = {
-  overlay: {
-    backgroundColor: "rgba(0,0,0,.4)",
-  },
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-    backgroundColor: "#F1F2F5",
-  },
-};
+Modal.setAppElement('#root');
 
-Modal.setAppElement("#root");
 
 function LogInPage({ setUser, setLoading }) {
   useEffect(() => {
@@ -82,73 +68,89 @@ function LogInPage({ setUser, setLoading }) {
   };
 
   function openModal() {
-    setIsOpen(true);
-  }
+     setIsOpen(true);
+}
 
-  function afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    subtitle.style.color = "#f00";
-  }
+function afterOpenModal() {
+     // references are now sync'd and can be accessed.
+     subtitle.style.color = '#f00';
+}
 
-  function closeModal() {
-    setIsOpen(false);
-  }
-  return (
-    <div className="loginPage">
-      <HeaderLogoContainer>
-        <KetchupLogo src={Logo}></KetchupLogo>
-        <HeaderContainer>
-          <LoginHeader>
-            <Link to="/">KETCHUP</Link>
-          </LoginHeader>
-          <span className="loginSlogan">
-            With The World, With Your Friends.
-          </span>
-        </HeaderContainer>
-      </HeaderLogoContainer>
-      <LogInBtnContainer>
-        <LogInPageBtn onClick={openModal}>Log In</LogInPageBtn>
-        <Modal
-          isOpen={modalIsOpen}
-          onAfterOpen={afterOpenModal}
-          onRequestClose={closeModal}
-          style={customStyles}
-          contentLabel="Example Modal"
-        >
-          <InnerModalContainer>
-            <ModalHeader ref={(_subtitle) => (subtitle = _subtitle)}>
-              Log In
-            </ModalHeader>
-            <ModalForm onSubmit={logIn}>
-              {/* <InputContainer> */}
-              <Input
-                type="text"
-                placeholder="Enter User Name"
-                value={usernameInput}
-                onChange={(e) => setUserNameInput(e.target.value)}
-              />
-              <Input
-                type="password"
-                placeholder="Enter Password"
-                value={passwordInput}
-                onChange={(e) => setPasswordInput(e.target.value)}
-              />
-              <ModalSubmitBtn type="submit"></ModalSubmitBtn>
-              {/* </InputContainer> */}
-            </ModalForm>
-            {/* <ModalBtn>Submit</ModalBtn> */}
-            <ModalBtn onClick={closeModal}>Cancel</ModalBtn>
-          </InnerModalContainer>
-        </Modal>
-        <Link to="/signuppage">
-          <LogInPageBtn>Sign Up</LogInPageBtn>
-        </Link>
-      </LogInBtnContainer>
-    </div>
-  );
+
+     function closeModal() {
+          setIsOpen(false);
+     }
+
+     return (
+          <div className='loginPage'>
+               <HeaderLogoContainer>
+                    <KetchupLogo src={Logo}>
+                    </KetchupLogo>
+                    <HeaderContainer>
+                         <LoginHeader><Link to="/">KETCHUP</Link></LoginHeader>
+                         <span className='loginSlogan'>With The World, With Your Friends.</span>
+                    </HeaderContainer>
+               </HeaderLogoContainer>
+               <LogInBtnContainer>
+                    <LogInPageBtn onClick={openModal}>Log In</LogInPageBtn>
+                    <Modal
+                         isOpen={modalIsOpen}
+                         onAfterOpen={afterOpenModal}
+                         onRequestClose={closeModal}
+                         style={customStyles}
+                         contentLabel="Example Modal"
+                    >
+                         <InnerModalContainer>
+                              <ModalHeader ref={(_subtitle) => (subtitle = _subtitle)}>Log In</ModalHeader>
+                              <ModalForm onSubmit={logIn}>
+                                   {/* <InputContainer> */}
+                                        <Input 
+                                             type='text' 
+                                             placeholder='Enter User Name'
+                                             value={usernameInput}
+                                             onChange={(e) => setUserNameInput(e.target.value)}
+                                             required 
+                                        />
+                                        <Input 
+                                             type='password' 
+                                             placeholder='Enter Password' 
+                                             value={passwordInput}
+                                             onChange={(e) => setPasswordInput(e.target.value)}
+                                             required
+                                        />
+                                        <ModalSubmitBtn type='submit'></ModalSubmitBtn>
+                                   {/* </InputContainer> */}
+                              </ModalForm>
+                              {/* <ModalBtn>Submit</ModalBtn> */}
+                              <ModalBtn onClick={closeModal}>Cancel</ModalBtn>
+                         </InnerModalContainer>
+
+                    </Modal>
+                    <Link to='/register'>
+                         <LogInPageBtn>Sign Up</LogInPageBtn>
+                    </Link>
+               </LogInBtnContainer>
+          </div>
+               
+     )
 }
 
 export default LogInPage;
+
+const customStyles = {
+     overlay: {
+          backgroundColor: 'rgba(0,0,0,.4)',
+     },
+     content: {
+          top: '50%',
+          left: '50%',
+          right: 'auto',
+          bottom: 'auto',
+          marginRight: '-50%',
+          transform: 'translate(-50%, -50%)',
+          backgroundColor: '#F1F2F5',
+     },
+};
 
 const HeaderLogoContainer = styled.div`
   display: flex;
@@ -255,17 +257,19 @@ const ModalForm = styled.form`
 `;
 
 const Input = styled.input`
-  margin: 10px 0px;
-  height: 35px;
-  width: 270px;
-  font-size: 17px;
-  border-radius: 5px;
-  border: 0;
-  :focus-within {
-    box-shadow: 0 0px 4px 4px red;
-    outline: 0;
-  }
-`;
+     margin: 10px 0px;
+     height: 40px;
+     width: 270px;
+     font-size: 17px;
+     border-radius: 5px;
+     border: 0;
+     font-family: 'Oswald', sans-serif;
+     font-size: 21px;
+     :focus-within{
+          box-shadow: 0 0px 4px 4px red;
+          outline: 0;
+     }
+`
 
 const InputContainer = styled.div`
   display: flex;

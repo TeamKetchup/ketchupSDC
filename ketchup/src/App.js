@@ -11,27 +11,19 @@ import LandingPage from './components/landingPage';
 import Header from './components/Header/header';
 import { useState, useEffect } from 'react';
 import CommunityPage from './components/Communities/CommunityPage';
-// import usePersistedState from 'use-persisted-state-hook'
 import CreateCommunity from './components/Communities/CreateCommunity';
+import Register from "./components/LogInSignUp/Register";
 import loadingGif from "./components/LogInSignUp/loading.gif"
 import CreatePost from "./components/Posts_Comments/CreatePost";
 
 
 
 function App() {
-  // const sumbitAvatar = async (file) => {
 
-  //   const formData = new FormData();
-  //   formData.append("file", file);
-  //   await axios.post("http://localhost:3025/api/postimage", formData);
-  // }
-  // const [community, setCommunity] = useState(null);
-  //fetch request for a join table between community/posts/comments table
-  const [user, setUser] = useState(false)
-  const [loading, setLoading] = useState(true);
-  // const [currentuser, setCurrentUser] = usePersistedState('currentuser',[])
+  const [user, setUser] = useState('')
   const [profileInfo, setProfileInfo] = useState(false);
   const [subscribedCommunities, setsubscribedCommunities] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // console.log(user[0])
   useEffect(() => {
@@ -63,6 +55,7 @@ function App() {
             <Routes>
               <Route path='/' element={<LogInPage setLoading={setLoading} setUser={setUser} />} />
               <Route path='/signuppage' element={<SignUpPage user={user} />} />
+              <Route path='/register' element={<Register user={user} setUser={setUser}/>} />
               <Route path='/posts' element={<Posts />}/>
               <Route path='/createpost' element={<CreatePost />}/>
             </Routes>
@@ -97,8 +90,11 @@ function App() {
               }
               />
 
-            </Routes>
-          </>
+                </Routes>
+                
+                </>
+              //   )}
+              // </>
         )}
 
       </div>
