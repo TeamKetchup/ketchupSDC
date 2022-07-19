@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import Posts_Body from "../Posts_Comments/Posts_Body";
 import CommunityPosts from "../Posts_Comments/CommunityPosts";
 import Posts from "../Posts_Comments/Posts";
+import { Link } from "react-router-dom";
 
 
 
@@ -19,8 +20,10 @@ const CommunityPage = (communities) => {
 
     useEffect(() => {
         fetchCommunityPage();
-        fetchPosts();
+        // fetchPosts();
     }, [id]);
+
+    console.log(id)
 
     const fetchCommunityPage = async () => {
         try {
@@ -32,12 +35,14 @@ const CommunityPage = (communities) => {
             }
             let actualData = await response.json();
             setSingleCommunity(actualData);
+            // console.log(actualData)
+            fetchPosts(actualData[0].id);
         } catch (error) {
             console.log(error);
         }
     }
 
-    const fetchPosts = async () => {
+    const fetchPosts = async (id) => {
         try {
             const response = await fetch(`http://localhost:3025/community/posts/${id}`);
             if (!response.ok) {
@@ -53,7 +58,7 @@ const CommunityPage = (communities) => {
     }
 
 
-
+    // console.log(singleCommunity)
 
     return (
         <>
@@ -65,6 +70,7 @@ const CommunityPage = (communities) => {
             </CommunityNav>
             <CommunityContainer>
                 <PostContainer>
+                    <StyledLink to={'/createpost'}>Create Post</StyledLink>
                     {posts && <CommunityPosts posts={posts} />}
                 </PostContainer>
                 <CardContainer>
@@ -86,6 +92,19 @@ const CommunityHeader = styled.div`
     width: 100%;
 `
 
+
+const StyledLink = styled(Link)`
+    font-size: 25px;
+    color: white;
+    position: relative;
+    margin-top: 15px;
+    cursor: pointer;
+    :hover {
+        color: #FF0000;
+        cursor: pointer;
+    }
+`
+
 const CommunityContainer = styled.div`
     display: flex;
     flex-direction: row;
@@ -93,6 +112,8 @@ const CommunityContainer = styled.div`
 `
 
 const PostContainer = styled.div`
+    display: flex;
+    flex-direction: column;
     width: 70%;
     justify-content: center;
     align-items: center;
