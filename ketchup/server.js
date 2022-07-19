@@ -356,6 +356,20 @@ app.patch("/api/bio/:id", async (req, res) => {
   }
 })
 
+// //get user posts
+app.get("/user/posts/:id", async (req, res) => {
+  try {
+    let client = await db.connect();
+    const id = req.params.id;
+    await db.query('SELECT * FROM posts WHERE users_id = $1', [id], (error, results) => {
+      res.status(200).json(results.rows)
+      client.release()
+    })
+  } catch (error) {
+    console.error(error.message)
+  }
+});
+
 // =========================ENDS PROFILE SECTION=======================================
 
 // =========================STARTS COMMUNITY SECTION=======================================
@@ -416,19 +430,6 @@ app.get("/community/posts/:id", async (req, res) => {
   }
 });
 
-// //create community
-// app.post("/api/postcommunity", async (req, res) => {
-//   try {
-//     let client = await db.connect();
-//     const { name, category, banner, users_id } = req.body;
-//     const { rows } = await db.query('INSERT INTO community (name, category, banner, users_id) VALUES($1, $2, $3, $4) RETURNING*', [name, category, banner, users_id]);
-//     res.send({ data: (rows), message: "New community has been created" });
-//     console.log({ rows });
-//     client.release()
-//   } catch (error) {
-//     res.send(error.message);
-//   }
-// })
 
 //create community - using S3 bucket
 app.post("/api/createcommunity", upload.single("file"), async function (req, res, next) {
