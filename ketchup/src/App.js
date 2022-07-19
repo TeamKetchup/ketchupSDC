@@ -60,19 +60,10 @@ function App() {
         {!user ? (
           <>
             <Routes>
-<<<<<<< HEAD
-              <Route path='/' element={<LogInPage user={user} setLoading={setLoading} setUser={setUser} />} />
-              {/* <Route path='/signuppage' element={<SignUpPage user={user} />} /> */}
-              <Route path='/register' element={<Register user={user} setUser={setUser}/>} />
-              <Route path='/posts' element={<Posts />}/>
-              <Route path='/createpost' element={<CreatePost />}/>
-=======
               <Route path='/' element={<LogInPage setLoading={setLoading} setUser={setUser} />} />
-              <Route path='/signuppage' element={<SignUpPage user={user} />} />
               <Route path='/register' element={<Register user={user} setUser={setUser} />} />
               <Route path='/posts' element={<Posts />} />
-              <Route path='/createpost' element={<CreatePost />} />
->>>>>>> 63e7c9cd77abb0804c943e92ace8eba69e1c6db5
+              
             </Routes>
           </>
 
@@ -88,7 +79,8 @@ function App() {
               <Route path='/loginpage' element={<LogInPage />} />
               <Route path='/deleted' element={<AccountDeleted />} />
               <Route path='/posts' element={<Posts />} />
-              <Route path='/userprofile/:id' element={
+              <Route path='/createpost' element={<CreatePost />} />
+              <Route path='/userprofile' element={
                 <>
                   {user && setUser && subscribedCommunities && <ProfilePage user={user} setUser={setUser} subscribedCommunities={subscribedCommunities} />}
                 </>
