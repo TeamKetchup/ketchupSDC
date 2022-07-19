@@ -27,7 +27,7 @@ function PostsItem({
           className="subreddit-name"
           href="/posts/" 
         >
-          <HeaderImg src={avatar} alt="image" />
+          <HeaderImg src={avatar} alt="" />
         </a>
         <h1>{post_header}</h1>
         <div></div>
