@@ -21,6 +21,9 @@ function Posts_Body({searchPosts, user}) {
             date={data.date}
             user_id={data.user_id}
             community_id={data.community_id}
+            username={data.username}
+            avatar={data.avatar}
+            
 
           />
         ))}

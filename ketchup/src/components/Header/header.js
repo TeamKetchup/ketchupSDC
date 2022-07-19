@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import './header.css'
+import './header.css';
 import SearchBar from './searchBar';
 
-import Logo from '../LogInSignUp/image-removebg-preview.png'
+import Logo from '../LogInSignUp/images/image-removebg-preview.png'
 
-const Header = ({user}) => {
+const Header = ({user, setUser}) => {
     let [login,setLogin] = useState({href: '/loginpage', li: 'Login/Signin'})
     // let [user, setUser] = useState()
     // function userlogin(){
@@ -21,9 +21,12 @@ const Header = ({user}) => {
           <SearchBar />
 
           <div className='avaterusernameContainer'>
-          <Link to={`/userprofile/${user[0].id}`} >
-                <img className='headerAvatar' src={user[0].avatar}></img>
-                <h1>@{user[0].username}</h1>
+            <Link to='/userprofile'>
+                <img alt="" className='headerAvatar' src={user[0].avatar}></img>
+                <h1 className='headerUsername'>{user[0].username}</h1>
+            </Link>
+            <Link to='/'>
+            <button className="logout" onClick={()=>{setUser(false); localStorage.clear()}}>Logout</button>
             </Link>
           </div>
               {/* <li className='active'><Link to='/loginpage'>{login.li}</Link></li> */}

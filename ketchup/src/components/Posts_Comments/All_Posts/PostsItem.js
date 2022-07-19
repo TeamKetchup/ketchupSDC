@@ -14,18 +14,20 @@ function PostsItem({
   date,
   user_id,
   community_id,
+  username,
+  avatar,
 }) {
 
   console.log(img, video)
   return (
-    <PostItemContainer className="post-1">
+    <PostItemContainer className="post-1" key={id}>
       <HeaderContainer className='postheader'>
         <a
           click-id="subreddit-id"
           className="subreddit-name"
           href="/posts/" 
         >
-          <HeaderImg src={img} alt="image" />
+          <HeaderImg src={avatar} alt="image" />
         </a>
         <h1>{post_header}</h1>
         <div></div>

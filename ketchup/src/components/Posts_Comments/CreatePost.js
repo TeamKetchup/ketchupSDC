@@ -5,19 +5,29 @@ import HeaderDropZone from '../LogInSignUp/HeaderDropZone'
 
 
 
-function CreatePost() {
+function CreatePost({user}) {
   const [images, setImages] = useState([])
-  const [title, setTitle] = useState("")
-  const [pbody, setPBody] = useState("")
+  const [post_header, setTitle] = useState("")
+  const [post_body, setPBody] = useState("")
+  const date = new Date()
+  const user_id = 1
+  const com_id = 1
   
-  const submitPost = async (file, title, pbody) => {
+  const submitPost = async (file, post_header, post_body, date, com_id, user_id) => {
     const formData = new FormData();
-    formData.append("posttitle", title);
-    formData.append("postcontent", pbody);
+    formData.append("post_header", post_header);
+    formData.append("post_body", post_body);
     formData.append("file", file);
+    formData.append("date", date);
+    formData.append("user_id", user_id);
+    formData.append("com_id", com_id);
     await axios.post("http://localhost:3025/api/createpost", formData);
     console.log('post created')
   };
+
+ 
+
+
   return (
     <FormContainer>
     <FormDiv>Create a Post 
@@ -25,10 +35,11 @@ function CreatePost() {
 
     <Postform id="new-post-form" >
 
-    
-                <PostTitle>
+                    <PostTitle>
                     Post Title:
                     <PostTitleText 
+                    onChange={(e) => setTitle(e.target.value)} 
+                    value={post_header}
                     name='new-post-header'
                     type='text' 
                     />
@@ -36,7 +47,9 @@ function CreatePost() {
                 <div><SpaceDiv className="space"></SpaceDiv></div>
                 <PostContent>
                     Post Content:
-                    <PostContentTextArea 
+                    <PostContentTextArea
+                    onChange={(e) => setPBody(e.target.value)} 
+                    value={post_body}
                     name='new-post-body'
                     />
                 </PostContent>
@@ -47,7 +60,7 @@ function CreatePost() {
                     
                     <PostSubmitText onClick={(e) => {
                 e.preventDefault();
-                submitPost(images[0], title, pbody)
+                submitPost(images[0], post_header, post_body, date, com_id, user_id)
               }} 
                     name='new-post-submit'
                     type='submit' 
