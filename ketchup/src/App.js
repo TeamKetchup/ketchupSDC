@@ -47,66 +47,67 @@ function App() {
     }
   }
 
-//  if(loading === true){
-//   return(
-//       <div>loading...</div>
-//   )
-//  } else {
+  //  if(loading === true){
+  //   return(
+  //       <div>loading...</div>
+  //   )
+  //  } else {
   return (
     // <BrowserRouter>
-      <div className="App">
+    <div className="App">
 
 
-        {!user ? (
-          <>
-            <Routes>
-              <Route path='/' element={<LogInPage setLoading={setLoading} setUser={setUser} />} />
-              <Route path='/register' element={<Register user={user} setUser={setUser} />} />
-              <Route path='/posts' element={<Posts />} />
-              
-            </Routes>
-          </>
+      {!user ? (
+        <>
+          <Routes>
+            <Route path='/' element={<LogInPage setLoading={setLoading} setUser={setUser} />} />
+            <Route path='/register' element={<Register user={user} setUser={setUser} />} />
+            <Route path='/posts' element={<Posts />} />
 
-        ) : (
-          <>
-            {user && <Header user={user} setUser={setUser} />}
-            <Routes>
-              <Route path='/' element={
-                <>
-                  {subscribedCommunities && user && <LandingPage communities={subscribedCommunities} user={user} />}
-                </>
-              } />
-              <Route path='/loginpage' element={<LogInPage />} />
-              <Route path='/deleted' element={<AccountDeleted />} />
-              <Route path='/posts' element={<Posts />} />
-              <Route path='/createpost' element={<CreatePost />} />
-              <Route path='/userprofile' element={
-                <>
-                  {user && setUser && subscribedCommunities && <ProfilePage user={user} setUser={setUser} subscribedCommunities={subscribedCommunities} />}
-                </>
+          </Routes>
+        </>
 
-              } />
-              <Route exact path={`/createcommunity`} element={
-                <CreateCommunity user={user} />
-              }
-              />
-              <Route path={`/community/:id`} element={
-                <>
-                  {subscribedCommunities && <CommunityPage communities={subscribedCommunities} />}
-                </>
-              }
-              />
+      ) : (
+        <>
+          {user && <Header user={user} setUser={setUser} />}
+          <Routes>
+            <Route path='/' element={
+              <>
+                {subscribedCommunities && user && <LandingPage communities={subscribedCommunities} user={user} />}
+              </>
+            } />
+            <Route path='/loginpage' element={<LogInPage />} />
+            <Route path='/deleted' element={<AccountDeleted />} />
+            <Route path='/posts' element={<Posts />} />
+            <Route path='/createpost' element={<CreatePost />} />
+            <Route path='/userprofile' element={
+              <>
+                {user && setUser && subscribedCommunities && <ProfilePage user={user} setUser={setUser} subscribedCommunities={subscribedCommunities} />}
+              </>
 
-            </Routes>
+            } />
+            <Route path={`/createpost/:userID/:communityID`} element={<CreatePost />} />
+            <Route exact path={`/createcommunity`} element={
+              <CreateCommunity user={user} />
+            }
+            />
+            <Route path={`/community/:id`} element={
+              <>
+                {subscribedCommunities && user && <CommunityPage communities={subscribedCommunities} user={user} />}
+              </>
+            }
+            />
 
-          </>
-          //   )}
-          // </>
-        )}
+          </Routes>
 
-      </div>
+        </>
+        //   )}
+        // </>
+      )}
+
+    </div>
     // </BrowserRouter>
   );
-  
+
 }
 export default App;
