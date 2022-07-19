@@ -57,7 +57,7 @@ function App() {
               <Route path='/signuppage' element={<SignUpPage user={user} />} />
               <Route path='/register' element={<Register user={user} setUser={setUser} />} />
               <Route path='/posts' element={<Posts />} />
-              <Route path='/createpost' element={<CreatePost />} />
+              {/* <Route path={`/createpost/:id`} element={<CreatePost />} /> */}
             </Routes>
           </>
 
@@ -73,12 +73,13 @@ function App() {
               <Route path='/loginpage' element={<LogInPage />} />
               <Route path='/signuppage' element={<SignUpPage user={user} />} />
               <Route path='/posts' element={<Posts />} />
-              <Route path='/userprofile/:id' element={
+              <Route path='/userprofile' element={
                 <>
                   {subscribedCommunities && <ProfilePage user={user} subscribedCommunities={subscribedCommunities} />}
                 </>
 
               } />
+              <Route path={`/createpost/:userID/:communityID`} element={<CreatePost />} />
               <Route exact path={`/createcommunity`} element={
                 <CreateCommunity user={user} />
               }

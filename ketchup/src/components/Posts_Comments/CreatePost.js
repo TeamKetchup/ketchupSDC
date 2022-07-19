@@ -2,17 +2,19 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import axios from "axios";
 import HeaderDropZone from '../LogInSignUp/HeaderDropZone'
+import { useParams } from 'react-router';
 
 
 
-function CreatePost({user}) {
+function CreatePost({ user }) {
+  const { userID, communityID } = useParams();
+  // console.log(userID, communityID)
   const [images, setImages] = useState([])
   const [post_header, setTitle] = useState("")
   const [post_body, setPBody] = useState("")
   const date = new Date()
-  const user_id = 1
-  const com_id = 1
-  
+
+
   const submitPost = async (file, post_header, post_body, date, com_id, user_id) => {
     const formData = new FormData();
     formData.append("post_header", post_header);
@@ -25,53 +27,53 @@ function CreatePost({user}) {
     console.log('post created')
   };
 
- 
+
 
   console.log(images)
   return (
     <FormContainer>
-    <FormDiv>Create a Post 
-   
+      <FormDiv>Create a Post
 
-    <Postform id="new-post-form" >
 
-                    <PostTitle>
-                    Post Title:
-                    <PostTitleText 
-                    onChange={(e) => setTitle(e.target.value)} 
-                    value={post_header}
-                    name='new-post-header'
-                    type='text' 
-                    />
-                </PostTitle>
-                <div><SpaceDiv className="space"></SpaceDiv></div>
-                <PostContent>
-                    Post Content:
-                    <PostContentTextArea
-                    onChange={(e) => setPBody(e.target.value)} 
-                    value={post_body}
-                    name='new-post-body'
-                    />
-                </PostContent>
+        <Postform id="new-post-form" >
 
-                Add Media<HeaderDropZone images={images} setImages={setImages}/>
+          <PostTitle>
+            Post Title:
+            <PostTitleText
+              onChange={(e) => setTitle(e.target.value)}
+              value={post_header}
+              name='new-post-header'
+              type='text'
+            />
+          </PostTitle>
+          <div><SpaceDiv className="space"></SpaceDiv></div>
+          <PostContent>
+            Post Content:
+            <PostContentTextArea
+              onChange={(e) => setPBody(e.target.value)}
+              value={post_body}
+              name='new-post-body'
+            />
+          </PostContent>
 
-                <PostSubmit>
-                
-                    <PostSubmitText onClick={(e) => {
-                e.preventDefault();
-                submitPost(images[0], post_header, post_body, date, com_id, user_id)
-              }} 
-                    name='new-post-submit'
-                    type='submit' 
-                    />
-                </PostSubmit>
-          </Postform>
-    </FormDiv>
-    
+          Add Media<HeaderDropZone images={images} setImages={setImages} />
+
+          <PostSubmit>
+
+            <PostSubmitText onClick={(e) => {
+              e.preventDefault();
+              submitPost(images[0], post_header, post_body, date, communityID, userID)
+            }}
+              name='new-post-submit'
+              type='submit'
+            />
+          </PostSubmit>
+        </Postform>
+      </FormDiv>
+
 
     </FormContainer>
-    
+
   )
 }
 
