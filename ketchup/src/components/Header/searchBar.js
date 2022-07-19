@@ -29,42 +29,46 @@ function SearchBar() {
 
     };
     const handleChange = (e) => {
-
+        
+        setInputVal(e.target.value)
         const searchWord = e.target.value
         const mapedWords = comName.filter((data) => {
-            return data.toLowerCase().match(searchWord.toLowerCase())
+            return data.toLowerCase().match(inputVal.toLowerCase())
         })
         setFilterData(mapedWords)
         console.log(filterData)
+        
+        
+        }
 
+    
+console.log(inputVal)
 
-    }
-
-
-
-
-    if (load === true) {
-        return (
-            <div>loading</div>
-        )
-    } else {
-        return (
-            <div className='search'>
-                <div className='searchInputs'>
-                    <input type='text' onChange={handleChange} />
-                    <div className='searchIcon'><GoSearch /></div>
-                </div>
-                {filterData.length !== 0 && (
-                    <div className='dataResult'>{filterData.map((value) => {
-                        return (<Link className='dataItem' to={`/community/${value}`}>{value}</Link>
-                        )
+if(load === true){
+    return (
+        <div>loading</div>
+    )
+ }else{
+  return (
+    <div className='search'>
+        <div className='searchInputs'>
+            <input type='text' value={inputVal} onChange={handleChange}  />
+            <div className='searchIcon'><GoSearch/></div>
+        </div>
+            {filterData.length !== 0 && (
+                <div className={inputVal ? 'dataResult' : 'hide'}>{filterData.map((value) => {
+                    return( <Link className='dataItem' to={`/community/${value}`}>{value}</Link>
+                        )        
                     })}
-                    </div>
-                )}
+                </div>
+            )}
+                
+        
 
-            </div>
-        )
-    }
+            
+    </div>
+  )
+  }
 }
 
 
