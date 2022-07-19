@@ -1,73 +1,73 @@
 import React from 'react'
 import styled from 'styled-components'
-import Header from '../Header/header'
+// import Header from '../header'
 
 function CreatePost() {
   return (
     <FormDiv>CreatePost
-    {/* <Header /> */}
+      {/* <Header /> */}
 
-    <Postform id="new-post-form" >
-                    <input 
-                        type="text" 
-                        name="new-post-input" 
-                        id="new-post-input" 
-                        placeholder="What do you have planned?" />
+      <Postform id="new-post-form" >
+        <input
+          type="text"
+          name="new-post-input"
+          id="new-post-input"
+          placeholder="What do you have planned?" />
 
-<input 
-                        type="text" 
-                        name="new-post-input" 
-                        id="new-post-input" 
-                        placeholder="What do you have planned?" />
+        <input
+          type="text"
+          name="new-post-input"
+          id="new-post-input"
+          placeholder="What do you have planned?" />
 
-<input 
-                        type="text" 
-                        name="new-post-input" 
-                        id="new-post-input" 
-                        placeholder="What do you have planned?" />
+        <input
+          type="text"
+          name="new-post-input"
+          id="new-post-input"
+          placeholder="What do you have planned?" />
 
-<input 
-                        type="text" 
-                        name="new-post-input" 
-                        id="new-post-input" 
-                        placeholder="What do you have planned?" />
+        <input
+          type="text"
+          name="new-post-input"
+          id="new-post-input"
+          placeholder="What do you have planned?" />
 
-<input 
-                        type="text" 
-                        name="new-post-input" 
-                        id="new-post-input" 
-                        placeholder="What do you have planned?" />
+        <input
+          type="text"
+          name="new-post-input"
+          id="new-post-input"
+          placeholder="What do you have planned?" />
 
-<input 
-                        type="text" 
-                        name="new-post-input" 
-                        id="new-post-input" 
-                        placeholder="What do you have planned?" />
+        <input
+          type="text"
+          name="new-post-input"
+          id="new-post-input"
+          placeholder="What do you have planned?" />
 
-<input 
-                        type="text" 
-                        name="new-post-input" 
-                        id="new-post-input" 
-                        placeholder="What do you have planned?" />
+        <input
+          type="text"
+          name="new-post-input"
+          id="new-post-input"
+          placeholder="What do you have planned?" />
 
-<input 
-                        type="text" 
-                        name="new-post-input" 
-                        id="new-post-input" 
-                        placeholder="What do you have planned?" />
+        <input
+          type="text"
+          name="new-post-input"
+          id="new-post-input"
+          placeholder="What do you have planned?" />
 
-<input 
-                        type="text" 
-                        name="new-post-input" 
-                        id="new-post-input" 
-                        placeholder="What do you have planned?" />
+        <input
+          type="text"
+          name="new-post-input"
+          id="new-post-input"
+          placeholder="What do you have planned?" />
 
 
-                    <input 
-                        type="submit"
-                        id="new-post-submit" 
-                        value="Add post" />
-          </Postform>
+        <input
+          type="submit"
+          id="new-post-submit"
+          value="Add post" />
+      </Postform>
     </FormDiv>
   )
 }

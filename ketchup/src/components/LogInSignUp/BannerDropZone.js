@@ -34,9 +34,9 @@ const img = {
 };
 
 
-function BannerDropZone() {
+function BannerDropZone({ images, setImages }) {
 
-  const [images, setImages] = useState([]);
+  // const [images, setImages] = useState([]);
   const { getRootProps, getInputProps } = useDropzone({
     accept: { 'image/*': [] },
     onDrop: acceptedFiles => {

@@ -54,13 +54,12 @@ function App() {
     }
   }
   return (
-      <BrowserRouter>
+    <BrowserRouter>
       <div className="App">
-      
+
 
         {!user ? (
           <>
-            {/* <LogInPage setUser={setUser}/> */}
             <Routes>
               <Route path='/' element={<LogInPage setLoading={setLoading} setUser={setUser} />} />
               <Route path='/signuppage' element={<SignUpPage user={user} />} />
@@ -80,23 +79,19 @@ function App() {
               } />
               <Route path='/loginpage' element={<LogInPage />} />
               <Route path='/signuppage' element={<SignUpPage user={user} />} />
-              <Route path='/posts' element={<Posts />}/>
-              {/* <Route path='/' element={<HomePage />} /> */}
-              {/* <Route path='/community' element={<Community />}/> */}
+              <Route path='/posts' element={<Posts />} />
               <Route path='/userprofile' element={
                 <>
-                  {/* {profileInfo && subscribedCommunities && user && <Header user={user} />} */}
                   {subscribedCommunities && <ProfilePage user={user} subscribedCommunities={subscribedCommunities} />}
                 </>
 
               } />
               <Route exact path={`/createcommunity`} element={
-                <CreateCommunity />
+                <CreateCommunity user={user} />
               }
               />
               <Route path={`/community/:id`} element={
                 <>
-                  {/* {user && <Header user={user}/>} */}
                   {subscribedCommunities && <CommunityPage communities={subscribedCommunities} />}
                 </>
               }
