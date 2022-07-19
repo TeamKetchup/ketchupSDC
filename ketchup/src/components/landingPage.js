@@ -12,18 +12,18 @@ const landingPage = ({ communities, user }) => {
   return (
 
     <>
-    {/* <Header user={user}/> */}
-    <div className='landing'>
-      <div className='landingleft'>
-        <Link to='/createpost'><Button>Create Post</Button></Link>
-        <Posts />
-      </div>  
-    <div className='landingright'>
-      <div className='communities'>
-      <SubscribedCommunities communities={communities} />
-      </div>
-        
-        {/* <div>
+      {/* <Header user={user}/> */}
+      <div className='landing'>
+        <div className='landingleft'>
+          {/* <Link to='/createpost'><Button>Create Post</Button></Link> */}
+          <Posts />
+        </div>
+        <div className='landingright'>
+          <div className='communities'>
+            <SubscribedCommunities communities={communities} />
+          </div>
+
+          {/* <div>
         <h2>Communities</h2>
         <hr></hr>
         <p>cars</p>

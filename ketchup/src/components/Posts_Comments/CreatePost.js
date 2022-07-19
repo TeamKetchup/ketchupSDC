@@ -8,21 +8,21 @@ import { useParams } from 'react-router';
 
 function CreatePost({ user }) {
   const { userID, communityID } = useParams();
-  // console.log(userID, communityID)
+  console.log(userID, communityID)
   const [images, setImages] = useState([])
   const [post_header, setTitle] = useState("")
   const [post_body, setPBody] = useState("")
-  const date = new Date()
+  // const date = new Date()
 
 
-  const submitPost = async (file, post_header, post_body, date, com_id, user_id) => {
+  const submitPost = async (file, post_header, post_body, user_id, com_id) => {
     const formData = new FormData();
     formData.append("post_header", post_header);
     formData.append("post_body", post_body);
     formData.append("file", file);
-    formData.append("date", date);
-    formData.append("user_id", com_id);
-    formData.append("com_id", user_id);
+    // formData.append("date", date);
+    formData.append("user_id", user_id);
+    formData.append("com_id", com_id);
     await axios.post("http://localhost:3025/api/createpost", formData);
     console.log('post created')
   };
@@ -85,7 +85,7 @@ function CreatePost({ user }) {
 
           <PostSubmitText onClick={(e) => {
             e.preventDefault();
-            submitPost(images[0], post_header, post_body, date, communityID, userID)
+            submitPost(images[0], post_header, post_body, userID, communityID)
           }}
             name='new-post-submit'
             type='submit'
