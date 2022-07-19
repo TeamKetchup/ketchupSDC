@@ -27,7 +27,7 @@ function CreatePost({user}) {
 
  
 
-
+  console.log(images)
   return (
     <FormContainer>
     <FormDiv>Create a Post 
@@ -57,7 +57,7 @@ function CreatePost({user}) {
                 Add Media<HeaderDropZone images={images} setImages={setImages}/>
 
                 <PostSubmit>
-                    
+                
                     <PostSubmitText onClick={(e) => {
                 e.preventDefault();
                 submitPost(images[0], post_header, post_body, date, com_id, user_id)
@@ -68,7 +68,10 @@ function CreatePost({user}) {
                 </PostSubmit>
           </Postform>
     </FormDiv>
+    
+
     </FormContainer>
+    
   )
 }
 

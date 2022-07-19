@@ -57,7 +57,7 @@ function App() {
               <Route path='/signuppage' element={<SignUpPage user={user} />} />
               <Route path='/register' element={<Register user={user} setUser={setUser}/>} />
               <Route path='/posts' element={<Posts />}/>
-              <Route path='/createpost' element={<CreatePost user={user} />}/>
+              <Route path='/createpost' element={<CreatePost />}/>
             </Routes>
           </>
 
