@@ -2,9 +2,10 @@ import SubscribedCommunities from "../ProfilePage/SubscribedCommunities";
 import styled from 'styled-components';
 import { useParams } from "react-router";
 import { useState, useEffect } from "react";
-import Posts_Body from "../Posts_Comments/Posts_Body";
+import Posts_Body from "../Posts_Comments/All_Posts/Posts_Body";
 import CommunityPosts from "../Posts_Comments/CommunityPosts";
-import Posts from "../Posts_Comments/Posts";
+import Posts from "../Posts_Comments/All_Posts/Posts";
+// import Posts from "../Posts_Comments/Posts";
 import { Link } from "react-router-dom";
 
 
