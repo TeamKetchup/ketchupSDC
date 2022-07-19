@@ -85,7 +85,7 @@ function App() {
               />
               <Route path={`/community/:id`} element={
                 <>
-                  {subscribedCommunities && <CommunityPage communities={subscribedCommunities} />}
+                  {subscribedCommunities && user && <CommunityPage communities={subscribedCommunities} user={user} />}
                 </>
               }
               />

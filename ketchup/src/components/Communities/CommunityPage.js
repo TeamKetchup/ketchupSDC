@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 
 
 
-const CommunityPage = (communities) => {
+const CommunityPage = (props) => {
 
     // console.log(communities);
     const { id } = useParams();
@@ -24,6 +24,7 @@ const CommunityPage = (communities) => {
     }, [id]);
 
     console.log(id)
+    console.log(props.user[0].id)
 
     const fetchCommunityPage = async () => {
         try {
@@ -70,11 +71,11 @@ const CommunityPage = (communities) => {
             </CommunityNav>
             <CommunityContainer>
                 <PostContainer>
-                    <StyledLink to={'/createpost'}>Create Post</StyledLink>
+                    {singleCommunity && <StyledLink to={`/createpost/${props.user[0].id}/${singleCommunity[0].id}`}>Create Post</StyledLink>}
                     {posts && <CommunityPosts posts={posts} />}
                 </PostContainer>
                 <CardContainer>
-                    <SubscribedCommunities communities={communities.communities} />
+                    <SubscribedCommunities communities={props.communities} />
                 </CardContainer>
             </CommunityContainer>
 
