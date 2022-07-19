@@ -9,18 +9,19 @@ function CreatePost({user}) {
   const [images, setImages] = useState([])
   const [post_header, setTitle] = useState("")
   const [post_body, setPBody] = useState("")
-  const date = new Date()
+  // const date = new Date()
+  // const date1 = JSON.stringify(date)
   const user_id = 1
   const com_id = 1
   // const video = ''
   
-  const submitPost = async (file, post_header, post_body, date, com_id, user_id, video) => {
+  const submitPost = async (file, post_header, post_body, com_id, user_id, video) => {
     const formData = new FormData();
     formData.append("post_header", post_header);
     formData.append("post_body", post_body);
     formData.append("file", file);
     // formData.append("video", video);
-    formData.append("date", date);
+    // formData.append("date", date1);
     formData.append("user_id", user_id);
     formData.append("com_id", com_id);
     await axios.post("http://localhost:3025/api/createpost", formData);
@@ -62,7 +63,7 @@ function CreatePost({user}) {
                 
                     <PostSubmitText onClick={(e) => {
                 e.preventDefault();
-                submitPost(images[0], post_header, post_body, date, user_id, com_id )
+                submitPost(images[0], post_header, post_body, user_id, com_id )
               }} 
                     name='new-post-submit'
                     type='submit' 

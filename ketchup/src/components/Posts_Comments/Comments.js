@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components';
 
-function Comments() {
+function Comments({key, id, comment, comment_user_id, comment_post_id}) {
   return (
-    <div>Comments</div>
+    <div>{comment}</div>
   )
 }
 

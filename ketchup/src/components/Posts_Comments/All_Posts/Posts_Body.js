@@ -1,14 +1,16 @@
 import React from "react";
 import styled from 'styled-components';
 import PostsItem from "./PostsItem";
+import Comments from "../Comments";
 
-function Posts_Body({searchPosts, user}) {
+function Posts_Body({searchPosts, searchComments}) {
   console.log(searchPosts)
   return (
     <PostContent className="post-content">
       {/* <div><img src="./KETCHUP.png"></img></div> */}
 
       <PostBody className="post-body">
+        
         {searchPosts.map((data, index) => (
           <PostsItem
 
@@ -27,7 +29,19 @@ function Posts_Body({searchPosts, user}) {
 
           />
         ))}
-
+         
+        {/* {searchComments.map((data, index) => (
+          <Comments 
+          key={index}
+          id ={data.id}
+          comment={data.comment_body}
+          comment_user_id={data.users_id}
+          comment_post_id={data.posts_id}
+          
+          />
+        ))} */}
+        
+        
       </PostBody>
       <div>
 

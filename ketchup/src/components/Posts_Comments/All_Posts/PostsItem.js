@@ -3,6 +3,7 @@ import styled from "styled-components";
 // import avatar from '../icons/avatar';
 import {BiLike, BiDislike, BiCommentAdd} from 'react-icons/bi'
 import { Link } from "react-router-dom"
+import Comments from "../Comments"
 
 function PostsItem({
   key,
@@ -56,10 +57,16 @@ function PostsItem({
             <CommentLink to={`/createcomment`}><BiCommentAdd className="comment-button"/>Comment</CommentLink>
             </PostIcons>
             
+            
             <div className="_21pmAV9gWG6F_UKVe7YIE0"></div>
           </FooterItems>
+
         </div>
       </PostFooter>
+      {/* <CommentContainer>
+              <Comments />
+            </CommentContainer> */}
+
     </PostItemContainer>
   );
 }
@@ -150,4 +157,12 @@ const CommentLink = styled(Link)`
         color: #FF0000;
         cursor: pointer;
     }
+`
+
+const CommentContainer = styled.div`
+
+`
+
+const Comment = styled.div`
+
 `
