@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState} from "react";
+import { useParams } from "react-router";
 import Posts_Body from "./Posts_Body";
 import styled from 'styled-components';
 
 function Posts({user}) {
-
+  const { id } = useParams();
   const [searchPosts, setPosts] = useState(null)
+  
   const [searchComments, setComments] = useState(null)
   const [loading, setLoading] = useState(true)
   const [loadingMessage, setLoadingMessage] = useState("")
@@ -23,14 +25,14 @@ function Posts({user}) {
     setLoading(false);
   }
 
-
+ 
   return (
 
     // {}
 
     <PostContainer className="post-container">
       {!searchPosts && <Loading>Loading....</Loading>} 
-      {searchPosts && <Posts_Body user={user} searchPosts={searchPosts} />}
+      {searchPosts && <Posts_Body user={user}  searchPosts={searchPosts} />}
     </PostContainer>
   );
 }

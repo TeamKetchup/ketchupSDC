@@ -7,11 +7,13 @@ import { useState, useEffect } from "react";
 const ProfilePage = ({ user, subscribedCommunities }) => {
     console.log(user)
 
+    
+
     return (
         <ProfilePageContainer>
 
             <UserContentContainer>
-
+            
             </UserContentContainer>
             <CardContainer>
                 {/* {!profileInfo && <Loading>loading...</Loading>} */}

@@ -2,6 +2,8 @@ import SubscribedCommunities from "../ProfilePage/SubscribedCommunities";
 import styled from 'styled-components';
 import { useParams } from "react-router";
 import { useState, useEffect } from "react";
+import Posts_Body from "../Posts_Comments/All_Posts/Posts_Body";
+import CommunityPosts from "../Posts_Comments/CommunityPosts";
 import Posts from "../Posts_Comments/All_Posts/Posts";
 
 
@@ -10,13 +12,14 @@ import Posts from "../Posts_Comments/All_Posts/Posts";
 
 const CommunityPage = (communities) => {
 
-    console.log(communities.communities);
+    // console.log(communities);
     const { id } = useParams();
     const [singleCommunity, setSingleCommunity] = useState(null);
-    const [searchPosts, setPosts] = useState(null)
+    const [posts, setPosts] = useState(null);
 
     useEffect(() => {
         fetchCommunityPage();
+        fetchPosts();
     }, [id]);
 
     const fetchCommunityPage = async () => {
@@ -34,15 +37,23 @@ const CommunityPage = (communities) => {
         }
     }
 
-    // function loadCommunityPosts() {
- 
-    
-    //     setLoadingMessage("App is Loading");
-    //     fetch(`http://localhost:3025/api/posts/${id}`)
-    //       .then((response) => response.json())
-    //       .then((data) => setPosts(data));
-    //     setLoading(false);
-    //   }
+    const fetchPosts = async () => {
+        try {
+            const response = await fetch(`http://localhost:3025/community/posts/${id}`);
+            if (!response.ok) {
+                throw new Error(
+                    `This is an HTTP error: The status is ${response.status}`
+                )
+            }
+            let actualData = await response.json();
+            setPosts(actualData);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
+
 
     return (
         <>
@@ -50,12 +61,11 @@ const CommunityPage = (communities) => {
                 {singleCommunity && <Banner src={singleCommunity[0].banner} />}
             </CommunityHeader>
             <CommunityNav>
-                <h1>Welcome To The <span>{id}</span> Community</h1>
+                <h1>Welcome To The <span>{singleCommunity && singleCommunity[0].name}</span> Community</h1>
             </CommunityNav>
             <CommunityContainer>
-
                 <PostContainer>
-                    <Posts communityid={id}/>
+                    {posts && <CommunityPosts posts={posts} />}
                 </PostContainer>
                 <CardContainer>
                     <SubscribedCommunities communities={communities.communities} />
@@ -79,6 +89,7 @@ const CommunityHeader = styled.div`
 const CommunityContainer = styled.div`
     display: flex;
     flex-direction: row;
+    margin-top: 50px;
 `
 
 const PostContainer = styled.div`

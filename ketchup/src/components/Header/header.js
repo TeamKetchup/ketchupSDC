@@ -21,7 +21,7 @@ const Header = ({user}) => {
           <SearchBar />
 
           <div className='avaterusernameContainer'>
-            <Link to='/userprofile' >
+          <Link to={`/userprofile/${user[0].id}`} >
                 <img className='headerAvatar' src={user[0].avatar}></img>
                 <h1>@{user[0].username}</h1>
             </Link>
