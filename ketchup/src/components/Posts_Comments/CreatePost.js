@@ -9,27 +9,49 @@ import { useParams } from 'react-router';
 function CreatePost({ user }) {
   const { userID, communityID } = useParams();
   // console.log(userID, communityID)
-  const [images, setImages] = useState([])
+  // const [images, setImages] = useState([])
   const [post_header, setTitle] = useState("")
   const [post_body, setPBody] = useState("")
-  const date = new Date()
+  // const date = new Date()
 
 
-  const submitPost = async (file, post_header, post_body, date, com_id, user_id) => {
-    const formData = new FormData();
-    formData.append("post_header", post_header);
-    formData.append("post_body", post_body);
-    formData.append("file", file);
-    formData.append("date", date);
-    formData.append("user_id", user_id);
-    formData.append("com_id", com_id);
-    await axios.post("http://localhost:3025/api/createpost", formData);
-    console.log('post created')
-  };
+  // const submitPost = async (post_header, post_body, com_id, user_id) => {
+  //   const formData = new FormData();
+  //   formData.append("post_header", post_header);
+  //   formData.append("post_body", post_body);
+  //   // formData.append("file", file);
+  //   // formData.append("date", date);
+  //   formData.append("user_id", user_id);
+  //   formData.append("com_id", com_id);
+  //   await axios.post("http://localhost:3025/api/createpost", formData);
+  //   console.log('post created')
+  // };
+
+  const submitPost = (e) => {
+    // e.preventDefault();
+    let postObj = {
+      post_header: post_header,
+      post_body: post_body,
+      community_id: communityID,
+      users_id: userID
+    }
+    // setIsLoading(true);
+    console.log(postObj)
+    fetch(`http://localhost:3025/api/postcommunity`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(postObj)
+    }).then(() => {
+      // setIsLoading(false)
+      console.log('Community Created')
+    })
+  }
 
 
 
-  console.log(images)
+
+
+  // console.log(images)
   return (
     <FormContainer>
       <FormDiv>Create a Post
@@ -56,13 +78,13 @@ function CreatePost({ user }) {
             />
           </PostContent>
 
-          Add Media<HeaderDropZone images={images} setImages={setImages} />
+          {/* Add Media<HeaderDropZone images={images} setImages={setImages} /> */}
 
           <PostSubmit>
 
             <PostSubmitText onClick={(e) => {
               e.preventDefault();
-              submitPost(images[0], post_header, post_body, date, communityID, userID)
+              submitPost(post_header, post_body, communityID, userID)
             }}
               name='new-post-submit'
               type='submit'
