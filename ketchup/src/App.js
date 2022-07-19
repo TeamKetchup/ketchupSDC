@@ -4,7 +4,7 @@ import SubmitFile from "./components/SubmitFile";
 import './index.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LogInPage from './components/LogInSignUp/LogInPage';
-import SignUpPage from './components/LogInSignUp/SignUpPage';
+// import SignUpPage from './components/LogInSignUp/SignUpPage';
 import ProfilePage from './components/ProfilePage/ProfilePage';
 import Posts from './components/Posts_Comments/Posts';
 import LandingPage from './components/landingPage';
@@ -15,6 +15,7 @@ import CreateCommunity from './components/Communities/CreateCommunity';
 import Register from "./components/LogInSignUp/Register";
 import loadingGif from "./components/LogInSignUp/loading.gif"
 import CreatePost from "./components/Posts_Comments/CreatePost";
+import AccountDeleted from "./components/LogInSignUp/AccountDeleted";
 
 
 
@@ -45,16 +46,22 @@ function App() {
       console.log(error);
     }
   }
+
+//  if(loading === true){
+//   return(
+//       <div>loading...</div>
+//   )
+//  } else {
   return (
-    <BrowserRouter>
+    // <BrowserRouter>
       <div className="App">
 
 
         {!user ? (
           <>
             <Routes>
-              <Route path='/' element={<LogInPage setLoading={setLoading} setUser={setUser} />} />
-              <Route path='/signuppage' element={<SignUpPage user={user} />} />
+              <Route path='/' element={<LogInPage user={user} setLoading={setLoading} setUser={setUser} />} />
+              {/* <Route path='/signuppage' element={<SignUpPage user={user} />} /> */}
               <Route path='/register' element={<Register user={user} setUser={setUser}/>} />
               <Route path='/posts' element={<Posts />}/>
               <Route path='/createpost' element={<CreatePost />}/>
@@ -71,11 +78,11 @@ function App() {
                 </>
               } />
               <Route path='/loginpage' element={<LogInPage />} />
-              <Route path='/signuppage' element={<SignUpPage user={user} />} />
+              <Route path='/deleted' element={<AccountDeleted />} />
               <Route path='/posts' element={<Posts />} />
               <Route path='/userprofile' element={
                 <>
-                  {subscribedCommunities && <ProfilePage user={user} subscribedCommunities={subscribedCommunities} />}
+                  {user && setUser && subscribedCommunities && <ProfilePage user={user} setUser={setUser} subscribedCommunities={subscribedCommunities} />}
                 </>
 
               } />
@@ -98,7 +105,8 @@ function App() {
         )}
 
       </div>
-    </BrowserRouter>
+    // </BrowserRouter>
   );
+  
 }
 export default App;

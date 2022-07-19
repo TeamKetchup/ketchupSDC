@@ -14,7 +14,7 @@ const SubscribedCommunities = (props) => {
                 <StyledLink to={`/community/${community.id}`} key={community.id}>{community.name}</StyledLink>
             ))}
             <SubscribedCommunitiesFooter>
-                <CreateCommunityLink to={`/createcommunity`}>Create Community</CreateCommunityLink>
+                <CreateCommunityLink to={`/createcommunity`}><Button>Create Community</Button></CreateCommunityLink>
                 
             </SubscribedCommunitiesFooter>
 
@@ -39,7 +39,7 @@ const SubscribedCommunitiesContainer = styled.div`
     font-family: 'oswald, san serif';
     font-weight: bold;
     font-size: 20px;
-    height: 100%;
+    /* height: 100%; */
 `
 const SubscribedCommunitiesFooter = styled.div`
     display: flex;
@@ -86,4 +86,27 @@ const SubscribedCommunitiesBanner = styled.div`
         font-size: 45px;
     }
 `
-
+const Button = styled.button`
+  display: flex;
+  box-shadow: 0px 5px 17px -7px rgba(0, 0, 0, 0.75);
+  height: 40px;
+  width: 250px;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  margin: auto;
+  font-family: "Pacifico", cursive;
+  font-size: 25px;
+  border: transparent;
+  background-color: white;
+  border-radius: 999px;
+  margin: 10px;
+  /* animation: floating 3s ease-in-out infinite; */
+  :hover {
+    background-color: #ff0000;
+    /* transform: scale(1.1); */
+    color: white;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+`
