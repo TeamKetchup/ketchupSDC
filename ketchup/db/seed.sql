@@ -9,5 +9,4 @@ INSERT INTO posts (post_header, post_body,img,video,users_id,community_id) VALUE
 INSERT INTO comments (comment_body,users_id,posts_id) VALUES ('This is a comment for the post', '1', '1');
 
 
-
     
