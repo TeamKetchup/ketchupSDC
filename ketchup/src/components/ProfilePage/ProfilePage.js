@@ -28,6 +28,8 @@ const ProfilePage = ({ user, subscribedCommunities }) => {
         }
     }
 
+    
+
     return (
         <ProfilePageContainer>
 

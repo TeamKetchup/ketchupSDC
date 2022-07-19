@@ -1,7 +1,7 @@
 import React from 'react'
 
 import './LandingPage.css'
-import Posts from './Posts_Comments/Posts'
+import Posts from './Posts_Comments/All_Posts/Posts'
 import styled from 'styled-components'
 
 import SubscribedCommunities from './ProfilePage/SubscribedCommunities'

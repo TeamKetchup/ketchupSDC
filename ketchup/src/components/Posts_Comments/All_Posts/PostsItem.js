@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import avatar from './icons/avatar.png';
-import {FaShare, FaBookmark, FaFlag} from 'react-icons/fa'
-import {BiHide} from 'react-icons/bi'
+// import avatar from '../icons/avatar';
+import {BiLike, BiDislike, BiCommentAdd} from 'react-icons/bi'
+import { Link } from "react-router-dom"
 
 function PostsItem({
   key,
@@ -14,6 +14,8 @@ function PostsItem({
   date,
   user_id,
   community_id,
+  username,
+  avatar,
 }) {
 
   console.log(img, video)
@@ -28,9 +30,7 @@ function PostsItem({
           <HeaderImg src={avatar} alt="image" />
         </a>
         <h1>{post_header}</h1>
-        <div>
-          
-        </div>
+        <div></div>
       </HeaderContainer >
       <PBodyContainer>
         {post_body}
@@ -45,13 +45,15 @@ function PostsItem({
           <FooterItems className="footer-items">
             
             <PostIcons className="post-icons">
-            <FaShare className="share-button"/> share
+            {/* <FaShare className="share-button"/> share
             <div><SpaceDiv className="space"></SpaceDiv></div>
-            <FaBookmark className="save-button"/>save
+            <FaBookmark className="save-button"/>save */}
             <div><SpaceDiv className="space"></SpaceDiv></div>
-            <BiHide className="hide-button"/> hide
+            <BiLike className="like-button"/> Like
             <div><SpaceDiv className="space"></SpaceDiv></div>
-            <FaFlag className="report-button"/>report
+            <BiDislike className="dislike-button"/> DisLike
+            <div><SpaceDiv className="space"></SpaceDiv></div>
+            <CommentLink to={`/createcomment`}><BiCommentAdd className="comment-button"/>Comment</CommentLink>
             </PostIcons>
             
             <div className="_21pmAV9gWG6F_UKVe7YIE0"></div>
@@ -140,4 +142,12 @@ const Video = styled.video`
 max-width:100%;
 max-height:100%;
 
+`
+const CommentLink = styled(Link)`
+/* cursor: pointer; */
+    color: white;
+    :hover {
+        color: #FF0000;
+        cursor: pointer;
+    }
 `
