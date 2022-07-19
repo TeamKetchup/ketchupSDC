@@ -4,7 +4,6 @@ import SubmitFile from "./components/SubmitFile";
 import './index.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LogInPage from './components/LogInSignUp/LogInPage';
-import SignUpPage from './components/LogInSignUp/SignUpPage';
 import ProfilePage from './components/ProfilePage/ProfilePage';
 import Posts from './components/Posts_Comments/All_Posts/Posts';
 import LandingPage from './components/landingPage';
@@ -54,7 +53,6 @@ function App() {
           <>
             <Routes>
               <Route path='/' element={<LogInPage setLoading={setLoading} setUser={setUser} />} />
-              <Route path='/signuppage' element={<SignUpPage user={user} />} />
               <Route path='/register' element={<Register user={user} setUser={setUser} />} />
               <Route path='/posts' element={<Posts />} />
               {/* <Route path={`/createpost/:id`} element={<CreatePost />} /> */}
@@ -71,7 +69,6 @@ function App() {
                 </>
               } />
               <Route path='/loginpage' element={<LogInPage />} />
-              <Route path='/signuppage' element={<SignUpPage user={user} />} />
               <Route path='/posts' element={<Posts />} />
               <Route path='/userprofile' element={
                 <>
