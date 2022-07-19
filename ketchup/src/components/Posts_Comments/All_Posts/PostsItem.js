@@ -36,7 +36,7 @@ function PostsItem({
         {post_body}
         <PostMediaContainer>
       <Img className="post-img" src={`${img}`}/>
-      <Video controls className="post-video" src={`${video}`}/>
+      {/* <Video controls className="post-video" src={`${video}`}/> */}
       </PostMediaContainer>
       </PBodyContainer>
       
