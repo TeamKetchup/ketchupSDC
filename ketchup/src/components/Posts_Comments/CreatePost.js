@@ -54,44 +54,45 @@ function CreatePost({ user }) {
   // console.log(images)
   return (
     <FormContainer>
-      <FormDiv>Create a Post
+      {/* <FormDiv>Create a Post  */}
 
 
-        <Postform id="new-post-form" >
+      <Postform id="new-post-form" >
 
-          <PostTitle>
-            Post Title:
-            <PostTitleText
-              onChange={(e) => setTitle(e.target.value)}
-              value={post_header}
-              name='new-post-header'
-              type='text'
-            />
-          </PostTitle>
-          <div><SpaceDiv className="space"></SpaceDiv></div>
-          <PostContent>
-            Post Content:
-            <PostContentTextArea
-              onChange={(e) => setPBody(e.target.value)}
-              value={post_body}
-              name='new-post-body'
-            />
-          </PostContent>
+        <PostTitle><b>Create Post</b></PostTitle>
+        <PostTitle>
+          Post Title:
+          <PostTitleText
+            onChange={(e) => setTitle(e.target.value)}
+            value={post_header}
+            name='new-post-header'
+            type='text'
+          />
+        </PostTitle>
+        <div><SpaceDiv className="space"></SpaceDiv></div>
+        <PostContent>
+          Post Content:
+          <PostContentTextArea
+            onChange={(e) => setPBody(e.target.value)}
+            value={post_body}
+            name='new-post-body'
+          />
+        </PostContent>
 
-          {/* Add Media<HeaderDropZone images={images} setImages={setImages} /> */}
+        Add Media<HeaderDropZone images={images} setImages={setImages} />
 
-          <PostSubmit>
+        <PostSubmit>
 
-            <PostSubmitText onClick={(e) => {
-              e.preventDefault();
-              submitPost(images[0], post_header, post_body, date, communityID, userID)
-            }}
-              name='new-post-submit'
-              type='submit'
-            />
-          </PostSubmit>
-        </Postform>
-      </FormDiv>
+          <PostSubmitText onClick={(e) => {
+            e.preventDefault();
+            submitPost(images[0], post_header, post_body, date, communityID, userID)
+          }}
+            name='new-post-submit'
+            type='submit'
+          />
+        </PostSubmit>
+      </Postform>
+      {/* </FormDiv> */}
 
 
     </FormContainer>
@@ -148,7 +149,6 @@ padding: 10px;
 const PostTitle = styled.label`
 width: 500px;
 font-size: 20px;
-
 `
 
 
