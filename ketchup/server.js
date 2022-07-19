@@ -42,12 +42,12 @@ passport.use(
           (err, res) => {
             console.log(res)
             if (err) {
-             return done(err);
+              return done(err);
             }
             if (res === false) {
-             return done(null, false);
+              return done(null, false);
             }
-             return done(null, user);
+            return done(null, user);
           }
         );
       } catch (error) {
@@ -140,9 +140,8 @@ app.post(
   upload.single("file"),
   async function (req, res, next) {
     try {
-      const fileName = `avatar${Math.floor(Math.random() * 100000)}${
-        req.file.originalname
-      }`;
+      const fileName = `avatar${Math.floor(Math.random() * 100000)}${req.file.originalname
+        }`;
       req.file.originalname = fileName;
       uploadFile(req.file.originalname, req.file.buffer);
       const returnedURL = `https://teamketchupv2.s3.amazonaws.com/${req.file.originalname}`;
@@ -216,16 +215,16 @@ app.post("/api/login", (req, res, next) =>
     req.logIn(user, function (err) {
       if (err) {
         return res.json(err);
-      } if(user){
+      } if (user) {
         res.send(user)
       }
-      }
+    }
     );
   })(req, res, next)
 );
 
-app.get("/", function (req, res){
-    res.json('An error has occurred.')
+app.get("/", function (req, res) {
+  res.json('An error has occurred.')
 })
 
 app.get("/api/products", async (_, res) => {
@@ -498,6 +497,20 @@ app.patch("/api/bio/:id", async (req, res) => {
   }
 })
 
+// //get user posts
+app.get("/user/posts/:id", async (req, res) => {
+  try {
+    let client = await db.connect();
+    const id = req.params.id;
+    await db.query('SELECT * FROM posts WHERE users_id = $1', [id], (error, results) => {
+      res.status(200).json(results.rows)
+      client.release()
+    })
+  } catch (error) {
+    console.error(error.message)
+  }
+});
+
 // =========================ENDS PROFILE SECTION=======================================
 
 // =========================STARTS COMMUNITY SECTION=======================================
@@ -514,34 +527,34 @@ app.get("/api/allcommunities", async (req, res) => {
   }
 });
 
-app.get("/api/subscribedcommunities/:id", async (req, res) => {
-  const id = req.params.id;
-  try {
-    await db.query('SELECT * FROM community WHERE users_id = $1', [id], (error, results) => {
+// app.get("/api/subscribedcommunities/:id", async (req, res) => {
+//   const id = req.params.id;
+//   try {
+//     await db.query('SELECT * FROM community WHERE users_id = $1', [id], (error, results) => {
 
-      res.status(200).json(results.rows)
-    })
-  } catch (error) {
-    console.error(error.message)
-  }
-});
+//       res.status(200).json(results.rows)
+//     })
+//   } catch (error) {
+//     console.error(error.message)
+//   }
+// });
 
 
 
 //get community info
-app.get("/community/:id", async (req, res) => {
-  try {
-    let client = await db.connect();
-    const id = req.params.id;
-    await db.query('SELECT * FROM community WHERE id = $1', [id], (error, results) => {
+// app.get("/community/:id", async (req, res) => {
+//   try {
+//     let client = await db.connect();
+//     const id = req.params.id;
+//     await db.query('SELECT * FROM community WHERE id = $1', [id], (error, results) => {
 
-      res.status(200).json(results.rows)
-      client.release()
-    })
-  } catch (error) {
-    console.error(error.message)
-  }
-});
+//       res.status(200).json(results.rows)
+//       client.release()
+//     })
+//   } catch (error) {
+//     console.error(error.message)
+//   }
+// });
 
 //get community posts
 app.get("/community/posts/:id", async (req, res) => {
@@ -558,19 +571,6 @@ app.get("/community/posts/:id", async (req, res) => {
   }
 });
 
-// //create community
-// app.post("/api/postcommunity", async (req, res) => {
-//   try {
-//     let client = await db.connect();
-//     const { name, category, banner, users_id } = req.body;
-//     const { rows } = await db.query('INSERT INTO community (name, category, banner, users_id) VALUES($1, $2, $3, $4) RETURNING*', [name, category, banner, users_id]);
-//     res.send({ data: (rows), message: "New community has been created" });
-//     console.log({ rows });
-//     client.release()
-//   } catch (error) {
-//     res.send(error.message);
-//   }
-// })
 
 //create community - using S3 bucket
 app.post("/api/createcommunity", upload.single("file"), async function (req, res, next) {
@@ -594,123 +594,123 @@ app.post("/api/createcommunity", upload.single("file"), async function (req, res
 
 
 // =========================START POSTS SECTION=======================================
-    // Get All POSTS
-    app.get("/api/posts", async (req, res) => {
-        try {
-            await db.query('SELECT * FROM posts ORDER BY id DESC', (error, results) => {
-                // console.log(req) 
-                res.status(200).json(results.rows)
-            })
-        } catch (error) {
-            console.error(error.message)
-        }
-      });
+// Get All POSTS
+app.get("/api/posts", async (req, res) => {
+  try {
+    await db.query('SELECT * FROM posts ORDER BY id DESC', (error, results) => {
+      // console.log(req) 
+      res.status(200).json(results.rows)
+    })
+  } catch (error) {
+    console.error(error.message)
+  }
+});
 
-      // Get single POST
-    app.get("/api/posts/:id", async (req, res) => {
+// Get single POST
+app.get("/api/posts/:id", async (req, res) => {
 
-        try {
-            const id = req.params.id
-            await db.query('SELECT * FROM posts WHERE id = $1', [id], (error, results) => {
-                console.log(results) 
-                res.status(200).json(results.rows)
-            })
-        } catch (error) {
-            console.error(error.message)
-        }
-      });
+  try {
+    const id = req.params.id
+    await db.query('SELECT * FROM posts WHERE id = $1', [id], (error, results) => {
+      console.log(results)
+      res.status(200).json(results.rows)
+    })
+  } catch (error) {
+    console.error(error.message)
+  }
+});
 
-      // Get User POSTS
-    app.get("/api/user_posts/:id", async (req, res) => {
+// Get User POSTS
+app.get("/api/user_posts/:id", async (req, res) => {
 
-        try {
-            const id = req.params.id
-            console.log(req.users_id)
-            await db.query('SELECT * FROM posts WHERE users_id = $1', [id], (error, results) => {
-                console.log(results) 
-                res.status(200).json(results.rows)
-            })
-        } catch (error) {
-            console.error(error.message)
-        }
-      });
-      
-    // Create POST
-  app.post("/api/create_post", async (req, res) => {
-    try {
-        const {post_header, post_body,img,video,date,users_id,community_id} = req.body
-        await db.query('INSERT INTO posts (post_header, post_body,img,video,date,users_id,community_id) VALUES ($1, $2, $3, $4, $5, $6, $7)', [post_header, post_body,img,video,date,users_id,community_id], (error, results) => {
-        console.log(req.body)
-            res.status(200).send(`post was added`)
+  try {
+    const id = req.params.id
+    console.log(req.users_id)
+    await db.query('SELECT * FROM posts WHERE users_id = $1', [id], (error, results) => {
+      console.log(results)
+      res.status(200).json(results.rows)
+    })
+  } catch (error) {
+    console.error(error.message)
+  }
+});
 
-     })
-     } catch (error) {
-        console.error(error.message)
-     }
- });
+// Create POST
+app.post("/api/create_post", async (req, res) => {
+  try {
+    const { post_header, post_body, img, video, date, users_id, community_id } = req.body
+    await db.query('INSERT INTO posts (post_header, post_body,img,video,date,users_id,community_id) VALUES ($1, $2, $3, $4, $5, $6, $7)', [post_header, post_body, img, video, date, users_id, community_id], (error, results) => {
+      console.log(req.body)
+      res.status(200).send(`post was added`)
 
- app.put("/api/update_post/:id", async (req, res) => {
-    try {
-        const id = req.params.id
-        const {post_header, post_body,img,video,date,users_id,community_id} = req.body
-        
-      await db.query(
-            'UPDATE posts SET post_header = $1, post_body = $2, img = $3, video = $4, date = $5, users_id = $6, community_id = $7 WHERE id = $8', [post_header, post_body,img,video,date,users_id,community_id, id], (err, results) => {
-         console.log(req)
-         res.status(200).send( `post was updated`)
-     })
-     } catch (error) {
-        console.error(error.message)
-     }
- });
+    })
+  } catch (error) {
+    console.error(error.message)
+  }
+});
 
- app.delete("/api/delete_post/:id", async (req, res) => {
-    try {
-        const id = req.params.id
-        await db.query(
-            'DELETE FROM posts WHERE id = $1', [id], (err, results) => {
-             res.status(200).send(`post was deleted`)
-     })
-     } catch (error) {
-        console.error(error.message)
-     }
- });
+app.put("/api/update_post/:id", async (req, res) => {
+  try {
+    const id = req.params.id
+    const { post_header, post_body, img, video, date, users_id, community_id } = req.body
+
+    await db.query(
+      'UPDATE posts SET post_header = $1, post_body = $2, img = $3, video = $4, date = $5, users_id = $6, community_id = $7 WHERE id = $8', [post_header, post_body, img, video, date, users_id, community_id, id], (err, results) => {
+        console.log(req)
+        res.status(200).send(`post was updated`)
+      })
+  } catch (error) {
+    console.error(error.message)
+  }
+});
+
+app.delete("/api/delete_post/:id", async (req, res) => {
+  try {
+    const id = req.params.id
+    await db.query(
+      'DELETE FROM posts WHERE id = $1', [id], (err, results) => {
+        res.status(200).send(`post was deleted`)
+      })
+  } catch (error) {
+    console.error(error.message)
+  }
+});
 
 // =========================END POSTS SECTION=======================================
 
 // =========================START COMMENTS SECTION=======================================
-   
-  // Get Comments
-  app.get("/api/comments", async (_, res) => {
-    try {
-        await db.query('SELECT * FROM comments', (error, results) => {
-            console.log(results) 
-            res.status(200).json(results.rows)
-        })
-    } catch (error) {
-        console.error(error.message)
-    }
-  });
+
+// Get Comments
+app.get("/api/comments", async (_, res) => {
+  try {
+    await db.query('SELECT * FROM comments', (error, results) => {
+      console.log(results)
+      res.status(200).json(results.rows)
+    })
+  } catch (error) {
+    console.error(error.message)
+  }
+});
 
 
 
 // Create Comments
-   app.post("/api/create_comment", async (req, res) => {
-    try {
-     const {comment_body,users_id,posts_id} = req.body
-     console.log(req)
-     await db.query('INSERT INTO comments (comment_body,users_id,posts_id) VALUES ($1, $2, $3)', [comment_body,users_id,posts_id], (error, results) => {
-         console.log(req.body)
-         res.status(200).send(`${req.body} comment was added`)
-     })
-     } catch (error) {
-        console.error(error.message)
-     }
- });
+app.post("/api/create_comment", async (req, res) => {
+  try {
+    const { comment_body, users_id, posts_id } = req.body
+    console.log(req)
+    await db.query('INSERT INTO comments (comment_body,users_id,posts_id) VALUES ($1, $2, $3)', [comment_body, users_id, posts_id], (error, results) => {
+      console.log(req.body)
+      res.status(200).send(`${req.body} comment was added`)
+    })
+  } catch (error) {
+    console.error(error.message)
+  }
+});
 
- 
 
- // =========================END COMMENTS SECTION=======================================
+
+// =========================END COMMENTS SECTION=======================================
 
 app.get("/api/all", async (_, res) => {
   // const id = req.params.id
@@ -760,17 +760,7 @@ app.get("/api/allcommunities", async (req, res) => {
   }
 });
 
-app.get("/api/subscribedcommunities/:id", async (req, res) => {
-  const id = req.params.id;
-  try {
-    await db.query('SELECT * FROM community WHERE users_id = $1', [id], (error, results) => {
 
-      res.status(200).json(results.rows)
-    })
-  } catch (error) {
-    console.error(error.message)
-  }
-});
 
 //update Bio
 app.patch("/api/bio/:id", async (req, res) => {

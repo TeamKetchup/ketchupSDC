@@ -55,9 +55,9 @@ function App() {
             <Routes>
               <Route path='/' element={<LogInPage setLoading={setLoading} setUser={setUser} />} />
               <Route path='/signuppage' element={<SignUpPage user={user} />} />
-              <Route path='/register' element={<Register user={user} setUser={setUser}/>} />
-              <Route path='/posts' element={<Posts />}/>
-              <Route path='/createpost' element={<CreatePost />}/>
+              <Route path='/register' element={<Register user={user} setUser={setUser} />} />
+              <Route path='/posts' element={<Posts />} />
+              <Route path='/createpost' element={<CreatePost />} />
             </Routes>
           </>
 
@@ -90,11 +90,11 @@ function App() {
               }
               />
 
-                </Routes>
-                
-                </>
-              //   )}
-              // </>
+            </Routes>
+
+          </>
+          //   )}
+          // </>
         )}
 
       </div>
