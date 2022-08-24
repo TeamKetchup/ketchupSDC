@@ -1,8 +1,8 @@
-DROP DATABASE IF EXISTS ketchup_db;
+-- DROP DATABASE IF EXISTS ketchup_db;
 
-CREATE DATABASE ketchup_db;
-\l
-\c ketchup_db;
+-- CREATE DATABASE ketchup_db;
+-- \l
+-- \c ketchup_db;
 
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS community CASCADE;
