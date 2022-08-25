@@ -57,8 +57,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.19"
-  }
+  ,
+    "devDependencies": {
+      "nodemon": "^2.0.19"
+    }
 }
+
+
