@@ -29,7 +29,8 @@ const CommunityPage = (props) => {
 
     const fetchCommunityPage = async () => {
         try {
-            const response = await fetch(`http://localhost:3025/community/${id}`);
+            // const response = await fetch(`http://localhost:3025/community/${id}`);
+            const response = await fetch(`https://ketchup-db.herokuapp.com/community/${id}`);
             if (!response.ok) {
                 throw new Error(
                     `This is an HTTP error: The status is ${response.status}`
@@ -46,7 +47,7 @@ const CommunityPage = (props) => {
 
     const fetchPosts = async (id) => {
         try {
-            const response = await fetch(`http://localhost:3025/community/posts/${id}`);
+            const response = await fetch(`https://ketchup-db.herokuapp.com/community/posts/${id}`);
             if (!response.ok) {
                 throw new Error(
                     `This is an HTTP error: The status is ${response.status}`

@@ -20,7 +20,8 @@ const ProfileCard = ( user, { setUser }) => {
         setIsOpen(false);
         let updateObj = { bio: newBio };
 
-        fetch(`http://localhost:3025/api/bio/${user.user[0].id}`, {
+        // fetch(`http://localhost:3025/api/bio/${user.user[0].id}`, {
+        fetch(`https://ketchup-db.herokuapp.com/api/bio/${user.user[0].id}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(updateObj)
@@ -37,7 +38,8 @@ const ProfileCard = ( user, { setUser }) => {
         }
         console.log(deleteThisUser)
 
-        await fetch(`http://localhost:3025/api/delete`, {
+        // await fetch(`http://localhost:3025/api/delete`, {
+        await fetch(`https://ketchup-db.herokuapp.com/api/delete`, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(deleteThisUser),

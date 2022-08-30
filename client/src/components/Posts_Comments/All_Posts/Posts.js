@@ -19,7 +19,8 @@ function Posts({ user }) {
 
 
     setLoadingMessage("App is Loading");
-    fetch(`http://localhost:3025/api/allposts`)
+    // fetch(`http://localhost:3025/api/allposts`)
+    fetch(`https://ketchup-db.herokuapp.com/api/allposts`)
       .then((response) => response.json())
       .then((data) => setPosts(data));
     setLoading(false);

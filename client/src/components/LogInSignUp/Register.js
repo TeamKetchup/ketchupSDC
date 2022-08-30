@@ -72,7 +72,8 @@ const Register = ({ user, setUser }) => {
       const submitProfile = async (file, username, password, newBio) => {
           
           try{
-               const response = await axios.get(`http://localhost:3025/api/login/${userName}`)
+               // const response = await axios.get(`http://localhost:3025/api/login/${userName}`)
+               const response = await axios.get(`https://ketchup-db.herokuapp.com/api/login/${userName}`)
                // .then((res) => 
                if(response.data.length === 0){
                     // setErrMsg('User name is not taken')
@@ -82,7 +83,8 @@ const Register = ({ user, setUser }) => {
                     formData.append("file", file);
                     formData.append("bio", newBio);
                     try{
-                       const response = await axios.post("http://localhost:3025/api/createprofile", formData, {
+                    //    const response = await axios.post("http://localhost:3025/api/createprofile", formData, {
+                       const response = await axios.post("https://ketchup-db.herokuapp.com/api/createprofile", formData, {
                          headers: { 'Content-Type': 'application/json' },
                          withCredentials: true
                        }

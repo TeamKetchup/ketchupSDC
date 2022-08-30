@@ -12,7 +12,7 @@ Modal.setAppElement('#root');
 
 function LogInPage({ user, setUser, setLoading }) {
   useEffect(() => {
-    const currentUser = localStorage.getItem("currentUser");
+    const currentUser = localStorage.getItem("ketchupsdccurrentUser");
     if (currentUser !== null) {
       setUser(JSON.parse(currentUser));
     }
@@ -33,14 +33,15 @@ function LogInPage({ user, setUser, setLoading }) {
     // .then((res) => setUser([res.data]))
     try {
      let returnedData = await axios.post(
-      "http://localhost:3025/api/login/",
+      // "http://localhost:3025/api/login/",
+      "https://ketchup-db.herokuapp.com/api/login/",
       data
     );
       if (!returnedData.data.username) {
         alert("Invalid login. Please check your username or password.");
       } else {
         localStorage.setItem(
-          "currentUser",
+          "ketchupsdccurrentUser",
           JSON.stringify([returnedData.data])
         );
         setUser([returnedData.data]);
@@ -67,19 +68,18 @@ function LogInPage({ user, setUser, setLoading }) {
     // }
   };
 
-  function openModal() {
-     setIsOpen(true);
+function openModal() {
+  setIsOpen(true);
 }
 
 function afterOpenModal() {
-     // references are now sync'd and can be accessed.
-     subtitle.style.color = '#f00';
+  // references are now sync'd and can be accessed.
+  subtitle.style.color = '#f00';
 }
 
-
-     function closeModal() {
-          setIsOpen(false);
-     }
+function closeModal() {
+  setIsOpen(false);
+}
 
      return (
           <div className='loginPage'>

@@ -16,7 +16,8 @@ function SearchBar() {
     }, [])
 
     const getCom = () => {
-        axios.get('http://localhost:3025/api/allcommunities')
+        // axios.get('http://localhost:3025/api/allcommunities')
+        axios.get('https://ketchup-db.herokuapp.com/api/allcommunities')
             .then((response) => {
                 setComName(response.data.map((value) => {
                     return value.name

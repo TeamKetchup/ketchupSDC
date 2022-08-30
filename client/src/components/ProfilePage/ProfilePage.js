@@ -15,7 +15,8 @@ const ProfilePage = ({ user, setUser, subscribedCommunities }) => {
 
     const fetchUserPosts = async () => {
         try {
-            const response = await fetch(`http://localhost:3025/user/posts/${user_id}`);
+            // const response = await fetch(`http://localhost:3025/user/posts/${user_id}`);
+            const response = await fetch(`https://ketchup-db.herokuapp.com/user/posts/${user_id}`);
             if (!response.ok) {
                 throw new Error(
                     `This is an HTTP error: The status is ${response.status}`
