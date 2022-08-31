@@ -7,7 +7,7 @@
 
 ### Tech Used:
 **Front End**
-- JavaScript(ES5 & ES6) 
+- ![image](https://user-images.githubusercontent.com/97657126/187792815-deb909ee-acdf-4304-9200-6025f6c6186e.png) 
 - React.js
 - HTML5
 - CSS3
