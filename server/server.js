@@ -68,12 +68,13 @@ const upload = multer();
 Middleware
 =======================================================*/
 
-// app.use(cors({
-//     origin: "*",
-//     credentials: true
-// }));
+app.use(cors({
+    origin: "https://ketchup-sdc.netlify.app/",
+    credentials: true
+}));
 app.use(credentials);
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+// app.use(cors())
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json())
 app.use(express.static("public"));
