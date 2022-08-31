@@ -1,7 +1,8 @@
 const allowedOrigins = [
-     'https://ketchup-sdc.netlify.app/',
-     'ketchup-sdc.netlify.app/',
-     'https://ketchup-db.herokuapp.com/',
+     'https://ketchup-sdc.netlify.app',
+     'ketchup-sdc.netlify.app',
+     'https://ketchup-db.herokuapp.com',
+     'https://teamketchupv2.s3.amazonaws.com',
      'rgxnfyijfudloy:2401c580b556128d1b50f721a348a2032103c3d72a2552eca26fb4044c739d3e@ec2-44-209-186-51.compute-1.amazonaws.com',
      'ec2-44-209-186-51.compute-1.amazonaws.com',
      'http://localhost:3000',
