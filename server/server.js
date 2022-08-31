@@ -73,7 +73,7 @@ app.use(cors({
     credentials: true
 }));
 app.use(credentials);
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 // app.use(cors())
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json())
