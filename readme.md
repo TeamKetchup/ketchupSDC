@@ -5,6 +5,10 @@
 **Website:** https://ketchup-sdc.netlify.app/
 **API:** https://ketchup-db.herokuapp.com/
 
+### Overview
+
+Ketchup is a forum based social media application which bares close resemblance to Reddit. It was developed by 
+
 ## Tech Used:
 ### Front End
 
