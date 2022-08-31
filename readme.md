@@ -14,14 +14,14 @@
 ![image](https://user-images.githubusercontent.com/97657126/187793122-3ffa407e-6369-41dd-8a57-12334a4f26f8.png)
 
 **Back End**
-- Express.js
-- Node.js
+![image](https://user-images.githubusercontent.com/97657126/187794336-38ef45a5-4ef1-4852-b6d8-610d38f58c0a.png)
+![image](https://user-images.githubusercontent.com/97657126/187794381-b09456ac-bfcc-469a-9ebf-4dc6bd9d8d11.png)
 - Passport.js
 - Bcrypt
 
 **Database**
-- PostgreSQL
-- AWS S3
+![image](https://user-images.githubusercontent.com/97657126/187794564-d12d321c-6a8e-47a0-9e54-b276e7f0ab1e.png)
+![image](https://user-images.githubusercontent.com/97657126/187795042-e2a936b0-85b9-4210-acf5-dac0f607da7b.png)
 
 **DEV Tools**
 - Agile
