@@ -11,7 +11,6 @@
 ![image](https://user-images.githubusercontent.com/97657126/187792951-c8dc3085-358a-46f6-863a-739239a89436.png)
 ![image](https://user-images.githubusercontent.com/97657126/187793062-bf6e5a7a-566e-4735-bb66-05d89fb04519.png)
 ![image](https://user-images.githubusercontent.com/97657126/187793122-3ffa407e-6369-41dd-8a57-12334a4f26f8.png)
-![image](https://user-images.githubusercontent.com/97657126/187793332-d13c0394-97a4-4d4f-a31d-03432b626c40.png)
 
 **Back End**
 - Express.js
