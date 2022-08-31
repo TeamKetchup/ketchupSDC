@@ -22,7 +22,7 @@
 
 ### Database
 ![image](https://user-images.githubusercontent.com/97657126/187794564-d12d321c-6a8e-47a0-9e54-b276e7f0ab1e.png)
-![image](https://user-images.githubusercontent.com/97657126/187795042-e2a936b0-85b9-4210-acf5-dac0f607da7b.png)
+![image](https://user-images.githubusercontent.com/97657126/187795475-00066a20-1281-4120-92c1-7190f5a45cc3.png)
 
 ### DEV Tools
 - Agile
