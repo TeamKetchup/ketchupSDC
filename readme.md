@@ -18,7 +18,6 @@
 ![image](https://user-images.githubusercontent.com/97657126/187794336-38ef45a5-4ef1-4852-b6d8-610d38f58c0a.png)
 ![image](https://user-images.githubusercontent.com/97657126/187794381-b09456ac-bfcc-469a-9ebf-4dc6bd9d8d11.png)
 ![image](https://user-images.githubusercontent.com/97657126/187795873-664184e2-81b7-45f1-bbdf-ef43e1aa338d.png)
-![image](https://user-images.githubusercontent.com/97657126/187796151-c1fd2b5d-2efd-43c1-a9cf-93cecf317e62.png)
 
 ### Database
 ![image](https://user-images.githubusercontent.com/97657126/187794564-d12d321c-6a8e-47a0-9e54-b276e7f0ab1e.png)
