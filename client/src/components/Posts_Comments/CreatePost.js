@@ -23,7 +23,8 @@ function CreatePost({ user }) {
     // formData.append("date", date);
     formData.append("user_id", user_id);
     formData.append("com_id", com_id);
-    await axios.post("http://localhost:3025/api/createpost", formData);
+    // await axios.post("http://localhost:3025/api/createpost", formData);
+    await axios.post("https://ketchup-db.herokuapp.com/api/createpost", formData);
     console.log('post created')
   };
 

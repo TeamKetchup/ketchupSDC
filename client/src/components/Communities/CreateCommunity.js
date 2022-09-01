@@ -43,7 +43,8 @@ const CreateCommunity = (user) => {
         formData.append("category", category);
         formData.append("file", file);
         formData.append("users_id", users_id);
-        await axios.post("http://localhost:3025/api/createcommunity", formData);
+        // await axios.post("http://localhost:3025/api/createcommunity", formData);
+        await axios.post("https://ketchup-db.herokuapp.com/api/createcommunity", formData);
         console.log('Community created')
     }
 
