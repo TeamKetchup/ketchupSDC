@@ -7,7 +7,7 @@
 
 ### Overview
 
-Ketchup is a forum based social media application which bares close resemblance to Reddit. It was developed by 
+Ketchup is a forum based social media application which bears a close resemblance to Reddit. It was developed by 5 Full Stack Software Engineers in the span of 2 weeks with 1 week long sprints in an Agile work environnment. 
 
 ## Tech Used:
 ### Front End
