@@ -66,11 +66,6 @@ passport.use(
   )
 );
 
-// app.use(cors({
-//     origin: "*",
-//     credentials: true
-// }));
-
 app.use(credentials);
 
 app.use(cors(corsOptions));
@@ -281,7 +276,7 @@ app.get("/api/user_posts/:id", async (req, res) => {
 
 app.get("/api/allposts", async (req, res) => {
   try {
-    await db.query('SELECT * FROM posts INNER JOIN users ON posts.users_id = users.id', (error, results) => {
+    await db.query('SELECT * FROM posts INNER JOIN users ON posts.users_id = users.id ORDER BY posts.id DESC', (error, results) => {
       console.log(req)
       res.status(200).json(results.rows)
     })

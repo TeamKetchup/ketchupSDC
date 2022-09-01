@@ -36,12 +36,12 @@ const Register = ({ user, setUser }) => {
      const [pwd, setPwd] = useState('');
      const [validPwd, setValidPwd] = useState(false);
      const [pwdFocus, setPwdFocus] = useState(false);
- 
+
      //state for password verification
      const [matchPwd, setMatchPwd] = useState('');
      const [validMatch, setValidMatch] = useState(false);
      const [matchFocus, setMatchFocus] = useState(false);
- 
+
      //state for error and success messages
      const [errMsg, setErrMsg] = useState('');
      const [success, setSuccess] = useState(false);
@@ -49,48 +49,48 @@ const Register = ({ user, setUser }) => {
      //focus on username input when component loads and only once
      useEffect(() => {
           userRef.current.focus();
-      }, [])
-  
-      //username validation  and will change everytime the username changes in the input field
-      useEffect(() => {
+     }, [])
+
+     //username validation  and will change everytime the username changes in the input field
+     useEffect(() => {
           setValidName(USER_REGEX.test(userName));
-      }, [userName])
-  
-      //checking to see if password field and the validate password field match
-      useEffect(() => {
+     }, [userName])
+
+     //checking to see if password field and the validate password field match
+     useEffect(() => {
           setValidPwd(PWD_REGEX.test(pwd));
           setValidMatch(pwd === matchPwd);
-      }, [pwd, matchPwd])
-  
-      //error message 
-      //anytime user changes the state of username, password or match password
-      //it will clear the error message from displaying
-      useEffect(() => {
-          setErrMsg('');
-      }, [userName, pwd, matchPwd])
+     }, [pwd, matchPwd])
 
-      const submitProfile = async (file, username, password, newBio) => {
-          
-          try{
+     //error message 
+     //anytime user changes the state of username, password or match password
+     //it will clear the error message from displaying
+     useEffect(() => {
+          setErrMsg('');
+     }, [userName, pwd, matchPwd])
+
+     const submitProfile = async (file, username, password, newBio) => {
+
+          try {
                const response = await axios.get(`http://localhost:3025/api/login/${userName}`)
                // .then((res) => 
-               if(response.data.length === 0){
+               if (response.data.length === 0) {
                     // setErrMsg('User name is not taken')
                     const formData = new FormData();
                     formData.append("username", username);
                     formData.append("password", password);
                     formData.append("file", file);
                     formData.append("bio", newBio);
-                    try{
-                       const response = await axios.post("http://localhost:3025/api/createprofile", formData, {
-                         headers: { 'Content-Type': 'application/json' },
-                         withCredentials: true
-                       }
-                       );
-                       setSuccess(true);
-                       console.log('user created')
-                    } catch (err){
-                         if(!err?.response){
+                    try {
+                         const response = await axios.post("http://localhost:3025/api/createprofile", formData, {
+                              headers: { 'Content-Type': 'application/json' },
+                              withCredentials: true
+                         }
+                         );
+                         setSuccess(true);
+                         console.log('user created')
+                    } catch (err) {
+                         if (!err?.response) {
                               setErrMsg('No Server Response');
                          } else if (err.response?.status === 409) {
                               setErrMsg('Oof, that user name is taken.');
@@ -102,7 +102,7 @@ const Register = ({ user, setUser }) => {
                } else {
                     setErrMsg('Oof, that user name is already taken.')
                }
-          }catch (err){
+          } catch (err) {
                console.log(err)
           }
 
@@ -110,161 +110,161 @@ const Register = ({ user, setUser }) => {
 
 
 
-  return (
-  <>
-     {success ? (
-          <div className='register'>
-               <SuccessHeader>Woo Hoo! Your account has been created!</SuccessHeader>
-               <SuccessLogo src={DancingTomato}></SuccessLogo>
-               <Link to='/'><Button>Return To Log In Page</Button></Link>
-          </div>
-     ) : ( 
-     
-     <div className='register'>
-      <RegisterSection>
-          <P ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive"> 
-               {errMsg} 
-          </P>
-          <KetchupLogo src={Logo}></KetchupLogo>
-          <RegisterTitle>Register</RegisterTitle>
-          <RegisterForm>
-               {/* user name field */}
-               <Div>
-               <Label htmlFor='username'>
-                    {/* Username: */}
-                    <Span className={validName ? "valid" : "hide"}>
-                         <CheckMark src={Check}></CheckMark>
-                    </Span>
-                    <Span className={validName || !userName ? "hide" : "invalid"}>
-                         <XMark src={Xmark}></XMark>
-                    </Span>
-               </Label>
-               <Input
-                    type="text"
-                    id="username"
-                    ref={userRef}
-                    autoComplete="off"
-                    onChange={(e) => setUserName(e.target.value)}
-                    value={userName}
-                    required
-                    aria-invalid={validName ? "false" : "true"}
-                    aria-describedby="uidnote"
-                    onFocus={() => setUserFocus(true)}
-                    onBlur={() => setUserFocus(false)}
-                    placeholder="Enter Desired User Name"
-               />
-               </Div>
-               <Div>
-               <P id="uidnote" className={userFocus && userName && !validName ? "instructions" : "hide"}>
-                    <InfoIcon src={Info}></InfoIcon> <br />
-                    4 to 24 characters.<br />
-                    Must begin with a letter.<br />
-                    Letters, numbers, underscores, hyphens allowed.
-               </P>
-               </Div>
+     return (
+          <>
+               {success ? (
+                    <div className='register'>
+                         <SuccessHeader>Woo Hoo! Your account has been created!</SuccessHeader>
+                         <SuccessLogo src={DancingTomato}></SuccessLogo>
+                         <Link to='/'><Button>Return To Log In Page</Button></Link>
+                    </div>
+               ) : (
 
-               {/* password field */}
-               <Div>
-               <Label htmlFor='password'>
-                    {/* Password: */}
-                    <Span className={validPwd ? "valid" : "hide"}>
-                         <CheckMark src={Check}></CheckMark>
-                    </Span>
-                    <Span className={validPwd || !pwd ? "hide" : "invalid"}>
-                         <XMark src={Xmark}></XMark>
-                    </Span>
-               </Label>
-               <Input
-                    type="password"
-                    id="password"
-                    onChange={(e) => setPwd(e.target.value)}
-                    required
-                    aria-invalid={validPwd ? "false" : "true"}
-                    aria-describedby="pwdnote"
-                    onFocus={() => setPwdFocus(true)}
-                    onBlur={() => setPwdFocus(false)}
-                    placeholder="Enter Desired Password"
-               />
-               </Div>
-               <Div>
-               <P id="pwdnote" className={pwdFocus && !validPwd ? "instructions" : "hide"}>
-                    <InfoIcon src={Info}></InfoIcon> <br />
-                    8 to 24 characters.<br />
-                    Must include uppercase and lowercase letters, a number and a special character.<br />
-                    Allowed special characters: <span aria-label="exclamation mark">!</span> 
-                    <span aria-label="at symbol">@</span> 
-                    <span aria-label="hashtag">#</span> 
-                    <span aria-label="dollar sign">$</span> 
-                    <span aria-label="percent">%</span>
-               </P>
-               </Div>
+                    <div className='register'>
+                         <RegisterSection>
+                              <P ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">
+                                   {errMsg}
+                              </P>
+                              <KetchupLogo src={Logo}></KetchupLogo>
+                              <RegisterTitle>Register</RegisterTitle>
+                              <RegisterForm>
+                                   {/* user name field */}
+                                   <Div>
+                                        <Label htmlFor='username'>
+                                             {/* Username: */}
+                                             <Span className={validName ? "valid" : "hide"}>
+                                                  <CheckMark src={Check}></CheckMark>
+                                             </Span>
+                                             <Span className={validName || !userName ? "hide" : "invalid"}>
+                                                  <XMark src={Xmark}></XMark>
+                                             </Span>
+                                        </Label>
+                                        <Input
+                                             type="text"
+                                             id="username"
+                                             ref={userRef}
+                                             autoComplete="off"
+                                             onChange={(e) => setUserName(e.target.value)}
+                                             value={userName}
+                                             required
+                                             aria-invalid={validName ? "false" : "true"}
+                                             aria-describedby="uidnote"
+                                             onFocus={() => setUserFocus(true)}
+                                             onBlur={() => setUserFocus(false)}
+                                             placeholder="Enter Desired User Name"
+                                        />
+                                   </Div>
+                                   <Div>
+                                        <P id="uidnote" className={userFocus && userName && !validName ? "instructions" : "hide"}>
+                                             <InfoIcon src={Info}></InfoIcon> <br />
+                                             4 to 24 characters.<br />
+                                             Must begin with a letter.<br />
+                                             Letters, numbers, underscores, hyphens allowed.
+                                        </P>
+                                   </Div>
 
-               {/* confirm  password field */}
-               <Div>
-               <Label htmlFor='confirm_pwd'>
-                    {/*Confirm Password: */}
-                    <Span className={validMatch && matchPwd ? "valid" : "hide"}>
-                         <CheckMark src={Check}></CheckMark>
-                    </Span>
-                    <Span className={validMatch || !matchPwd ? "hide" : "invalid"}>
-                         <XMark src={Xmark}></XMark>
-                    </Span>
-               </Label>
-               <Input
-                    type="password"
-                    id="confirm_pwd"
-                    onChange={(e) => setMatchPwd(e.target.value)}
-                    required
-                    aria-invalid={validMatch ? "false" : "true"}
-                    aria-describedby="confirmnote"
-                    onFocus={() => setMatchFocus(true)}
-                    onBlur={() => setMatchFocus(false)}
-                    placeholder="Confirm Password"
-               />
-               </Div>
-               <Div>
-               <P id="confirmnote" className={matchFocus && !validMatch ? "instructions" : "hide"}>
-                    <InfoIcon src={Info}></InfoIcon> <br />
-                    Must match desired password above.
-               </P>
-               </Div>
-               <Header3>Select an Image for Your Avatar:</Header3>
-               <HeaderDropZone images={images} setImages={setImages} />
-               <Header4>Enter a bio for your profile:</Header4>
-               <BioInput
-                    type="text"
-                    required
-                    value={newBio}
-                    onChange={(e) => setNewBio(e.target.value)}
-               />
-               <ButtonContainer>
-                    <Button disabled={!validName || !validPwd || !validMatch || !newBio || !images ? true : false}
-                         onClick={(e) => {
-                              e.preventDefault();
-                              // if button enabled with JS hack
-                              // const v1 = USER_REGEX.test(user);
-                              // const v2 = PWD_REGEX.test(pwd);
-                              // if (!v1 || !v2) {
-                              //      setErrMsg("Invalid Entry");
-                              //      return;
-                              // }
-                              submitProfile(images[0], userName, pwd, newBio);
-                              // setSuccess(true)
-                         }}
-                    >
-                         Submit
-                    </Button>
-                    <Link to="/">
-                    <Button>Cancel</Button>
-                     </Link>
-               </ButtonContainer>
-          </RegisterForm>
-      </RegisterSection>
-    </div>
-     )}
- </>
-     
-  )
+                                   {/* password field */}
+                                   <Div>
+                                        <Label htmlFor='password'>
+                                             {/* Password: */}
+                                             <Span className={validPwd ? "valid" : "hide"}>
+                                                  <CheckMark src={Check}></CheckMark>
+                                             </Span>
+                                             <Span className={validPwd || !pwd ? "hide" : "invalid"}>
+                                                  <XMark src={Xmark}></XMark>
+                                             </Span>
+                                        </Label>
+                                        <Input
+                                             type="password"
+                                             id="password"
+                                             onChange={(e) => setPwd(e.target.value)}
+                                             required
+                                             aria-invalid={validPwd ? "false" : "true"}
+                                             aria-describedby="pwdnote"
+                                             onFocus={() => setPwdFocus(true)}
+                                             onBlur={() => setPwdFocus(false)}
+                                             placeholder="Enter Desired Password"
+                                        />
+                                   </Div>
+                                   <Div>
+                                        <P id="pwdnote" className={pwdFocus && !validPwd ? "instructions" : "hide"}>
+                                             <InfoIcon src={Info}></InfoIcon> <br />
+                                             8 to 24 characters.<br />
+                                             Must include uppercase and lowercase letters, a number and a special character.<br />
+                                             Allowed special characters: <span aria-label="exclamation mark">!</span>
+                                             <span aria-label="at symbol">@</span>
+                                             <span aria-label="hashtag">#</span>
+                                             <span aria-label="dollar sign">$</span>
+                                             <span aria-label="percent">%</span>
+                                        </P>
+                                   </Div>
+
+                                   {/* confirm  password field */}
+                                   <Div>
+                                        <Label htmlFor='confirm_pwd'>
+                                             {/*Confirm Password: */}
+                                             <Span className={validMatch && matchPwd ? "valid" : "hide"}>
+                                                  <CheckMark src={Check}></CheckMark>
+                                             </Span>
+                                             <Span className={validMatch || !matchPwd ? "hide" : "invalid"}>
+                                                  <XMark src={Xmark}></XMark>
+                                             </Span>
+                                        </Label>
+                                        <Input
+                                             type="password"
+                                             id="confirm_pwd"
+                                             onChange={(e) => setMatchPwd(e.target.value)}
+                                             required
+                                             aria-invalid={validMatch ? "false" : "true"}
+                                             aria-describedby="confirmnote"
+                                             onFocus={() => setMatchFocus(true)}
+                                             onBlur={() => setMatchFocus(false)}
+                                             placeholder="Confirm Password"
+                                        />
+                                   </Div>
+                                   <Div>
+                                        <P id="confirmnote" className={matchFocus && !validMatch ? "instructions" : "hide"}>
+                                             <InfoIcon src={Info}></InfoIcon> <br />
+                                             Must match desired password above.
+                                        </P>
+                                   </Div>
+                                   <Header3>Select an Image for Your Avatar:</Header3>
+                                   <HeaderDropZone images={images} setImages={setImages} />
+                                   <Header4>Enter a bio for your profile:</Header4>
+                                   <BioInput
+                                        type="text"
+                                        required
+                                        value={newBio}
+                                        onChange={(e) => setNewBio(e.target.value)}
+                                   />
+                                   <ButtonContainer>
+                                        <Button disabled={!validName || !validPwd || !validMatch || !newBio || !images ? true : false}
+                                             onClick={(e) => {
+                                                  e.preventDefault();
+                                                  // if button enabled with JS hack
+                                                  // const v1 = USER_REGEX.test(user);
+                                                  // const v2 = PWD_REGEX.test(pwd);
+                                                  // if (!v1 || !v2) {
+                                                  //      setErrMsg("Invalid Entry");
+                                                  //      return;
+                                                  // }
+                                                  submitProfile(images[0], userName, pwd, newBio);
+                                                  // setSuccess(true)
+                                             }}
+                                        >
+                                             Submit
+                                        </Button>
+                                        <Link to="/">
+                                             <Button>Cancel</Button>
+                                        </Link>
+                                   </ButtonContainer>
+                              </RegisterForm>
+                         </RegisterSection>
+                    </div>
+               )}
+          </>
+
+     )
 }
 
 

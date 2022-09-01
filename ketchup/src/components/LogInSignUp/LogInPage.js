@@ -16,7 +16,7 @@ function LogInPage({ user, setUser, setLoading }) {
     if (currentUser !== null) {
       setUser(JSON.parse(currentUser));
     }
-  },[]);
+  }, []);
 
   const [usernameInput, setUserNameInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
@@ -32,10 +32,11 @@ function LogInPage({ user, setUser, setLoading }) {
     // .then((res) => localStorage.setItem("currentUser",JSON.stringify([res.data])))
     // .then((res) => setUser([res.data]))
     try {
-     let returnedData = await axios.post(
-      "http://localhost:3025/api/login/",
-      data
-    );
+      let returnedData = await axios.post(
+        "http://localhost:3025/api/login/",
+        data
+      );
+      console.log(returnedData)
       if (!returnedData.data.username) {
         alert("Invalid login. Please check your username or password.");
       } else {
@@ -68,88 +69,88 @@ function LogInPage({ user, setUser, setLoading }) {
   };
 
   function openModal() {
-     setIsOpen(true);
-}
+    setIsOpen(true);
+  }
 
-function afterOpenModal() {
-     // references are now sync'd and can be accessed.
-     subtitle.style.color = '#f00';
-}
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+    subtitle.style.color = '#f00';
+  }
 
 
-     function closeModal() {
-          setIsOpen(false);
-     }
+  function closeModal() {
+    setIsOpen(false);
+  }
 
-     return (
-          <div className='loginPage'>
-               <HeaderLogoContainer>
-                    <KetchupLogo src={Logo}>
-                    </KetchupLogo>
-                    <HeaderContainer>
-                         <LoginHeader><Link to="/">KETCHUP</Link></LoginHeader>
-                         <span className='loginSlogan'>With The World, With Your Friends.</span>
-                    </HeaderContainer>
-               </HeaderLogoContainer>
-               <LogInBtnContainer>
-                    <LogInPageBtn onClick={openModal}>Log In</LogInPageBtn>
-                    <Modal
-                         isOpen={modalIsOpen}
-                         onAfterOpen={afterOpenModal}
-                         onRequestClose={closeModal}
-                         style={customStyles}
-                         contentLabel="Example Modal"
-                    >
-                         <InnerModalContainer>
-                              <ModalHeader ref={(_subtitle) => (subtitle = _subtitle)}>Log In</ModalHeader>
-                              <ModalForm onSubmit={logIn}>
-                                   {/* <InputContainer> */}
-                                        <Input 
-                                             type='text' 
-                                             placeholder='Enter User Name'
-                                             value={usernameInput}
-                                             onChange={(e) => setUserNameInput(e.target.value)}
-                                             required 
-                                        />
-                                        <Input 
-                                             type='password' 
-                                             placeholder='Enter Password' 
-                                             value={passwordInput}
-                                             onChange={(e) => setPasswordInput(e.target.value)}
-                                             required
-                                        />
-                                        <ModalSubmitBtn type='submit'></ModalSubmitBtn>
-                                   {/* </InputContainer> */}
-                              </ModalForm>
-                              {/* <ModalBtn>Submit</ModalBtn> */}
-                              <ModalBtn onClick={closeModal}>Cancel</ModalBtn>
-                         </InnerModalContainer>
+  return (
+    <div className='loginPage'>
+      <HeaderLogoContainer>
+        <KetchupLogo src={Logo}>
+        </KetchupLogo>
+        <HeaderContainer>
+          <LoginHeader><Link to="/">KETCHUP</Link></LoginHeader>
+          <span className='loginSlogan'>With The World, With Your Friends.</span>
+        </HeaderContainer>
+      </HeaderLogoContainer>
+      <LogInBtnContainer>
+        <LogInPageBtn onClick={openModal}>Log In</LogInPageBtn>
+        <Modal
+          isOpen={modalIsOpen}
+          onAfterOpen={afterOpenModal}
+          onRequestClose={closeModal}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+          <InnerModalContainer>
+            <ModalHeader ref={(_subtitle) => (subtitle = _subtitle)}>Log In</ModalHeader>
+            <ModalForm onSubmit={logIn}>
+              {/* <InputContainer> */}
+              <Input
+                type='text'
+                placeholder='Enter User Name'
+                value={usernameInput}
+                onChange={(e) => setUserNameInput(e.target.value)}
+                required
+              />
+              <Input
+                type='password'
+                placeholder='Enter Password'
+                value={passwordInput}
+                onChange={(e) => setPasswordInput(e.target.value)}
+                required
+              />
+              <ModalSubmitBtn type='submit'></ModalSubmitBtn>
+              {/* </InputContainer> */}
+            </ModalForm>
+            {/* <ModalBtn>Submit</ModalBtn> */}
+            <ModalBtn onClick={closeModal}>Cancel</ModalBtn>
+          </InnerModalContainer>
 
-                    </Modal>
-                    <Link to='/register'>
-                         <LogInPageBtn>Sign Up</LogInPageBtn>
-                    </Link>
-               </LogInBtnContainer>
-          </div>
-               
-     )
+        </Modal>
+        <Link to='/register'>
+          <LogInPageBtn>Sign Up</LogInPageBtn>
+        </Link>
+      </LogInBtnContainer>
+    </div>
+
+  )
 }
 
 export default LogInPage;
 
 const customStyles = {
-     overlay: {
-          backgroundColor: 'rgba(0,0,0,.4)',
-     },
-     content: {
-          top: '50%',
-          left: '50%',
-          right: 'auto',
-          bottom: 'auto',
-          marginRight: '-50%',
-          transform: 'translate(-50%, -50%)',
-          backgroundColor: '#F1F2F5',
-     },
+  overlay: {
+    backgroundColor: 'rgba(0,0,0,.4)',
+  },
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    backgroundColor: '#F1F2F5',
+  },
 };
 
 const HeaderLogoContainer = styled.div`

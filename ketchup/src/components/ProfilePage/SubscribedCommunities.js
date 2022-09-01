@@ -15,7 +15,7 @@ const SubscribedCommunities = (props) => {
             ))}
             <SubscribedCommunitiesFooter>
                 <CreateCommunityLink to={`/createcommunity`}><Button>Create Community</Button></CreateCommunityLink>
-                
+
             </SubscribedCommunitiesFooter>
 
         </SubscribedCommunitiesContainer>
@@ -29,7 +29,7 @@ const SubscribedCommunitiesContainer = styled.div`
     flex-direction: column;
     background-color: #393939;
     width: 300px;
-    height: 300px;
+    /* height: 300px; */
     border-radius: 15px;
     padding: 20px;
     padding-top: 0;
@@ -76,7 +76,7 @@ const SubscribedCommunitiesBanner = styled.div`
     justify-content: center;
     align-items: center;
     width: 300px;
-    height: 100px;
+    /* height: 100px; */
     border-radius: 15px 15px 0px 0px;
     background: rgb(57,57,57);
     background: linear-gradient(0deg, rgba(57,57,57,1) 0%, rgba(209,44,44,1) 43%, rgba(255,0,0,1) 100%);
